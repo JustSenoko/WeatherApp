@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unit" translatable="false">°C</string>
+    <string name="weather">cloudy</string>
+    <string name="city">Moscow</string>
+    <string name="temperature" translatable="false">17</string>
+    <string name="app_name">Weather</string>
+</resources>
