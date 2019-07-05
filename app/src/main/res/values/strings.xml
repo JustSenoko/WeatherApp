@@ -1,7 +1,0 @@
-<resources>
-    <string name="city">Moscow</string>
-    <string name="temperature" translatable="false">17</string>
-    <string name="unit" translatable="false">°С</string>
-    <string name="weather">cloudy</string>
-    <string name="app_name">Weather</string>
-</resources>
