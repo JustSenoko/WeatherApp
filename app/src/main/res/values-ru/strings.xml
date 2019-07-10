@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="city" translatable="false">Москва</string>
+    <string name="weather" translatable="false">облачно</string>
+    <string name="app_name">Погода</string>
+</resources>
