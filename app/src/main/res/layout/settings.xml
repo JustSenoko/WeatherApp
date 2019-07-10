@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:onClick="selectCity"
+        android:text="@string/city"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:layout_weight="1"
+        android:text="@string/select_unit"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/city"
+        app:layout_constraintTop_toBottomOf="@id/city"
+        tools:layout_editor_absoluteY="40dp" />
+
+    <Spinner
+        android:id="@+id/spinner_units"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toEndOf="@id/unit"
+        app:layout_constraintTop_toTopOf="@id/unit" />
+
+    <TextView
+        android:id="@+id/show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:text="@string/show"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/unit"
+        app:layout_constraintTop_toBottomOf="@+id/unit" />
+
+    <Switch
+        android:id="@+id/show_pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:layout_marginStart="@dimen/settings_horizontal_margin"
+        android:text="@string/pressure"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/show"
+        app:layout_constraintTop_toBottomOf="@+id/show" />
+
+    <Switch
+        android:id="@+id/show_wind"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:text="@string/wind"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/show_pressure"
+        app:layout_constraintTop_toBottomOf="@+id/show_pressure" />
+
+    <Switch
+        android:id="@+id/show_feels_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:text="@string/feels_like"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/show_wind"
+        app:layout_constraintTop_toBottomOf="@+id/show_wind" />
+
+</android.support.constraint.ConstraintLayout>

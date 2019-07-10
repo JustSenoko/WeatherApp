@@ -3,4 +3,16 @@
     <string name="city" translatable="false">Москва</string>
     <string name="weather" translatable="false">облачно</string>
     <string name="app_name">Погода</string>
+    <string name="delete_city_from_list">удалить город из списка</string>
+    <string name="city1">Санкт-Петербург</string>
+    <string name="weather1">дождь</string>
+    <string name="city2">Лондон</string>
+    <string name="weather2">пасмурно</string>
+    <string name="add">Добавить</string>
+    <string name="enter_city_to_add">Введите город</string>
+    <string name="select_unit">Единица измерения</string>
+    <string name="pressure">давление</string>
+    <string name="show">Показывать</string>
+    <string name="wind">ветер</string>
+    <string name="feels_like">ощущается как</string>
 </resources>
