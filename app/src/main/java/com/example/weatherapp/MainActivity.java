@@ -3,6 +3,7 @@ package com.example.weatherapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -15,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_units);
+        final Spinner spinner = findViewById(R.id.spinner_units);
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this, android.R.layout.simple_spinner_item, units);
+        ArrayAdapter<Character> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
         // Определяем разметку для использования при выборе элемента
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Применяем адаптер к элементу spinner

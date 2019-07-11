@@ -15,4 +15,7 @@
     <string name="show">Показывать</string>
     <string name="wind">ветер</string>
     <string name="feels_like">ощущается как</string>
+    <string name="city_label">Город</string>
+    <string name="pressure_unit">мм.рт.ст.</string>
+    <string name="wind_unit">м/с</string>
 </resources>

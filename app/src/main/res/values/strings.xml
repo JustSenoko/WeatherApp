@@ -20,5 +20,11 @@
     <string name="show">Show</string>
     <string name="wind">wind</string>
     <string name="feels_like">feels like</string>
+    <string name="city_label">City</string>
+    <string name="feels_like_value" translatable="false">15</string>
+    <string name="pressure_value" translatable="false">176</string>
+    <string name="pressure_unit">psi</string>
+    <string name="wind_value" translatable="false">3</string>
+    <string name="wind_unit">m/s</string>
     />
 </resources>
