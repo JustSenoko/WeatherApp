@@ -26,5 +26,7 @@
     <string name="pressure_unit">psi</string>
     <string name="wind_value" translatable="false">3</string>
     <string name="wind_unit">m/s</string>
+    <string name="celsius" translatable="false">°C</string>
+    <string name="fahrenheit" translatable="false">°F</string>
     />
 </resources>
