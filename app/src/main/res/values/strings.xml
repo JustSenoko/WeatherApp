@@ -5,4 +5,28 @@
     <string name="city">Moscow</string>
     <string name="temperature" translatable="false">17</string>
     <string name="app_name">Weather</string>
+    <string name="text_delimiter" translatable="false">,</string>
+    <string name="delete_city_from_list">delete city from list</string>
+    <string name="city1">Saint-Petersburg</string>
+    <string name="temperature1" translatable="false">16</string>
+    <string name="weather1">rainy</string>
+    <string name="city2">London</string>
+    <string name="temperature2" translatable="false">23</string>
+    <string name="weather2">gloomy</string>
+    <string name="add">Add</string>
+    <string name="enter_city_to_add">Enter city to add</string>
+    <string name="select_unit">Select unit</string>
+    <string name="pressure">pressure</string>
+    <string name="show">Show</string>
+    <string name="wind">wind</string>
+    <string name="feels_like">feels like</string>
+    <string name="city_label">City</string>
+    <string name="feels_like_value" translatable="false">15</string>
+    <string name="pressure_value" translatable="false">176</string>
+    <string name="pressure_unit">psi</string>
+    <string name="wind_value" translatable="false">3</string>
+    <string name="wind_unit">m/s</string>
+    <string name="celsius" translatable="false">°C</string>
+    <string name="fahrenheit" translatable="false">°F</string>
+    />
 </resources>
