@@ -11,16 +11,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.settings);
-        setContentView(R.layout.city_selection);
+        setContentView(R.layout.settings);
+//        setContentView(R.layout.city_selection);
 
-//        final Spinner spinner = findViewById(R.id.spinner_units);
-//        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.temp_units));
-//        // Определяем разметку для использования при выборе элемента
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Применяем адаптер к элементу spinner
-//        spinner.setAdapter(adapter);
+        final Spinner spinner = findViewById(R.id.spinner_units);
+        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.temp_units));
+        // Определяем разметку для использования при выборе элемента
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Применяем адаптер к элементу spinner
+        spinner.setAdapter(adapter);
     }
 
     public void deleteCity0(View view) {
