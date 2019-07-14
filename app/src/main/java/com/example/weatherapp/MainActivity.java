@@ -2,17 +2,33 @@ package com.example.weatherapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    final MainPresenter presenter = MainPresenter.getInstance();
+
+    Switch showPressure;
+    Switch showWind;
+    Switch showFeelsLike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        showToast("On create");
         setContentView(R.layout.settings);
 //        setContentView(R.layout.city_selection);
+
+        showPressure = findViewById(R.id.show_pressure);
+        showWind = findViewById(R.id.show_wind);
+        showFeelsLike = findViewById(R.id.show_feels_like);
+
+        restoreSettingsValues();
 
         final Spinner spinner = findViewById(R.id.spinner_units);
         // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
@@ -21,6 +37,53 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Применяем адаптер к элементу spinner
         spinner.setAdapter(adapter);
+    }
+
+    private void restoreSettingsValues() {
+        showPressure.setChecked(presenter.isShowPressure());
+        showWind.setChecked(presenter.isShowWind());
+        showFeelsLike.setChecked(presenter.isShowFeelsLike());
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Log.d("settings", msg);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showToast("On start");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        showToast("On stop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        showToast("On destroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        showToast("On pause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showToast("On resume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        showToast("On restart");
     }
 
     public void deleteCity0(View view) {
@@ -68,5 +131,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectCity(View view) {
         //TODO open city_selection
+    }
+
+    public void showPressureOnClick(View view) {
+        presenter.setShowPressure(showPressure.isChecked());
+    }
+
+    public void showWindOnClick(View view) {
+        presenter.setShowWind(showWind.isChecked());
+    }
+
+    public void showFeelsLikeOnClick(View view) {
+        presenter.setShowFeelsLike(showFeelsLike.isChecked());
     }
 }
