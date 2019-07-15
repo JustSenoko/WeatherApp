@@ -5,116 +5,111 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/city"
+        android:layout_width="@dimen/settings_layout_width"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintVertical_bias="0.1">
-
-        <LinearLayout
-            android:id="@+id/city"
-            android:layout_width="@dimen/settings_layout_width"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/city_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/city_label"
-                android:textSize="@dimen/settings_type_size"/>
-
-            <TextView
-                android:id="@+id/current_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="selectCity"
-                android:text="@string/city"
-                android:textColor="@android:color/holo_blue_dark"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/units"
-            android:layout_width="@dimen/settings_layout_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_vertical_margin"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@id/city"
-            app:layout_constraintTop_toBottomOf="@id/city">
-
-            <TextView
-                android:id="@+id/unit"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/select_unit"
-                android:textSize="@dimen/settings_type_size"
-                tools:layout_editor_absoluteY="40dp" />
-
-            <Spinner
-                android:id="@+id/spinner_units"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:dropDownWidth="wrap_content"
-                android:foregroundTint="@color/colorPrimaryDark"
-                android:spinnerMode="dropdown"
-                android:textSize="@dimen/settings_type_size" />
-
-        </LinearLayout>
+        app:layout_constraintVertical_bias="0.37">
 
         <TextView
-            android:id="@+id/show"
+            android:id="@+id/city_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/city_label"
+            android:textSize="@dimen/settings_type_size" />
+
+        <TextView
+            android:id="@+id/current_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_vertical_margin"
-            android:text="@string/show"
-            android:textSize="@dimen/settings_type_size"
-            app:layout_constraintStart_toStartOf="@id/units"
-            app:layout_constraintTop_toBottomOf="@+id/units" />
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="selectCity"
+            android:text="@string/city"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp" />
 
-        <Switch
-            android:id="@+id/show_pressure"
-            android:layout_width="@dimen/settings_switch_width"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/settings_horizontal_margin"
-            android:layout_marginTop="@dimen/settings_vertical_margin"
-            android:text="@string/pressure"
-            android:textSize="@dimen/settings_type_size"
-            app:layout_constraintStart_toStartOf="@id/show"
-            app:layout_constraintTop_toBottomOf="@+id/show" />
+    </LinearLayout>
 
-        <Switch
-            android:id="@+id/show_wind"
-            android:layout_width="@dimen/settings_switch_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_vertical_margin"
-            android:text="@string/wind"
-            android:textSize="@dimen/settings_type_size"
-            app:layout_constraintStart_toStartOf="@id/show_pressure"
-            app:layout_constraintTop_toBottomOf="@+id/show_pressure" />
+    <LinearLayout
+        android:id="@+id/units"
+        android:layout_width="@dimen/settings_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/city"
+        app:layout_constraintTop_toBottomOf="@id/city">
 
-        <Switch
-            android:id="@+id/show_feels_like"
-            android:layout_width="@dimen/settings_switch_width"
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_vertical_margin"
-            android:text="@string/feels_like"
+            android:layout_weight="1"
+            android:text="@string/select_unit"
             android:textSize="@dimen/settings_type_size"
-            app:layout_constraintStart_toStartOf="@id/show_wind"
-            app:layout_constraintTop_toBottomOf="@+id/show_wind" />
-    </android.support.constraint.ConstraintLayout>
+            tools:layout_editor_absoluteY="40dp" />
+
+        <Spinner
+            android:id="@+id/spinner_units"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:dropDownWidth="wrap_content"
+            android:foregroundTint="@color/colorPrimaryDark"
+            android:spinnerMode="dropdown"
+            android:textSize="@dimen/settings_type_size" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:text="@string/show"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/units"
+        app:layout_constraintTop_toBottomOf="@+id/units" />
+
+    <Switch
+        android:id="@+id/show_pressure"
+        android:layout_width="@dimen/settings_switch_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_horizontal_margin"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:onClick="showPressureOnClick"
+        android:text="@string/pressure"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/show"
+        app:layout_constraintTop_toBottomOf="@+id/show" />
+
+    <Switch
+        android:id="@+id/show_wind"
+        android:layout_width="@dimen/settings_switch_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:onClick="showWindOnClick"
+        android:text="@string/wind"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/show_pressure"
+        app:layout_constraintTop_toBottomOf="@+id/show_pressure" />
+
+    <Switch
+        android:id="@+id/show_feels_like"
+        android:layout_width="@dimen/settings_switch_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:onClick="showFeelsLikeOnClick"
+        android:text="@string/feels_like"
+        android:textSize="@dimen/settings_type_size"
+        app:layout_constraintStart_toStartOf="@id/show_wind"
+        app:layout_constraintTop_toBottomOf="@+id/show_wind" />
+
 
 </android.support.constraint.ConstraintLayout>
