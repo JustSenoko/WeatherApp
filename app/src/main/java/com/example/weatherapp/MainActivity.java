@@ -11,11 +11,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    final MainPresenter presenter = MainPresenter.getInstance();
+    private final MainPresenter presenter = MainPresenter.getInstance();
 
-    Switch showPressure;
-    Switch showWind;
-    Switch showFeelsLike;
+    private Switch showPressure;
+    private Switch showWind;
+    private Switch showFeelsLike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
