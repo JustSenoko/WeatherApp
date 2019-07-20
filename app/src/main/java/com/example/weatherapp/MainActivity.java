@@ -3,6 +3,8 @@ package com.example.weatherapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         updateView();
     }
 
+    @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
     private void updateView() {
         twCity.setText(presenter.getCity());
         twTUnit.setText(presenter.gettUnit());
@@ -49,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSettingsClick(View view) {
-        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivityForResult(intent, SETTINGS_REQUEST_CODE);
+
     }
 
     @Override
@@ -63,4 +70,8 @@ public class MainActivity extends AppCompatActivity {
         updateView();
     }
 
+    public void onSettingsClick(MenuItem item) {
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivityForResult(intent, SETTINGS_REQUEST_CODE);
+    }
 }
