@@ -12,11 +12,11 @@ public class MainActivity extends AppCompatActivity {
     private final MainPresenter presenter = MainPresenter.getInstance();
     private final static int SETTINGS_REQUEST_CODE = 1;
 
-    TextView twCity;
-    TextView twTUnit;
-    LinearLayout pressure;
-    LinearLayout wind;
-    LinearLayout feelsLike;
+    private TextView twCity;
+    private TextView twTUnit;
+    private LinearLayout pressure;
+    private LinearLayout wind;
+    private LinearLayout feelsLike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
