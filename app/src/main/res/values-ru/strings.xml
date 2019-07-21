@@ -18,4 +18,5 @@
     <string name="city_label">Город</string>
     <string name="pressure_unit">мм.рт.ст.</string>
     <string name="wind_unit">м/с</string>
+    <string name="settings">Настройки</string>
 </resources>
