@@ -1,160 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Space
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.example.weatherapp.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4" />
+        android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/city"
+        android:id="@+id/forecast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/city"
-        android:textAlignment="center"
-        android:textSize="42sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/temperature"
-            android:textAlignment="textEnd"
-            android:textSize="54sp" />
-
-        <TextView
-            android:id="@+id/degree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/degree"
-            android:textSize="54sp" />
-
-        <TextView
-            android:id="@+id/unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unit"
-            android:textSize="54sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/feels_like"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/feels_like_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/feels_like"
-            android:textSize="@dimen/weather_details_text_size" />
-
-        <TextView
-            android:id="@+id/feels_like_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-
-            android:text="@string/feels_like_value"
-            android:textAlignment="textEnd"
-            android:textSize="@dimen/weather_details_text_size" />
-
-        <TextView
-            android:id="@+id/unit2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/unit"
-            android:textSize="@dimen/weather_details_text_size" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/weather"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/weather"
-        android:textAlignment="center"
-        android:textSize="@dimen/weather_details_text_size" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/pressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/pressure_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="@dimen/weather_details_text_size"
-                android:text="@string/pressure_value" />
-
-            <TextView
-                android:id="@+id/pressure_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/pressure_unit"
-                android:textSize="@dimen/weather_details_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/wind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/wind_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/wind_value"
-                android:textSize="@dimen/weather_details_text_size" />
-
-            <TextView
-                android:id="@+id/wind_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/wind_unit"
-                android:textSize="@dimen/weather_details_text_size" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5" />
+        android:layout_gravity="bottom"
+        android:layout_weight="0"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="openForecastActivity"
+        android:text="@string/forecast_hourly"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textAlignment="center" />
 
 </LinearLayout>

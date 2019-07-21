@@ -5,7 +5,7 @@
     <item
         android:id="@+id/settings"
         android:icon="@drawable/settings"
-        android:onClick="onSettingsClick"
+        android:onClick="openSettingsActivity"
         android:title="@string/settings"
         app:showAsAction="always|withText" />
 </menu>
