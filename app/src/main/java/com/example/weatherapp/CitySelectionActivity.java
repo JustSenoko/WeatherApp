@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.example.weatherapp.service.MainPresenter;
+
 public class CitySelectionActivity extends AppCompatActivity {
 
     private final MainPresenter presenter = MainPresenter.getInstance();

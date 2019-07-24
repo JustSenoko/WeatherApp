@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.weatherapp.service.MainPresenter;
+
 public class MainFragment extends Fragment {
 
     private final MainPresenter presenter = MainPresenter.getInstance();
@@ -50,7 +52,7 @@ public class MainFragment extends Fragment {
 
     public void updateView() {
         twCity.setText(presenter.getCity());
-        twTUnit.setText(presenter.gettUnit());
+        twTUnit.setText(presenter.gettUnit().toString());
 
         pressure.setVisibility(visibility(presenter.isShowPressure()));
         wind.setVisibility(visibility(presenter.isShowWind()));

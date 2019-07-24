@@ -1,13 +1,16 @@
 package com.example.weatherapp;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.weatherapp.service.Weather;
+
+public class MainActivity extends AppCompatActivity implements WeatherListFragment.OnListFragmentInteractionListener {
     private static final int SETTINGS_REQUEST_CODE = 1;
 
     @Override
@@ -39,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openForecastActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, ForecastDayActivity.class);
-        startActivity(intent);
+    @Override
+    public void onListFragmentInteraction(Weather item) {
+
     }
 }

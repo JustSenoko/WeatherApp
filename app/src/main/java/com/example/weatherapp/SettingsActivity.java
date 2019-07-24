@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.weatherapp.service.MainPresenter;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private final MainPresenter presenter = MainPresenter.getInstance();
