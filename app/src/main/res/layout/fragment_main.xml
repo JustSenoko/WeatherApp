@@ -79,7 +79,6 @@
             android:id="@+id/degree2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:text="@string/degree"
             android:textSize="@dimen/weather_details_text_size" />
 
@@ -87,7 +86,6 @@
             android:id="@+id/unit2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="@string/unit"
             android:textSize="@dimen/weather_details_text_size" />
 
