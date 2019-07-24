@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="city" translatable="false">Москва</string>
-    <string name="weather" translatable="false">облачно</string>
+    <string name="city">Москва</string>
+    <string name="weather">облачно</string>
     <string name="app_name">Погода</string>
     <string name="delete_city_from_list">удалить город из списка</string>
     <string name="city1">Санкт-Петербург</string>
@@ -19,4 +19,5 @@
     <string name="pressure_unit">мм.рт.ст.</string>
     <string name="wind_unit">м/с</string>
     <string name="settings">Настройки</string>
+    <string name="forecast_hourly">Почасовой прогноз</string>
 </resources>
