@@ -8,4 +8,6 @@
     <dimen name="settings_switch_width">240dp</dimen>
     <dimen name="settings_layout_width">256dp</dimen>
     <dimen name="weather_details_text_size">24sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="list_separator_size">2dp</dimen>
 </resources>

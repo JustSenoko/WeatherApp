@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SETTINGS_REQUEST_CODE = 1;
@@ -37,10 +36,5 @@ public class MainActivity extends AppCompatActivity {
         if (mainFragment != null) {
             mainFragment.updateView();
         }
-    }
-
-    public void openForecastActivity(View view) {
-        Intent intent = new Intent(MainActivity.this, ForecastDayActivity.class);
-        startActivity(intent);
     }
 }

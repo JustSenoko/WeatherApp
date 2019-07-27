@@ -28,7 +28,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/temperature"
+            android:id="@+id/temperature_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/temperature"
@@ -71,18 +71,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-
             android:text="@string/feels_like_value"
             android:textAlignment="textEnd"
+            android:textSize="@dimen/weather_details_text_size" />
+
+        <TextView
+            android:id="@+id/degree2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/degree"
             android:textSize="@dimen/weather_details_text_size" />
 
         <TextView
             android:id="@+id/unit2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="@string/unit"
             android:textSize="@dimen/weather_details_text_size" />
+
     </LinearLayout>
 
     <TextView

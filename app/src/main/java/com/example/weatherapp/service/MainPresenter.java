@@ -1,4 +1,7 @@
-package com.example.weatherapp;
+package com.example.weatherapp.service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class MainPresenter {
 
@@ -12,15 +15,24 @@ public final class MainPresenter {
     private boolean showPressure;
     private boolean showWind;
     private boolean showFeelsLike;
-    private String tUnit;
+    private TemperatureUnits tUnit;
+
+    private List<String> cities = new ArrayList<>();
+    private int currentCityIndex;
 
     // Конструктор (вызывать извне его нельзя, поэтому он приватный)
     private MainPresenter(){
+        if (cities.size() == 0) {
+            cities.add("Moscow");
+            cities.add("London");
+            cities.add("Saint Petersburg");
+        }
         city = "Moscow";
+        currentCityIndex = 0;
         showPressure = true;
         showWind = true;
         showFeelsLike = true;
-        tUnit = "C";
+        tUnit = TemperatureUnits.C;
     }
 
     public boolean isShowPressure() {
@@ -39,7 +51,7 @@ public final class MainPresenter {
         return city;
     }
 
-    public String gettUnit() {
+    public TemperatureUnits gettUnit() {
         return tUnit;
     }
 
@@ -59,7 +71,7 @@ public final class MainPresenter {
         this.city = city;
     }
 
-    public void settUnit(String tUnit) {
+    public void settUnit(TemperatureUnits tUnit) {
         this.tUnit = tUnit;
     }
 

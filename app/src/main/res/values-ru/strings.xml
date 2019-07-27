@@ -20,4 +20,5 @@
     <string name="wind_unit">м/с</string>
     <string name="settings">Настройки</string>
     <string name="forecast_hourly">Почасовой прогноз</string>
+    <string name="monday">пн</string>
 </resources>
