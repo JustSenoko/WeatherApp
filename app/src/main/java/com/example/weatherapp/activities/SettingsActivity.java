@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.weatherapp.service.MainPresenter;
+import com.example.weatherapp.R;
+import com.example.weatherapp.utils.MainPresenter;
 
 public class SettingsActivity extends AppCompatActivity {
 

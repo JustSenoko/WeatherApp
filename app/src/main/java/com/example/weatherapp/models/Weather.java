@@ -1,4 +1,4 @@
-package com.example.weatherapp.service;
+package com.example.weatherapp.models;
 
 import java.util.Date;
 

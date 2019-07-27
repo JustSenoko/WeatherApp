@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.weatherapp.service.Weather;
+import com.example.weatherapp.R;
+import com.example.weatherapp.models.Weather;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     private List<Weather> items;
     private static final String DATE_FORMAT = "d MMM";
 
-    WeatherItemAdapter(List<Weather> items) {
+    public WeatherItemAdapter(List<Weather> items) {
         this.items = items;
     }
 

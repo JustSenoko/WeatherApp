@@ -1,11 +1,12 @@
-package com.example.weatherapp;
+package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.weatherapp.service.MainPresenter;
+import com.example.weatherapp.R;
+import com.example.weatherapp.utils.MainPresenter;
 
 public class CitySelectionActivity extends AppCompatActivity {
 

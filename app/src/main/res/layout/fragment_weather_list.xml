@@ -10,5 +10,5 @@
     android:layout_marginRight="16dp"
     android:orientation="horizontal"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".WeatherListFragment"
+    tools:context=".fragments.WeatherListFragment"
     tools:listitem="@layout/weather_item" />

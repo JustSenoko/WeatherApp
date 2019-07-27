@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.weatherapp.service.MainPresenter;
+import com.example.weatherapp.R;
+import com.example.weatherapp.utils.MainPresenter;
 
 public class MainFragment extends Fragment {
 

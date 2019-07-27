@@ -1,10 +1,13 @@
-package com.example.weatherapp;
+package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.weatherapp.R;
+import com.example.weatherapp.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SETTINGS_REQUEST_CODE = 1;

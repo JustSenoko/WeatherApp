@@ -1,4 +1,6 @@
-package com.example.weatherapp.service;
+package com.example.weatherapp.utils;
+
+import com.example.weatherapp.models.TemperatureUnits;
 
 import java.util.ArrayList;
 import java.util.List;

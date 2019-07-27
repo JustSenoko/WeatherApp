@@ -1,4 +1,4 @@
-package com.example.weatherapp;
+package com.example.weatherapp.fragments;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.weatherapp.service.Weather;
+import com.example.weatherapp.R;
+import com.example.weatherapp.adapters.WeatherItemAdapter;
+import com.example.weatherapp.models.Weather;
 
 import java.util.ArrayList;
 import java.util.Calendar;
