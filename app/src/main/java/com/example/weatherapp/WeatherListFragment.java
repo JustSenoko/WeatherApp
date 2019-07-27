@@ -20,28 +20,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class WeatherListFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
-//    private int size = 3;
-//    private boolean horizontal = false;
-
-//    public static WeatherListFragment create(int size, boolean horizontalOrientation) {
-//        WeatherListFragment f = new WeatherListFragment();    // создание
-//
-//        // Передача параметра
-//        Bundle args = new Bundle();
-//        args.putInt(weatherListSizeKey, size);
-//        args.putBoolean(weatherListOrientationKey, horizontalOrientation);
-//        f.setArguments(args);
-//        return f;
-//    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,37 +61,5 @@ public class WeatherListFragment extends Fragment {
                     18 + i, 176 + (i % 2), 3, 18 - i, "cloudy"));
         }
         return items;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Weather item);
     }
 }
