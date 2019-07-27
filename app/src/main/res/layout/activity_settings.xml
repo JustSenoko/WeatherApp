@@ -32,7 +32,7 @@
             android:focusable="true"
             android:onClick="selectCity"
             android:text="@string/city"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp" />
 
     </LinearLayout>
