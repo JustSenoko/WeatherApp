@@ -2,15 +2,25 @@ package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.fragments.CitiesFragment;
+import com.example.weatherapp.models.City;
 import com.example.weatherapp.utils.MainPresenter;
 
-public class CitySelectionActivity extends AppCompatActivity {
+import java.util.Objects;
+
+public class CitySelectionActivity extends AppCompatActivity
+        implements CitiesFragment.OnSelectCityListener, CitiesFragment.OnDeleteCityListener {
 
     private final MainPresenter presenter = MainPresenter.getInstance();
+    private TextInputEditText txtCityToAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,74 +28,71 @@ public class CitySelectionActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_city_selection);
 
-        restoreSettingsValues();
-
+        txtCityToAdd = findViewById(R.id.city_to_add);
     }
 
-    private void restoreSettingsValues() {
-        //TODO переделать после урока по ресурсам
-//        if (presenter.getCity().equals(getResources().getString(R.string.city))) {
-//
-//        } else if (index == 1) {
-//            presenter.setCity(getResources().getString(R.string.city1));
-//        }
-//        else if (index == 2) {
-//            presenter.setCity(getResources().getString(R.string.city2));
-//        }
+    public void addCity(View view) {
+        String cityName = Objects.requireNonNull(txtCityToAdd.getText()).toString();
 
+        if (!validateCityName(cityName)) {
+            return;
+        }
+        hideError(txtCityToAdd);
+
+        presenter.addCity(cityName);
+        txtCityToAdd.setText("");
+
+        updateCityList();
     }
 
-    public void deleteCity0(View view) {
-        deleteCityFromList(0);
-    }
-
-    public void deleteCity1(View view) {
-        deleteCityFromList(1);
-    }
-
-    private boolean deleteCityFromList(int index) {
-        //TODO delete from list
-        //TODO delete table row
+    private boolean validateCityName(String cityName) {
+        if (cityName.isEmpty()) {
+            showError(txtCityToAdd, getResources().getString(R.string.err_enter_city));
+            return false;
+        }
+        if (presenter.cityIsInList(cityName)) {
+            showError(txtCityToAdd, getResources().getString(R.string.err_city_is_in_list));
+            return false;
+        }
+        if (!presenter.getDataSource().findCity(cityName)) {
+            showError(txtCityToAdd, getResources().getString(R.string.err_city_not_found));
+            return false;
+        }
         return true;
     }
 
-    public void deleteCity2(View view) {
-        deleteCityFromList(2);
+    private void showError(TextView tv, String message) {
+        tv.setError(message);
     }
 
-    public void selectCity0(View view) {
-        selectCity(view, 0);
+    private void hideError(TextView tv) {
+        tv.setError(null);
     }
 
-    public void selectCity1(View view) {
-        selectCity(view,1);
-    }
-
-    public void selectCity2(View view) {
-        selectCity(view,2);
-    }
-
-    private void selectCity(View view, int index) {
-        //TODO переделать после урока по ресурсам
-        if (index == 0) {
-            presenter.setCity(getResources().getString(R.string.city));
-        } else if (index == 1) {
-            presenter.setCity(getResources().getString(R.string.city1));
-        }
-        else if (index == 2) {
-            presenter.setCity(getResources().getString(R.string.city2));
-        } else {
-            return;
-        }
-        //TODO update info
+    @Override
+    public void onSelectCity(City item) {
+        presenter.setCity(item.getName());
         Intent intentResult = new Intent();
         setResult(RESULT_OK, intentResult);
         finish();
     }
 
-    public void addCity(View view) {
-        //TODO add city to list
-        //TODO add table row
-        selectCity(view, 3);
+    @Override
+    public void onDeleteCity(City city) {
+        if (!presenter.cityIsInList(city)) {
+            Snackbar.make(txtCityToAdd, R.string.err_city_not_found, Snackbar.LENGTH_SHORT);
+            return;
+        }
+        presenter.deleteCity(city);
+        updateCityList();
+    }
+
+    private void updateCityList() {
+        FragmentManager fm = getSupportFragmentManager();
+        CitiesFragment f = (CitiesFragment) fm.findFragmentById(R.id.fragment_selected_cities);
+        if (f != null) {
+            f.invalidate();
+        }
+        //TODO select item
     }
 }

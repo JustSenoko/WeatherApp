@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/city"
+        android:id="@+id/city_name"
         android:layout_width="@dimen/settings_layout_width"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -43,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/settings_vertical_margin"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@id/city"
-        app:layout_constraintTop_toBottomOf="@id/city">
+        app:layout_constraintStart_toStartOf="@id/city_name"
+        app:layout_constraintTop_toBottomOf="@id/city_name">
 
         <TextView
             android:id="@+id/unit"

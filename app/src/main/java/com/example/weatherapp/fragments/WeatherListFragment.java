@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.adapters.WeatherItemAdapter;
-import com.example.weatherapp.models.Weather;
+import com.example.weatherapp.models.WeatherItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,12 +54,12 @@ public class WeatherListFragment extends Fragment {
         return view;
     }
 
-    private List<Weather> getWeatherItems() {
+    private List<WeatherItem> getWeatherItems() {
         Calendar calendar = new GregorianCalendar();
-        List<Weather> items = new ArrayList<>();
+        List<WeatherItem> items = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
-            items.add(new Weather(calendar.getTime(),
+            items.add(new WeatherItem(calendar.getTime(),
                     18 + i, 176 + (i % 2), 3, 18 - i, "cloudy"));
         }
         return items;

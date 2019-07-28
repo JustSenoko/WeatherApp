@@ -2,7 +2,7 @@ package com.example.weatherapp.models;
 
 import java.util.Date;
 
-public class Weather {
+public class WeatherItem {
 
     private Date date;
     private int temperature;
@@ -11,7 +11,7 @@ public class Weather {
     private int feelsLike;
     private String weather;
 
-    public Weather(Date date, int temperature, int pressure, int wind, int feelsLike, String weather) {
+    public WeatherItem(Date date, int temperature, int pressure, int wind, int feelsLike, String weather) {
         this.date = date;
         this.temperature = temperature;
         this.pressure = pressure;

@@ -1,5 +1,8 @@
 package com.example.weatherapp.utils;
 
+import com.example.weatherapp.interfaces.DataSource;
+import com.example.weatherapp.models.City;
+import com.example.weatherapp.networks.FakeDataSource;
 import com.example.weatherapp.models.TemperatureUnits;
 
 import java.util.ArrayList;
@@ -19,15 +22,18 @@ public final class MainPresenter {
     private boolean showFeelsLike;
     private TemperatureUnits tUnit;
 
-    private List<String> cities = new ArrayList<>();
+    private List<City> selectedCities = new ArrayList<>();
     private int currentCityIndex;
+
+    private DataSource dataSource;
 
     // Конструктор (вызывать извне его нельзя, поэтому он приватный)
     private MainPresenter(){
-        if (cities.size() == 0) {
-            cities.add("Moscow");
-            cities.add("London");
-            cities.add("Saint Petersburg");
+        dataSource = new FakeDataSource();
+        if (selectedCities.size() == 0) {
+            addCity("Moscow");
+            addCity("Saint Petersburg");
+            addCity("London");
         }
         city = "Moscow";
         currentCityIndex = 0;
@@ -55,6 +61,41 @@ public final class MainPresenter {
 
     public TemperatureUnits gettUnit() {
         return tUnit;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public List<City> getSelectedCities() {
+        return selectedCities;
+    }
+
+    public boolean cityIsInList(String name) {
+        for (City city : selectedCities) {
+            if (city.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addCity(String name) {
+        if (cityIsInList(name)) {
+            return;
+        }
+        selectedCities.add(new City(name, dataSource));
+    }
+
+    public boolean cityIsInList(City city) {
+        return selectedCities.contains(city);
+    }
+
+    public void deleteCity(City city) {
+        selectedCities.remove(city);
+        if (this.city.equals(city.getName()) && selectedCities.size() > 0) {
+            this.city = selectedCities.get(0).getName();
+        }
     }
 
     public void setShowPressure(boolean showPressure) {

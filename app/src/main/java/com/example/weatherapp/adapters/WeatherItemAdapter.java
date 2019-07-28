@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.models.Weather;
+import com.example.weatherapp.models.WeatherItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,10 +17,10 @@ import java.util.Locale;
 
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
-    private List<Weather> items;
+    private List<WeatherItem> items;
     private static final String DATE_FORMAT = "d MMM";
 
-    public WeatherItemAdapter(List<Weather> items) {
+    public WeatherItemAdapter(List<WeatherItem> items) {
         this.items = items;
     }
 
@@ -54,7 +54,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         final TextView weather;
         final TextView date;
 
-        Weather mItem;
+        WeatherItem mItem;
 
         ViewHolder(View view) {
             super(view);

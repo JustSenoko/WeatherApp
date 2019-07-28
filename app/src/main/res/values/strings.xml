@@ -33,4 +33,7 @@
     <string name="forecast_hourly">Hourly forecast</string>
     <string name="date" translatable="false">24 Jul</string>
     <string name="monday">mo</string>
+    <string name="err_city_is_in_list">City is already added</string>
+    <string name="err_city_not_found">City not found</string>
+    <string name="err_enter_city">Enter city</string>
 </resources>
