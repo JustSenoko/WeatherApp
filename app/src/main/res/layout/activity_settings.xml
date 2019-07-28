@@ -14,8 +14,8 @@
         android:layout_marginEnd="40dp"
         android:onClick="themeOnClick"
         android:showText="true"
+        android:textSize="@dimen/settings_type_size"
         android:text="@string/theme"
-
         android:textOff="@string/light"
         android:textOn="@string/dark"
         app:layout_constraintBottom_toBottomOf="parent"
