@@ -27,4 +27,5 @@
     <string name="dark">темная</string>
     <string name="light">светлая</string>
     <string name="theme">тема</string>
+    <string name="msg_settings_saved">Настройки сохранены</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.utils.MainPresenter;
+import com.google.android.material.snackbar.Snackbar;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -52,20 +53,22 @@ public class SettingsActivity extends BaseActivity {
         showPressure.setChecked(presenter.isShowPressure());
         showWind.setChecked(presenter.isShowWind());
         showFeelsLike.setChecked(presenter.isShowFeelsLike());
-        //spUnit.setSelection(0); //TODO переделать после урока по ресурсам
+        //spUnit.setSelection(0); //TODO
     }
 
     public void showPressureOnClick(View view) {
         presenter.setShowPressure(showPressure.isChecked());
+        showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void showWindOnClick(View view) {
-
         presenter.setShowWind(showWind.isChecked());
+        showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void showFeelsLikeOnClick(View view) {
         presenter.setShowFeelsLike(showFeelsLike.isChecked());
+        showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void themeOnClick(View view) {
@@ -85,5 +88,9 @@ public class SettingsActivity extends BaseActivity {
             return;
         }
         twCity.setText(presenter.getCity());
+    }
+
+    private void showResult(View v, String message) {
+        Snackbar.make(v, message, Snackbar.LENGTH_SHORT).show();
     }
 }
