@@ -16,6 +16,7 @@ public class SettingsActivity extends BaseActivity {
     private final MainPresenter presenter = MainPresenter.getInstance();
     private final static int CITY_SELECTION_REQUEST_CODE = 2;
 
+    private Switch darkTheme;
     private TextView twCity;
     private Spinner spUnit;
     private Switch showPressure;
@@ -28,6 +29,7 @@ public class SettingsActivity extends BaseActivity {
 
         setContentView(R.layout.activity_settings);
 
+        darkTheme = findViewById(R.id.theme);
         twCity = findViewById(R.id.current_city);
         showPressure = findViewById(R.id.show_pressure);
         showWind = findViewById(R.id.show_wind);
@@ -45,6 +47,7 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void restoreSettingsValues() {
+        darkTheme.setChecked(isDarkTheme());
         twCity.setText(presenter.getCity());
         showPressure.setChecked(presenter.isShowPressure());
         showWind.setChecked(presenter.isShowWind());
@@ -63,6 +66,11 @@ public class SettingsActivity extends BaseActivity {
 
     public void showFeelsLikeOnClick(View view) {
         presenter.setShowFeelsLike(showFeelsLike.isChecked());
+    }
+
+    public void themeOnClick(View view) {
+        setDarkTheme(darkTheme.isChecked());
+        recreate();
     }
 
     public void selectCity(View view) {

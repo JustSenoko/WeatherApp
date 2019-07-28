@@ -21,18 +21,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void setCustomTheme() {
         if (isDarkTheme()) {
-            setTheme(R.style.LightTheme);
-        } else {
             setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.LightTheme);
         }
     }
 
-    private boolean isDarkTheme() {
+    protected boolean isDarkTheme() {
         SharedPreferences sharedPreferences = getSharedPreferences(NAME_SHARED_PREFERENCES, MODE_PRIVATE);
         return sharedPreferences.getBoolean(IS_DARK_THEME, false);
     }
 
-    private void setDarkTheme(boolean isDarkTheme) {
+    protected void setDarkTheme(boolean isDarkTheme) {
         SharedPreferences sharedPreferences = getSharedPreferences(NAME_SHARED_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_DARK_THEME, isDarkTheme);

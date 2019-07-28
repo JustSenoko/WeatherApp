@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#AAC2C0</color>
-    <color name="colorPrimaryDark">#334652</color>
-    <color name="colorAccent">#2196F3</color>
+    <color name="lightThemeColorPrimary">#00BCD4</color>
+    <color name="lightThemeColorPrimaryDark">#401A237E</color>
+    <color name="lightThemeColorAccent">#FF5722</color>
+    <color name="lightThemeWindowBackground">#E8EBEC</color>
+
+    <color name="darkThemeColorPrimary">#F57F17</color>
+    <color name="darkThemeColorPrimaryDark">#5A7A91</color>
+    <color name="darkThemeColorAccent">#00ACC1</color>
+    <color name="darkThemeWindowBackground">#282B30</color>
 </resources>
