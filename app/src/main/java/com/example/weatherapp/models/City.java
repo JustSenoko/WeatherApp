@@ -6,7 +6,7 @@ import com.example.weatherapp.utils.MainPresenter;
 import java.util.Date;
 
 public class City {
-    private String name;
+    private final String name;
     private WeatherItem currentWeather;
 
     public City(String name) {

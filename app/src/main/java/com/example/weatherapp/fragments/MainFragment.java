@@ -1,14 +1,15 @@
 package com.example.weatherapp.fragments;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.utils.MainPresenter;
@@ -51,9 +52,9 @@ public class MainFragment extends Fragment {
         updateView();
     }
 
-    public void updateView() {
+    private void updateView() {
         twCity.setText(presenter.getCity());
-        twTUnit.setText(presenter.gettUnit().toString());
+        twTUnit.setText(presenter.getTUnit().toString());
 
         pressure.setVisibility(visibility(presenter.isShowPressure()));
         wind.setVisibility(visibility(presenter.isShowWind()));

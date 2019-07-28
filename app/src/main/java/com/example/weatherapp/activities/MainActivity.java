@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.fragments.MainFragment;
 
 public class MainActivity extends BaseActivity {
     private static final int SETTINGS_REQUEST_CODE = 1;
@@ -34,9 +33,6 @@ public class MainActivity extends BaseActivity {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment);
-        if (mainFragment != null) {
-            mainFragment.updateView();
-        }
+        recreate();
     }
 }

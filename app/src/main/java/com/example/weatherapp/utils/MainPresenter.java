@@ -25,7 +25,7 @@ public final class MainPresenter {
     private List<City> selectedCities = new ArrayList<>();
     private int currentCityIndex;
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     // Конструктор (вызывать извне его нельзя, поэтому он приватный)
     private MainPresenter(){
@@ -59,7 +59,7 @@ public final class MainPresenter {
         return city;
     }
 
-    public TemperatureUnits gettUnit() {
+    public TemperatureUnits getTUnit() {
         return tUnit;
     }
 

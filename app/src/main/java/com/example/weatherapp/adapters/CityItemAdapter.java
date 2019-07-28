@@ -1,16 +1,17 @@
 package com.example.weatherapp.adapters;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.CitiesFragment;
 import com.example.weatherapp.models.City;
-import com.example.weatherapp.R;
 
 import java.util.List;
 
@@ -67,9 +68,9 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
         return cities.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        public final TextView city;
+        final TextView city;
         final TextView temperature;
         final TextView weather;
         final ImageButton delete;
