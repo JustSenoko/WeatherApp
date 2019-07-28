@@ -2,21 +2,21 @@ package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.CitiesFragment;
 import com.example.weatherapp.models.City;
 import com.example.weatherapp.utils.MainPresenter;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-public class CitySelectionActivity extends AppCompatActivity
+public class CitySelectionActivity extends BaseActivity
         implements CitiesFragment.OnSelectCityListener, CitiesFragment.OnDeleteCityListener {
 
     private final MainPresenter presenter = MainPresenter.getInstance();

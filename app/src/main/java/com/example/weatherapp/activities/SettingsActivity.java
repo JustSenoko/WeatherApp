@@ -2,7 +2,6 @@ package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import com.example.weatherapp.R;
 import com.example.weatherapp.utils.MainPresenter;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     private final MainPresenter presenter = MainPresenter.getInstance();
     private final static int CITY_SELECTION_REQUEST_CODE = 2;
