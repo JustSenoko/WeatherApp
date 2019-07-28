@@ -10,8 +10,8 @@ import com.example.weatherapp.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private static final String NAME_SHARED_PREFERENCES = "Preferences";
-    private static final String IS_DARK_THEME = "Preferences";
+    private static final String NAME_SHARED_PREFERENCES = "Weather_App";
+    private static final String IS_DARK_THEME = "darkTheme";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
