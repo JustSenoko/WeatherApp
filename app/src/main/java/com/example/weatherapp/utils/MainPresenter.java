@@ -2,9 +2,11 @@ package com.example.weatherapp.utils;
 
 import com.example.weatherapp.interfaces.DataSource;
 import com.example.weatherapp.models.City;
+import com.example.weatherapp.models.CurrentWeatherRequest;
 import com.example.weatherapp.networks.FakeDataSource;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public final class MainPresenter {
@@ -14,6 +16,9 @@ public final class MainPresenter {
 
     // Поле для синхронизации
     private static final Object syncObj = new Object();
+
+    private CurrentWeatherRequest wr;
+    private Date lastRequestTime;
 
     private List<City> selectedCities = new ArrayList<>();
     private int currentCityIndex;
@@ -29,7 +34,6 @@ public final class MainPresenter {
             addCity("Saint Petersburg");
             addCity("London");
         }
-
         currentCityIndex = 0;
     }
 
@@ -85,4 +89,16 @@ public final class MainPresenter {
         }
     }
 
+    public CurrentWeatherRequest getWr() {
+        return wr;
+    }
+
+    public void setWr(CurrentWeatherRequest wr) {
+        this.wr = wr;
+        this.lastRequestTime = new Date();
+    }
+
+    public Date getLastRequestTime() {
+        return lastRequestTime;
+    }
 }

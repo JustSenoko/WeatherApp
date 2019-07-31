@@ -16,16 +16,19 @@ import androidx.fragment.app.Fragment;
 import com.example.weatherapp.R;
 import com.example.weatherapp.models.CurrentWeatherRequest;
 import com.example.weatherapp.models.Units;
-import com.example.weatherapp.models.Weather;
+import com.example.weatherapp.models.weather.Weather;
 import com.example.weatherapp.networks.WeatherDataLoader;
+import com.example.weatherapp.utils.MainPresenter;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class MainFragment extends Fragment {
 
     private UserPreferences userPreferences;
+    private static final int WEATHER_VALID_DURATION = 5 * 60 * 1000; // 5 min
 
     private TextView twCity;
     private TextView twTemperatureUnit;
@@ -72,6 +75,11 @@ public class MainFragment extends Fragment {
     }
 
     private void updateWeatherData() {
+        MainPresenter presenter = MainPresenter.getInstance();
+        if (weatherIsValid(presenter)) {
+            updateWeatherInfo(presenter.getWr());
+            return;
+        }
         final String cityName = userPreferences.getCurrentCity();
         final String units = Units.getUnitsName(userPreferences.useImperialUnits());
         final Handler handler = new Handler();
@@ -93,17 +101,25 @@ public class MainFragment extends Fragment {
         }).start();
     }
 
+    private boolean weatherIsValid(MainPresenter presenter) {
+        if (presenter.getWr() == null) {
+            return false;
+        }
+        return presenter.getWr().getName().equals(userPreferences.getCurrentCity())
+                && (presenter.getLastRequestTime().getTime() - new Date().getTime()) < WEATHER_VALID_DURATION;
+    }
+
     @SuppressLint("DefaultLocale")
     private void updateWeatherInfo(CurrentWeatherRequest wr) {
         twTemperatureValue.setText(String.format("%2.0f", wr.getMain().getTemp()));
         twPressureValue.setText(String.valueOf((Integer) wr.getMain().getPressure()));
-        twWindValue.setText(String.valueOf((Integer) wr.getWind().getSpeed()));
+        twWindValue.setText(String.format("%2.1f", wr.getWind().getSpeed()));
         Weather weather = wr.getWeather();
         twWeather.setText(weather == null ? "" : weather.getDescription());
     }
 
     private void showErrorMessage() {
-        Snackbar.make(twCity, R.string.err_city_not_found, Snackbar.LENGTH_SHORT);
+        Snackbar.make(twCity, R.string.err_connection_failed, Snackbar.LENGTH_SHORT);
     }
 
     private void updateView() {

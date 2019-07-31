@@ -18,7 +18,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class WeatherDataLoader implements DataSource {
 
-    private static final String OPEN_WEATHER_API = "https://api.openweathermap.org/data/2.5/weather?q=%s,RU&appid=%s&units=%s";
+    private static final String OPEN_WEATHER_API = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s&units=%s";
     private static final String API_KEY = "fe3618c262f07832f51e85565bc3f81e";
     private static final String NEW_LINE = "\n";
 

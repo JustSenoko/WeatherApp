@@ -33,7 +33,7 @@
     <string name="date" translatable="false">24 Jul</string>
     <string name="monday">mo</string>
     <string name="err_city_is_in_list">City is already added</string>
-    <string name="err_city_not_found">City not found</string>
+    <string name="err_connection_failed">Can not connect to server</string>
     <string name="err_enter_city">Enter city</string>
     <string name="theme">Dark theme</string>
     <string name="msg_settings_saved">Settings saved</string>
