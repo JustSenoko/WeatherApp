@@ -41,7 +41,7 @@ public class CurrentWeatherRequest {
         return name;
     }
 
-    public boolean LoadedSuccessful() {
+    public boolean loadedSuccessful() {
         return cod == CODE_OK;
     }
 

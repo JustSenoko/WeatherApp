@@ -59,7 +59,7 @@ public class CitySelectionActivity extends BaseActivity
 
     private void loadWeather(final String cityName) {
         final String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        final String errText = getResources().getString(R.string.err_connection_failed);
+        final String errText = getResources().getString(R.string.err_city_not_found);
         final Handler handler = new Handler();
         new Thread(new Runnable() {
             @Override
@@ -70,7 +70,7 @@ public class CitySelectionActivity extends BaseActivity
                     public void run() {
                         if (wr == null) {
                             showError(txtCityToAdd, errText);
-                        } else if (!wr.LoadedSuccessful()) {
+                        } else if (!wr.loadedSuccessful()) {
                             showError(txtCityToAdd, wr.getMessage());
                         } else {
                             presenter.setWr(wr);
@@ -109,7 +109,7 @@ public class CitySelectionActivity extends BaseActivity
     @Override
     public void onDeleteCity(City city) {
         if (!presenter.cityIsInList(city)) {
-            Snackbar.make(txtCityToAdd, R.string.err_connection_failed, Snackbar.LENGTH_SHORT);
+            Snackbar.make(txtCityToAdd, R.string.err_city_not_found, Snackbar.LENGTH_SHORT);
             return;
         }
         presenter.deleteCity(city);

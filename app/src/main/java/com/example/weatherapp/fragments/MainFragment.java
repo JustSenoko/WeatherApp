@@ -119,7 +119,7 @@ public class MainFragment extends Fragment {
     }
 
     private void showErrorMessage() {
-        Snackbar.make(twCity, R.string.err_connection_failed, Snackbar.LENGTH_SHORT);
+        Snackbar.make(twCity, R.string.err_city_not_found, Snackbar.LENGTH_SHORT);
     }
 
     private void updateView() {
