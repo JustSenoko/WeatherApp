@@ -13,7 +13,7 @@ public class UserPreferences {
     private static final String CURRENT_CITY = "city";
     private static final String SHOW_PRESSURE = "show_pressure";
     private static final String SHOW_WIND = "show_wind";
-    private static final String SHOW_FEELS_LIKE = "show_feels_like";
+    private static final String USE_IMPERIAL_UNITS = "use_imperial_units";
 
     private SharedPreferences sharedPreferences;
 
@@ -53,11 +53,11 @@ public class UserPreferences {
         sharedPreferences.edit().putBoolean(SHOW_WIND, showWind).apply();
     }
 
-    public boolean isShowFeelsLike() {
-        return sharedPreferences.getBoolean(SHOW_FEELS_LIKE, true);
+    public boolean useImperialUnits() {
+        return sharedPreferences.getBoolean(USE_IMPERIAL_UNITS, false);
     }
 
-    public void setShowFeelsLike(boolean showFeelsLike) {
-        sharedPreferences.edit().putBoolean(SHOW_FEELS_LIKE, showFeelsLike).apply();
+    public void setUseImperialUnits(boolean useImperialUnits) {
+        sharedPreferences.edit().putBoolean(USE_IMPERIAL_UNITS, useImperialUnits).apply();
     }
 }

@@ -3,7 +3,6 @@ package com.example.weatherapp.utils;
 import com.example.weatherapp.interfaces.DataSource;
 import com.example.weatherapp.models.City;
 import com.example.weatherapp.networks.FakeDataSource;
-import com.example.weatherapp.models.TemperatureUnits;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,6 @@ public final class MainPresenter {
 
     // Поле для синхронизации
     private static final Object syncObj = new Object();
-
-    private TemperatureUnits tUnit;
 
     private List<City> selectedCities = new ArrayList<>();
     private int currentCityIndex;
@@ -34,12 +31,6 @@ public final class MainPresenter {
         }
 
         currentCityIndex = 0;
-
-        tUnit = TemperatureUnits.C;
-    }
-
-    public TemperatureUnits getTUnit() {
-        return tUnit;
     }
 
     public DataSource getDataSource() {
@@ -79,10 +70,6 @@ public final class MainPresenter {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void settUnit(TemperatureUnits tUnit) {
-        this.tUnit = tUnit;
     }
 
     // Метод, который возвращает экземпляр объекта.
