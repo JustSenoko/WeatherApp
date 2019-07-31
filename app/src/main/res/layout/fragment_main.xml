@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainFragment">
+    tools:context=".fragments.MainFragment">
 
     <Space
         android:layout_width="match_parent"
@@ -16,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
         android:text="@string/city"
         android:textAlignment="center"
         android:textSize="42sp" />
@@ -92,7 +94,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/weather"
+        android:id="@+id/city_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

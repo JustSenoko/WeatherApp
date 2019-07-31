@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.example.weatherapp.MainFragment"
+        android:name="com.example.weatherapp.fragments.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/fragment_weather_list"
-        android:name="com.example.weatherapp.WeatherListFragment"
+        android:name="com.example.weatherapp.fragments.WeatherListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"

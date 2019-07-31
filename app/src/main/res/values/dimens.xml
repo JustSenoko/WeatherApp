@@ -2,7 +2,7 @@
 <resources>
     <dimen name="divider_margin">8dp</dimen>
     <dimen name="city_size_in_selection">32sp</dimen>
-    <dimen name="settings_type_size">16sp</dimen>
+    <dimen name="settings_type_size">18sp</dimen>
     <dimen name="settings_vertical_margin">8dp</dimen>
     <dimen name="settings_horizontal_margin">16dp</dimen>
     <dimen name="settings_switch_width">240dp</dimen>

@@ -1,17 +1,17 @@
-package com.example.weatherapp.service;
+package com.example.weatherapp.models;
 
 import java.util.Date;
 
-public class Weather {
+public class WeatherItem {
 
-    private Date date;
-    private int temperature;
-    private int pressure;
-    private int wind;
-    private int feelsLike;
-    private String weather;
+    private final Date date;
+    private final int temperature;
+    private final int pressure;
+    private final int wind;
+    private final int feelsLike;
+    private final String weather;
 
-    public Weather(Date date, int temperature, int pressure, int wind, int feelsLike, String weather) {
+    public WeatherItem(Date date, int temperature, int pressure, int wind, int feelsLike, String weather) {
         this.date = date;
         this.temperature = temperature;
         this.pressure = pressure;

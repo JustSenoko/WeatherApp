@@ -1,21 +1,23 @@
-package com.example.weatherapp;
+package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.weatherapp.service.MainPresenter;
+import com.example.weatherapp.R;
+import com.example.weatherapp.utils.MainPresenter;
+import com.google.android.material.snackbar.Snackbar;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     private final MainPresenter presenter = MainPresenter.getInstance();
     private final static int CITY_SELECTION_REQUEST_CODE = 2;
 
+    private Switch darkTheme;
     private TextView twCity;
     private Spinner spUnit;
     private Switch showPressure;
@@ -28,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
+        darkTheme = findViewById(R.id.theme);
         twCity = findViewById(R.id.current_city);
         showPressure = findViewById(R.id.show_pressure);
         showWind = findViewById(R.id.show_wind);
@@ -45,24 +48,32 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void restoreSettingsValues() {
+        darkTheme.setChecked(isDarkTheme());
         twCity.setText(presenter.getCity());
         showPressure.setChecked(presenter.isShowPressure());
         showWind.setChecked(presenter.isShowWind());
         showFeelsLike.setChecked(presenter.isShowFeelsLike());
-        //spUnit.setSelection(0); //TODO переделать после урока по ресурсам
+        //spUnit.setSelection(0); //TODO
     }
 
     public void showPressureOnClick(View view) {
         presenter.setShowPressure(showPressure.isChecked());
+        showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void showWindOnClick(View view) {
-
         presenter.setShowWind(showWind.isChecked());
+        showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void showFeelsLikeOnClick(View view) {
         presenter.setShowFeelsLike(showFeelsLike.isChecked());
+        showResult(view, getResources().getString(R.string.msg_settings_saved));
+    }
+
+    public void themeOnClick(View view) {
+        setDarkTheme(darkTheme.isChecked());
+        recreate();
     }
 
     public void selectCity(View view) {
@@ -77,5 +88,9 @@ public class SettingsActivity extends AppCompatActivity {
             return;
         }
         twCity.setText(presenter.getCity());
+    }
+
+    private void showResult(View v, String message) {
+        Snackbar.make(v, message, Snackbar.LENGTH_SHORT).show();
     }
 }

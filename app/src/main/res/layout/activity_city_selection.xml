@@ -1,281 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <fragment
+        android:id="@+id/fragment_selected_cities"
+        android:name="com.example.weatherapp.fragments.CitiesFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TableRow
-                android:id="@+id/row0"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="false"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="selectCity0"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/city0"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/city"
-                        android:textSize="@dimen/city_size_in_selection" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/cityTemperature0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/temperature" />
-
-                        <TextView
-                            android:id="@+id/temperatureUnit0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/unit" />
-
-                        <TextView
-                            android:id="@+id/comma0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/text_delimiter" />
-
-                        <TextView
-                            android:id="@+id/cityWeather0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/weather" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/divider0"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/divider_margin"
-                    android:layout_marginBottom="@dimen/divider_margin"
-                    android:background="@color/colorPrimaryDark" />
-
-                <ImageButton
-                    android:id="@+id/deleteCity0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:backgroundTintMode="screen"
-                    android:clickable="true"
-                    android:contentDescription="@string/delete_city_from_list"
-                    android:focusable="true"
-                    android:onClick="deleteCity0"
-                    app:srcCompat="@drawable/delete" />
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/row1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="selectCity1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/city1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/city1"
-                        android:textSize="@dimen/city_size_in_selection" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/cityTemperature1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/temperature1" />
-
-                        <TextView
-                            android:id="@+id/temperatureUnit1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/unit" />
-
-                        <TextView
-                            android:id="@+id/comma1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/text_delimiter" />
-
-                        <TextView
-                            android:id="@+id/cityWeather1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/weather1" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/divider1"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/divider_margin"
-                    android:layout_marginBottom="@dimen/divider_margin"
-                    android:background="@color/colorPrimaryDark" />
-
-                <ImageButton
-                    android:id="@+id/deleteCity1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:backgroundTintMode="screen"
-                    android:clickable="true"
-                    android:contentDescription="@string/delete_city_from_list"
-                    android:focusable="true"
-                    android:onClick="deleteCity1"
-                    app:srcCompat="@drawable/delete" />
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/row2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:onClick="selectCity2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/city2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/city2"
-                        android:textSize="@dimen/city_size_in_selection" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/cityTemperature2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/temperature2" />
-
-                        <TextView
-                            android:id="@+id/temperatureUnit2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/unit" />
-
-                        <TextView
-                            android:id="@+id/comma2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/text_delimiter" />
-
-                        <TextView
-                            android:id="@+id/cityWeather2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/weather2" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/divider_margin"
-                    android:layout_marginBottom="@dimen/divider_margin"
-                    android:background="@color/colorPrimaryDark" />
-
-                <ImageButton
-                    android:id="@+id/deleteCity2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:backgroundTintMode="screen"
-                    android:clickable="true"
-                    android:contentDescription="@string/delete_city_from_list"
-                    android:focusable="true"
-                    android:onClick="deleteCity2"
-                    app:srcCompat="@drawable/delete" />
-
-            </TableRow>
-
-        </TableLayout>
-    </ScrollView>
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_cities_list" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableStart="@drawable/search_icon"
-            android:text="@string/enter_city_to_add"
-            android:textAlignment="textStart"
-            android:textSize="24sp" />
+            android:layout_weight="1">
 
-        <Button
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/city_to_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_city_to_add"
+                android:textSize="24sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/add_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:onClick="addCity"
-            android:text="@string/add" />
+            android:text="@string/add"
+            android:textAppearance="@style/Widget.MaterialComponents.Button"
+            android:textSize="24sp"
+            app:icon="@drawable/add" />
 
     </LinearLayout>
 </LinearLayout>

@@ -1,12 +1,13 @@
-package com.example.weatherapp;
+package com.example.weatherapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.weatherapp.R;
+
+public class MainActivity extends BaseActivity {
     private static final int SETTINGS_REQUEST_CODE = 1;
 
     @Override
@@ -32,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment);
-        if (mainFragment != null) {
-            mainFragment.updateView();
-        }
+        recreate();
     }
 }

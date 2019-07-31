@@ -1,19 +1,22 @@
-package com.example.weatherapp;
+package com.example.weatherapp.fragments;
 
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.weatherapp.service.Weather;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.weatherapp.R;
+import com.example.weatherapp.adapters.WeatherItemAdapter;
+import com.example.weatherapp.models.WeatherItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,7 +40,7 @@ public class WeatherListFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             boolean horizontal = context.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE;
             LinearLayoutManager layout = new LinearLayoutManager(context);
-            layout.setOrientation(horizontal ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL);
+            layout.setOrientation(horizontal ? RecyclerView.HORIZONTAL : RecyclerView.VERTICAL);
             recyclerView.setLayoutManager(layout);
             recyclerView.setAdapter(new WeatherItemAdapter(getWeatherItems()));
 
@@ -52,12 +55,12 @@ public class WeatherListFragment extends Fragment {
         return view;
     }
 
-    private List<Weather> getWeatherItems() {
+    private List<WeatherItem> getWeatherItems() {
         Calendar calendar = new GregorianCalendar();
-        List<Weather> items = new ArrayList<>();
+        List<WeatherItem> items = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
-            items.add(new Weather(calendar.getTime(),
+            items.add(new WeatherItem(calendar.getTime(),
                     18 + i, 176 + (i % 2), 3, 18 - i, "cloudy"));
         }
         return items;

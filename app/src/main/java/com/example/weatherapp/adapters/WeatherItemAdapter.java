@@ -1,13 +1,15 @@
-package com.example.weatherapp;
+package com.example.weatherapp.adapters;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.weatherapp.service.Weather;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.weatherapp.R;
+import com.example.weatherapp.models.WeatherItem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,10 +18,10 @@ import java.util.Locale;
 
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
-    private List<Weather> items;
+    private List<WeatherItem> items;
     private static final String DATE_FORMAT = "d MMM";
 
-    WeatherItemAdapter(List<Weather> items) {
+    public WeatherItemAdapter(List<WeatherItem> items) {
         this.items = items;
     }
 
@@ -33,10 +35,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.mItem = items.get(position);
-        holder.temperature.setText(String.valueOf(items.get(position).getTemperature()));
-        holder.weather.setText(String.valueOf(items.get(position).getWeather()));
-        holder.date.setText(getDateFormatted(items.get(position).getDate()));
+        holder.updateView(items.get(position));
     }
 
     private String getDateFormatted(Date date) {
@@ -49,18 +48,23 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView temperature;
-        final TextView weather;
-        final TextView date;
-
-        Weather mItem;
+        private final TextView temperature;
+        private final TextView weather;
+        private final TextView date;
+        private WeatherItem mItem;
 
         ViewHolder(View view) {
             super(view);
-
             temperature = view.findViewById(R.id.temperature_value);
             weather = view.findViewById(R.id.weather);
             date = view.findViewById(R.id.date);
+        }
+
+        void updateView(WeatherItem weatherItem) {
+            mItem = weatherItem;
+            temperature.setText(String.valueOf(mItem.getTemperature()));
+            weather.setText(String.valueOf(mItem.getWeather()));
+            date.setText(getDateFormatted(mItem.getDate()));
         }
     }
 }

@@ -2,13 +2,21 @@
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:id="@+id/list"
-    android:name="com.example.weatherapp.WeatherItemFragment"
-    android:layout_width="wrap_content"
+    android:name="com.example.weatherapp.fragments.CityFragment"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".fragments.WeatherListFragment"
-    tools:listitem="@layout/weather_item" />
+    tools:context=".fragments.CitiesFragment"
+    tools:listitem="@layout/city_item">
+
+</androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+
