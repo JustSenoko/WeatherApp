@@ -38,10 +38,7 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.mItem = cities.get(position);
-        holder.city.setText(cities.get(position).getName());
-        holder.temperature.setText(String.valueOf(cities.get(position).getCurrentTemperature()));
-        holder.weather.setText(String.valueOf(cities.get(position).getCurrentWeather()));
+        holder.updateView(cities.get(position));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,12 +66,12 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        final View mView;
-        final TextView city;
-        final TextView temperature;
-        final TextView weather;
-        final ImageButton delete;
-        City mItem;
+        private final View mView;
+        private final TextView city;
+        private final TextView temperature;
+        private final TextView weather;
+        private final ImageButton delete;
+        private City mItem;
 
         ViewHolder(View view) {
             super(view);
@@ -83,6 +80,13 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
             temperature = view.findViewById(R.id.city_temperature);
             weather = view.findViewById(R.id.city_weather);
             delete = view.findViewById(R.id.deleteCity);
+        }
+
+        void updateView(City cityItem) {
+            mItem = cityItem;
+            city.setText(mItem.getName());
+            temperature.setText(String.valueOf(mItem.getCurrentTemperature()));
+            weather.setText(String.valueOf(mItem.getCurrentWeather()));
         }
     }
 }
