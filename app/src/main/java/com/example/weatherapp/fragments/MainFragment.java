@@ -13,10 +13,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.utils.MainPresenter;
+import com.example.weatherapp.utils.UserPreferences;
+
+import java.util.Objects;
 
 public class MainFragment extends Fragment {
 
     private final MainPresenter presenter = MainPresenter.getInstance();
+    private UserPreferences userPreferences;
 
     private TextView twCity;
     private TextView twTUnit;
@@ -49,16 +53,18 @@ public class MainFragment extends Fragment {
         wind = view.findViewById(R.id.wind);
         feelsLike = view.findViewById(R.id.feels_like);
 
+        userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
+
         updateView();
     }
 
     private void updateView() {
-        twCity.setText(presenter.getCity());
+        twCity.setText(userPreferences.getCurrentCity());
         twTUnit.setText(presenter.getTUnit().toString());
 
-        pressure.setVisibility(visibility(presenter.isShowPressure()));
-        wind.setVisibility(visibility(presenter.isShowWind()));
-        feelsLike.setVisibility(visibility(presenter.isShowFeelsLike()));
+        pressure.setVisibility(visibility(userPreferences.isShowPressure()));
+        wind.setVisibility(visibility(userPreferences.isShowWind()));
+        feelsLike.setVisibility(visibility(userPreferences.isShowFeelsLike()));
     }
 
     private int visibility(boolean visible) {

@@ -16,16 +16,13 @@ public final class MainPresenter {
     // Поле для синхронизации
     private static final Object syncObj = new Object();
 
-    private String city;
-    private boolean showPressure;
-    private boolean showWind;
-    private boolean showFeelsLike;
     private TemperatureUnits tUnit;
 
     private List<City> selectedCities = new ArrayList<>();
     private int currentCityIndex;
 
     private final DataSource dataSource;
+    private String city = "Moscow";
 
     // Конструктор (вызывать извне его нельзя, поэтому он приватный)
     private MainPresenter(){
@@ -35,28 +32,10 @@ public final class MainPresenter {
             addCity("Saint Petersburg");
             addCity("London");
         }
-        city = "Moscow";
+
         currentCityIndex = 0;
-        showPressure = true;
-        showWind = true;
-        showFeelsLike = true;
+
         tUnit = TemperatureUnits.C;
-    }
-
-    public boolean isShowPressure() {
-        return showPressure;
-    }
-
-    public boolean isShowWind() {
-        return showWind;
-    }
-
-    public boolean isShowFeelsLike() {
-        return showFeelsLike;
-    }
-
-    public String getCity() {
-        return city;
     }
 
     public TemperatureUnits getTUnit() {
@@ -96,18 +75,6 @@ public final class MainPresenter {
         if (this.city.equals(city.getName()) && selectedCities.size() > 0) {
             this.city = selectedCities.get(0).getName();
         }
-    }
-
-    public void setShowPressure(boolean showPressure) {
-        this.showPressure = showPressure;
-    }
-
-    public void setShowWind(boolean showWind) {
-        this.showWind = showWind;
-    }
-
-    public void setShowFeelsLike(boolean showFeelsLike) {
-        this.showFeelsLike = showFeelsLike;
     }
 
     public void setCity(String city) {

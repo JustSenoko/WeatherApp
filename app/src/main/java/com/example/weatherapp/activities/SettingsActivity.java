@@ -9,13 +9,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.utils.MainPresenter;
+import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SettingsActivity extends BaseActivity {
 
-    private final MainPresenter presenter = MainPresenter.getInstance();
     private final static int CITY_SELECTION_REQUEST_CODE = 2;
+
+    private UserPreferences userPreferences;
 
     private Switch darkTheme;
     private TextView twCity;
@@ -30,7 +31,9 @@ public class SettingsActivity extends BaseActivity {
 
         setContentView(R.layout.activity_settings);
 
-        darkTheme = findViewById(R.id.theme);
+        userPreferences = new UserPreferences(this);
+
+        darkTheme = findViewById(R.id.darkTheme);
         twCity = findViewById(R.id.current_city);
         showPressure = findViewById(R.id.show_pressure);
         showWind = findViewById(R.id.show_wind);
@@ -48,31 +51,31 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void restoreSettingsValues() {
-        darkTheme.setChecked(isDarkTheme());
-        twCity.setText(presenter.getCity());
-        showPressure.setChecked(presenter.isShowPressure());
-        showWind.setChecked(presenter.isShowWind());
-        showFeelsLike.setChecked(presenter.isShowFeelsLike());
+        darkTheme.setChecked(userPreferences.isDarkTheme());
+        twCity.setText(userPreferences.getCurrentCity());
+        showPressure.setChecked(userPreferences.isShowPressure());
+        showWind.setChecked(userPreferences.isShowWind());
+        showFeelsLike.setChecked(userPreferences.isShowFeelsLike());
         //spUnit.setSelection(0); //TODO
     }
 
     public void showPressureOnClick(View view) {
-        presenter.setShowPressure(showPressure.isChecked());
+        userPreferences.setShowPressure(showPressure.isChecked());
         showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void showWindOnClick(View view) {
-        presenter.setShowWind(showWind.isChecked());
+        userPreferences.setShowWind(showWind.isChecked());
         showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void showFeelsLikeOnClick(View view) {
-        presenter.setShowFeelsLike(showFeelsLike.isChecked());
+        userPreferences.setShowFeelsLike(showFeelsLike.isChecked());
         showResult(view, getResources().getString(R.string.msg_settings_saved));
     }
 
     public void themeOnClick(View view) {
-        setDarkTheme(darkTheme.isChecked());
+        userPreferences.setDarkTheme(darkTheme.isChecked());
         recreate();
     }
 
@@ -87,7 +90,7 @@ public class SettingsActivity extends BaseActivity {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
-        twCity.setText(presenter.getCity());
+        twCity.setText(userPreferences.getCurrentCity());
     }
 
     private void showResult(View v, String message) {

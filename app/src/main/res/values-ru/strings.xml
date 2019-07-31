@@ -24,8 +24,6 @@
     <string name="err_city_is_in_list">Город уже есть в списке</string>
     <string name="err_city_not_found">Город не найден</string>
     <string name="err_enter_city">Укажите город</string>
-    <string name="dark">темная</string>
-    <string name="light">светлая</string>
-    <string name="theme">тема</string>
+    <string name="theme">Тёмная тема</string>
     <string name="msg_settings_saved">Настройки сохранены</string>
 </resources>

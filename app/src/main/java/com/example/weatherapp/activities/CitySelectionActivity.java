@@ -11,6 +11,7 @@ import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.CitiesFragment;
 import com.example.weatherapp.models.City;
 import com.example.weatherapp.utils.MainPresenter;
+import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -21,13 +22,14 @@ public class CitySelectionActivity extends BaseActivity
 
     private final MainPresenter presenter = MainPresenter.getInstance();
     private TextInputEditText txtCityToAdd;
+    private UserPreferences userPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_city_selection);
-
+        userPreferences = new UserPreferences(this);
         txtCityToAdd = findViewById(R.id.city_to_add);
     }
 
@@ -71,6 +73,7 @@ public class CitySelectionActivity extends BaseActivity
 
     @Override
     public void onSelectCity(City item) {
+        userPreferences.setCurrentCity(item.getName());
         presenter.setCity(item.getName());
         Intent intentResult = new Intent();
         setResult(RESULT_OK, intentResult);
