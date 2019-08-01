@@ -1,8 +1,8 @@
 package com.example.weatherapp.networks;
 
 import com.example.weatherapp.interfaces.DataSource;
-import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.models.CurrentWeatherRequest;
+import com.example.weatherapp.models.WeatherItem;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -31,9 +30,14 @@ public class WeatherDataLoader implements DataSource {
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setReadTimeout(10000);
                 BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                final String result = in.lines().collect(Collectors.joining(NEW_LINE));
+                StringBuilder result = new StringBuilder(1024);
+                String tempData;
+                while ((tempData = in.readLine()) != null) {
+                    result.append(tempData).append(NEW_LINE);
+                }
+                in.close();
                 Gson gson = new Gson();
-                return gson.fromJson(result, CurrentWeatherRequest.class);
+                return gson.fromJson(result.toString(), CurrentWeatherRequest.class);
             } catch (ProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {

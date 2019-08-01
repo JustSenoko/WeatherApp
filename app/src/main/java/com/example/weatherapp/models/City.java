@@ -8,7 +8,6 @@ import java.util.Date;
 public class City {
     private final String name;
     private WeatherItem currentWeather;
-    private CurrentWeatherRequest weatherRequest;
 
     public City(String name) {
         this.name = name;
@@ -19,7 +18,6 @@ public class City {
     public City(String name, DataSource dataSource) {
         this.name = name;
         loadCurrentWeather(name, dataSource);
-
     }
 
     private void loadCurrentWeather(String cityName, DataSource dataSource) {
@@ -32,7 +30,6 @@ public class City {
 
     public City(String name, CurrentWeatherRequest weatherRequest) {
         this.name = name;
-        this.weatherRequest = weatherRequest;
     }
 
     public String getName() {
