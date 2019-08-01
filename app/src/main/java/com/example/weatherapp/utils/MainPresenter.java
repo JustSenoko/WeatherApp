@@ -2,10 +2,11 @@ package com.example.weatherapp.utils;
 
 import com.example.weatherapp.interfaces.DataSource;
 import com.example.weatherapp.models.City;
+import com.example.weatherapp.models.CurrentWeatherRequest;
 import com.example.weatherapp.networks.FakeDataSource;
-import com.example.weatherapp.models.TemperatureUnits;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public final class MainPresenter {
@@ -16,16 +17,14 @@ public final class MainPresenter {
     // Поле для синхронизации
     private static final Object syncObj = new Object();
 
-    private String city;
-    private boolean showPressure;
-    private boolean showWind;
-    private boolean showFeelsLike;
-    private TemperatureUnits tUnit;
+    private CurrentWeatherRequest wr;
+    private Date lastRequestTime;
 
     private List<City> selectedCities = new ArrayList<>();
     private int currentCityIndex;
 
     private final DataSource dataSource;
+    private String city = "Moscow";
 
     // Конструктор (вызывать извне его нельзя, поэтому он приватный)
     private MainPresenter(){
@@ -35,32 +34,7 @@ public final class MainPresenter {
             addCity("Saint Petersburg");
             addCity("London");
         }
-        city = "Moscow";
         currentCityIndex = 0;
-        showPressure = true;
-        showWind = true;
-        showFeelsLike = true;
-        tUnit = TemperatureUnits.C;
-    }
-
-    public boolean isShowPressure() {
-        return showPressure;
-    }
-
-    public boolean isShowWind() {
-        return showWind;
-    }
-
-    public boolean isShowFeelsLike() {
-        return showFeelsLike;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public TemperatureUnits getTUnit() {
-        return tUnit;
     }
 
     public DataSource getDataSource() {
@@ -98,24 +72,8 @@ public final class MainPresenter {
         }
     }
 
-    public void setShowPressure(boolean showPressure) {
-        this.showPressure = showPressure;
-    }
-
-    public void setShowWind(boolean showWind) {
-        this.showWind = showWind;
-    }
-
-    public void setShowFeelsLike(boolean showFeelsLike) {
-        this.showFeelsLike = showFeelsLike;
-    }
-
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void settUnit(TemperatureUnits tUnit) {
-        this.tUnit = tUnit;
     }
 
     // Метод, который возвращает экземпляр объекта.
@@ -131,4 +89,16 @@ public final class MainPresenter {
         }
     }
 
+    public CurrentWeatherRequest getWr() {
+        return wr;
+    }
+
+    public void setWr(CurrentWeatherRequest wr) {
+        this.wr = wr;
+        this.lastRequestTime = new Date();
+    }
+
+    public Date getLastRequestTime() {
+        return lastRequestTime;
+    }
 }

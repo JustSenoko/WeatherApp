@@ -3,26 +3,25 @@ package com.example.weatherapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.utils.MainPresenter;
+import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SettingsActivity extends BaseActivity {
 
-    private final MainPresenter presenter = MainPresenter.getInstance();
     private final static int CITY_SELECTION_REQUEST_CODE = 2;
+    private static String SETTINGS_SAVED;
+
+    private UserPreferences userPreferences;
 
     private Switch darkTheme;
     private TextView twCity;
-    private Spinner spUnit;
     private Switch showPressure;
     private Switch showWind;
-    private Switch showFeelsLike;
+    private Switch imperialUnits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,50 +29,44 @@ public class SettingsActivity extends BaseActivity {
 
         setContentView(R.layout.activity_settings);
 
-        darkTheme = findViewById(R.id.theme);
+        userPreferences = new UserPreferences(this);
+        SETTINGS_SAVED = getResources().getString(R.string.msg_settings_saved);
+
+        darkTheme = findViewById(R.id.darkTheme);
         twCity = findViewById(R.id.current_city);
         showPressure = findViewById(R.id.show_pressure);
         showWind = findViewById(R.id.show_wind);
-        showFeelsLike = findViewById(R.id.show_feels_like);
-        spUnit = findViewById(R.id.spinner_units);
+        imperialUnits = findViewById(R.id.units);
 
         restoreSettingsValues();
-
-        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.temp_units));
-        // Определяем разметку для использования при выборе элемента
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Применяем адаптер к элементу spinner
-        spUnit.setAdapter(adapter);
     }
 
     private void restoreSettingsValues() {
-        darkTheme.setChecked(isDarkTheme());
-        twCity.setText(presenter.getCity());
-        showPressure.setChecked(presenter.isShowPressure());
-        showWind.setChecked(presenter.isShowWind());
-        showFeelsLike.setChecked(presenter.isShowFeelsLike());
-        //spUnit.setSelection(0); //TODO
+        darkTheme.setChecked(userPreferences.isDarkTheme());
+        twCity.setText(userPreferences.getCurrentCity());
+        showPressure.setChecked(userPreferences.isShowPressure());
+        showWind.setChecked(userPreferences.isShowWind());
+        imperialUnits.setChecked(userPreferences.useImperialUnits());
     }
 
     public void showPressureOnClick(View view) {
-        presenter.setShowPressure(showPressure.isChecked());
-        showResult(view, getResources().getString(R.string.msg_settings_saved));
+        userPreferences.setShowPressure(showPressure.isChecked());
+        showResult(view, SETTINGS_SAVED);
     }
 
     public void showWindOnClick(View view) {
-        presenter.setShowWind(showWind.isChecked());
-        showResult(view, getResources().getString(R.string.msg_settings_saved));
-    }
-
-    public void showFeelsLikeOnClick(View view) {
-        presenter.setShowFeelsLike(showFeelsLike.isChecked());
-        showResult(view, getResources().getString(R.string.msg_settings_saved));
+        userPreferences.setShowWind(showWind.isChecked());
+        showResult(view, SETTINGS_SAVED);
     }
 
     public void themeOnClick(View view) {
-        setDarkTheme(darkTheme.isChecked());
+        userPreferences.setDarkTheme(darkTheme.isChecked());
         recreate();
+    }
+
+    public void imperialUnitsOnClick(View view) {
+        userPreferences.setUseImperialUnits(imperialUnits.isChecked());
+        showResult(view, SETTINGS_SAVED);
     }
 
     public void selectCity(View view) {
@@ -87,10 +80,12 @@ public class SettingsActivity extends BaseActivity {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
-        twCity.setText(presenter.getCity());
+        twCity.setText(userPreferences.getCurrentCity());
     }
 
     private void showResult(View v, String message) {
         Snackbar.make(v, message, Snackbar.LENGTH_SHORT).show();
     }
+
+
 }

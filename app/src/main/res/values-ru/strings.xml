@@ -4,9 +4,7 @@
     <string name="weather">облачно</string>
     <string name="app_name">Погода</string>
     <string name="delete_city_from_list">удалить город из списка</string>
-    <string name="city1">Санкт-Петербург</string>
     <string name="weather1">дождь</string>
-    <string name="city2">Лондон</string>
     <string name="weather2">пасмурно</string>
     <string name="add">Добавить</string>
     <string name="enter_city_to_add">Введите город</string>
@@ -16,16 +14,16 @@
     <string name="wind">ветер</string>
     <string name="feels_like">ощущается как</string>
     <string name="city_label">Город</string>
-    <string name="pressure_unit">мм.рт.ст.</string>
+    <string name="pressure_unit">гПа</string>
     <string name="wind_unit">м/с</string>
     <string name="settings">Настройки</string>
-    <string name="forecast_hourly">Почасовой прогноз</string>
     <string name="monday">пн</string>
     <string name="err_city_is_in_list">Город уже есть в списке</string>
     <string name="err_city_not_found">Город не найден</string>
     <string name="err_enter_city">Укажите город</string>
-    <string name="dark">темная</string>
-    <string name="light">светлая</string>
-    <string name="theme">тема</string>
+    <string name="theme">Тёмная тема</string>
     <string name="msg_settings_saved">Настройки сохранены</string>
+    <string name="imperial_units">Имперская система мер</string>
+    <string name="meter_sec">м/с</string>
+    <string name="miles_hour">миль/ч</string>
 </resources>
