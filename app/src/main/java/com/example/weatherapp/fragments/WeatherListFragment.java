@@ -45,7 +45,7 @@ public class WeatherListFragment extends Fragment {
             recyclerView.setAdapter(new WeatherItemAdapter(getWeatherItems()));
 
             int separator = (horizontal ? R.drawable.separator_vertical : R.drawable.separator_horizontal);
-            Drawable divider = context.getDrawable(separator);
+            Drawable divider = context.getResources().getDrawable(separator);
             if (divider != null) {
                 DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), layout.getOrientation());
                 itemDecoration.setDrawable(divider);
