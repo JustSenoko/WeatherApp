@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.CitiesFragment;
-import com.example.weatherapp.models.City;
+import com.example.weatherapp.models.POJO.City;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.updateView(cities.get(position));
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mSelectListener) {
@@ -66,27 +66,21 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private final View mView;
+        private final View itemView;
         private final TextView city;
-        private final TextView temperature;
-        private final TextView weather;
         private final ImageButton delete;
         private City mItem;
 
         ViewHolder(View view) {
             super(view);
-            mView = view;
+            itemView = view;
             city = view.findViewById(R.id.city_name);
-            temperature = view.findViewById(R.id.city_temperature);
-            weather = view.findViewById(R.id.city_weather);
             delete = view.findViewById(R.id.deleteCity);
         }
 
         void updateView(City cityItem) {
             mItem = cityItem;
             city.setText(mItem.getName());
-            temperature.setText(String.valueOf(mItem.getCurrentTemperature()));
-            weather.setText(String.valueOf(mItem.getCurrentWeather()));
         }
     }
 }
