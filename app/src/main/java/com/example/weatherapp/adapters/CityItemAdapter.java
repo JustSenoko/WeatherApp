@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.CitiesFragment;
-import com.example.weatherapp.models.POJO.City;
+import com.example.weatherapp.models.pojo.City;
 
 import java.util.List;
 

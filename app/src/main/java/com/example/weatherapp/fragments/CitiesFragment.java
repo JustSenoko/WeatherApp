@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.adapters.CityItemAdapter;
-import com.example.weatherapp.models.City;
-import com.example.weatherapp.utils.MainPresenter;
+import com.example.weatherapp.models.pojo.City;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class CitiesFragment extends Fragment {
 
     private OnSelectCityListener mSelectListener;
     private OnDeleteCityListener mDeleteListener;
-    private final MainPresenter presenter = MainPresenter.getInstance();
+    private final SelectedCities presenter = SelectedCities.getInstance();
     private CityItemAdapter adapter;
 
     /**

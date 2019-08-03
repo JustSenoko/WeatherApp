@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class WeatherListFragment extends Fragment {
+class WeatherListFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,12 +56,13 @@ public class WeatherListFragment extends Fragment {
     }
 
     private List<WeatherItem> getWeatherItems() {
+        //TODO
         Calendar calendar = new GregorianCalendar();
         List<WeatherItem> items = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             items.add(new WeatherItem(calendar.getTime(),
-                    18 + i, 176 + (i % 2), 3, 18 - i, "cloudy"));
+                    18 + i, 176 + (i % 2), 3, "cloudy"));
         }
         return items;
     }

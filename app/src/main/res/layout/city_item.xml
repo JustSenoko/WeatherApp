@@ -4,59 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/city_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/city_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/city"
-            android:textAllCaps="false"
-            android:textSize="@dimen/city_size_in_selection"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/city_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/temperature" />
-
-            <TextView
-                android:id="@+id/city_temperature_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/unit" />
-
-            <TextView
-                android:id="@+id/comma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/text_delimiter" />
-
-            <TextView
-                android:id="@+id/city_weather"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:text="@string/weather" />
-        </LinearLayout>
-
-    </LinearLayout>
+        android:text="@string/city"
+        android:textSize="@dimen/city_size_in_selection"
+        android:layout_weight="1"/>
 
     <View
         android:id="@+id/divider"

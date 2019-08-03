@@ -14,21 +14,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.models.CurrentWeatherRequest;
+import com.example.weatherapp.interfaces.WeatherDataSource;
+import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
-import com.example.weatherapp.models.weather.Weather;
+import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.networks.WeatherDataLoader;
-import com.example.weatherapp.utils.MainPresenter;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Date;
 import java.util.Objects;
 
-public class MainFragment extends Fragment {
+class MainFragment extends Fragment {
 
+    private final SelectedCities selectedCities = SelectedCities.getInstance();
     private UserPreferences userPreferences;
-    private static final int WEATHER_VALID_DURATION = 5 * 60 * 1000; // 5 min
 
     private TextView twCity;
     private TextView twTemperatureUnit;
@@ -70,30 +69,25 @@ public class MainFragment extends Fragment {
         twWeather = view.findViewById(R.id.city_weather);
 
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
-        updateWeatherData();
+        updateWeatherData(selectedCities.getCurrentCity().getName());
         updateView();
     }
 
-    private void updateWeatherData() {
-        MainPresenter presenter = MainPresenter.getInstance();
-        if (weatherIsValid(presenter)) {
-            updateWeatherInfo(presenter.getWr());
-            return;
-        }
-        final String cityName = userPreferences.getCurrentCity();
+    private void updateWeatherData(final String cityName) {
+        final WeatherDataSource weatherDataSource = new WeatherDataLoader();
         final String units = Units.getUnitsName(userPreferences.useImperialUnits());
         final Handler handler = new Handler();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final CurrentWeatherRequest wr = WeatherDataLoader.loadCurrentWeatherData(cityName, units);
+                final WeatherItem currentWeather = weatherDataSource.loadCurrentWeatherData(cityName, units);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (wr == null) {
+                        if (currentWeather == null) {
                             showErrorMessage();
                         } else {
-                            updateWeatherInfo(wr);
+                            updateWeatherInfo(currentWeather);
                         }
                     }
                 });
@@ -101,21 +95,12 @@ public class MainFragment extends Fragment {
         }).start();
     }
 
-    private boolean weatherIsValid(MainPresenter presenter) {
-        if (presenter.getWr() == null) {
-            return false;
-        }
-        return presenter.getWr().getName().equals(userPreferences.getCurrentCity())
-                && (presenter.getLastRequestTime().getTime() - new Date().getTime()) < WEATHER_VALID_DURATION;
-    }
-
     @SuppressLint("DefaultLocale")
-    private void updateWeatherInfo(CurrentWeatherRequest wr) {
-        twTemperatureValue.setText(String.format("%2.0f", wr.getMain().getTemp()));
-        twPressureValue.setText(String.valueOf((Integer) wr.getMain().getPressure()));
-        twWindValue.setText(String.format("%2.1f", wr.getWind().getSpeed()));
-        Weather weather = wr.getWeather();
-        twWeather.setText(weather == null ? "" : weather.getDescription());
+    private void updateWeatherInfo(WeatherItem currentWeather) {
+        twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
+        twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));
+        twWindValue.setText(String.format("%2.1f", currentWeather.getWind()));
+        twWeather.setText(currentWeather.getWeather());
     }
 
     private void showErrorMessage() {
@@ -123,7 +108,7 @@ public class MainFragment extends Fragment {
     }
 
     private void updateView() {
-        twCity.setText(userPreferences.getCurrentCity());
+        twCity.setText(selectedCities.getCurrentCity().getName());
         twTemperatureUnit.setText(Units.getTemperatureUnit(userPreferences.useImperialUnits()));
 
         pressure.setVisibility(visibility(userPreferences.isShowPressure()));

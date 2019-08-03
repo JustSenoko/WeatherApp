@@ -10,12 +10,13 @@ public class UserPreferences {
     private static final String NAME_SHARED_PREFERENCES = "Weather_App";
 
     private static final String IS_DARK_THEME = "dark_theme";
-    private static final String CURRENT_CITY = "city";
+    private static final String CURRENT_CITY_ID = "city_id";
+    private static final String SELECTED_CITIES_JSON = "selected_cities_json";
     private static final String SHOW_PRESSURE = "show_pressure";
     private static final String SHOW_WIND = "show_wind";
     private static final String USE_IMPERIAL_UNITS = "use_imperial_units";
 
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     public UserPreferences(Activity activity) {
         sharedPreferences = activity.getSharedPreferences(NAME_SHARED_PREFERENCES, MODE_PRIVATE);
@@ -29,12 +30,12 @@ public class UserPreferences {
         sharedPreferences.edit().putBoolean(IS_DARK_THEME, isDarkTheme).apply();
     }
 
-    public String getCurrentCity() {
-        return sharedPreferences.getString(CURRENT_CITY, "Moscow");
+    public int getCurrentCityId() {
+        return sharedPreferences.getInt(CURRENT_CITY_ID, 524901); // Moscow
     }
 
-    public void setCurrentCity(String currentCity) {
-        sharedPreferences.edit().putString(CURRENT_CITY, currentCity).apply();
+    public void setCurrentCityId(int id) {
+        sharedPreferences.edit().putInt(CURRENT_CITY_ID, id).apply();
     }
 
     public boolean isShowPressure() {

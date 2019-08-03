@@ -1,6 +1,6 @@
 package com.example.weatherapp.models;
 
-import com.example.weatherapp.models.POJO.City;
+import com.example.weatherapp.models.pojo.City;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 //Singleton
 public final class SelectedCities {
 
-    private List<City> selectedCities = new ArrayList<>();
+    private final List<City> selectedCities = new ArrayList<>();
     private City currentCity;
 
     //Внутреннее поле, будет хранить единственный экземпляр
