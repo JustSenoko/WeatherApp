@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherapp.R;
 import com.example.weatherapp.adapters.CityItemAdapter;
 import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.utils.ConfSingleton;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CitiesFragment extends Fragment {
 
     private OnSelectCityListener mSelectListener;
     private OnDeleteCityListener mDeleteListener;
-    private final SelectedCities presenter = SelectedCities.getInstance();
+    private ConfSingleton conf = ConfSingleton.getInstance();
     private CityItemAdapter adapter;
 
     /**
@@ -65,7 +66,7 @@ public class CitiesFragment extends Fragment {
     }
 
     private List<City> getCities() {
-        return presenter.getSelectedCities();
+        return conf.getSelectedCities().getSelectedCitiesList();
     }
 
     @Override

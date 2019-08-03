@@ -3,6 +3,11 @@ package com.example.weatherapp.utils;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import com.example.weatherapp.models.SelectedCities;
+import com.google.gson.Gson;
+
+import java.util.Objects;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class UserPreferences {
@@ -60,5 +65,15 @@ public class UserPreferences {
 
     public void setUseImperialUnits(boolean useImperialUnits) {
         sharedPreferences.edit().putBoolean(USE_IMPERIAL_UNITS, useImperialUnits).apply();
+    }
+
+    public SelectedCities getSelectedCities() {
+        return new SelectedCities(Objects.requireNonNull(sharedPreferences.getString(SELECTED_CITIES_JSON, "")), getCurrentCityId());
+    }
+
+    public void setSelectedCitiesJson(SelectedCities selectedCities) {
+        Gson gson = new Gson();
+        String selectedCitiesJSON = gson.toJson(selectedCities.getSelectedCitiesList());
+        sharedPreferences.edit().putString(SELECTED_CITIES_JSON, selectedCitiesJSON).apply();
     }
 }

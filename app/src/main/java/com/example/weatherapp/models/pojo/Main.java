@@ -2,7 +2,7 @@ package com.example.weatherapp.models.pojo;
 
 public class Main {
     private float temp;
-    private int pressure;
+    private float pressure;
     private int humidity;
     private int temp_min;
     private int temp_max;
@@ -11,7 +11,7 @@ public class Main {
         return temp;
     }
 
-    public int getPressure() {
+    public float getPressure() {
         return pressure;
     }
 

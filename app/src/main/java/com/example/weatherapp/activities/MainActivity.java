@@ -6,6 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.networks.CityDataJSON;
+import com.example.weatherapp.utils.ConfSingleton;
+import com.example.weatherapp.utils.UserPreferences;
 
 public class MainActivity extends BaseActivity {
     private static final int SETTINGS_REQUEST_CODE = 1;
@@ -13,7 +16,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
         setContentView(R.layout.activity_main);
+
+
+    }
+
+    private void init() {
+        UserPreferences userPreferences = new UserPreferences(this);
+        ConfSingleton conf = ConfSingleton.getInstance();
+        conf.setCitiesData(new CityDataJSON(this));
+        conf.setSelectedCities(userPreferences.getSelectedCities());
     }
 
     @Override

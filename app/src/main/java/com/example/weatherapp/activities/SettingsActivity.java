@@ -7,6 +7,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.models.SelectedCities;
+import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -16,6 +18,7 @@ public class SettingsActivity extends BaseActivity {
     private static String SETTINGS_SAVED;
 
     private UserPreferences userPreferences;
+    private SelectedCities selectedCities = ConfSingleton.getInstance().getSelectedCities();
 
     private Switch darkTheme;
     private TextView twCity;
@@ -43,7 +46,7 @@ public class SettingsActivity extends BaseActivity {
 
     private void restoreSettingsValues() {
         darkTheme.setChecked(userPreferences.isDarkTheme());
-        twCity.setText(userPreferences.getCurrentCity());
+        twCity.setText(selectedCities.getCurrentCity().getName());
         showPressure.setChecked(userPreferences.isShowPressure());
         showWind.setChecked(userPreferences.isShowWind());
         imperialUnits.setChecked(userPreferences.useImperialUnits());
@@ -80,7 +83,7 @@ public class SettingsActivity extends BaseActivity {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
-        twCity.setText(userPreferences.getCurrentCity());
+        twCity.setText(selectedCities.getCurrentCity().getName());
     }
 
     private void showResult(View v, String message) {

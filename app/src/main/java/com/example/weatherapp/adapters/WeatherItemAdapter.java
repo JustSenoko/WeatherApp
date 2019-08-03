@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.models.pojo.WeatherForecast;
 import com.example.weatherapp.models.WeatherItem;
 
 import java.text.SimpleDateFormat;
@@ -19,7 +18,7 @@ import java.util.Locale;
 
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
-    private List<WeatherForecast> items;
+    private List<WeatherItem> items;
     private static final String DATE_FORMAT = "d MMM";
 
     public WeatherItemAdapter(List<WeatherItem> items) {
@@ -52,7 +51,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         private final TextView temperature;
         private final TextView weather;
         private final TextView date;
-        private WeatherForecast item;
+        private WeatherItem item;
 
         ViewHolder(View view) {
             super(view);
@@ -61,10 +60,10 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
             date = view.findViewById(R.id.date);
         }
 
-        void updateView(WeatherForecast forecastItem) {
-            item = forecastItem;
-            temperature.setText(String.valueOf(item.getMain().getTemp()));
-            weather.setText(String.valueOf(item.getWeather().getDescription()));
+        void updateView(WeatherItem weatherItem) {
+            item = weatherItem;
+            temperature.setText(String.valueOf(item.getTemperature()));
+            weather.setText(String.valueOf(item.getWeather()));
             date.setText(getDateFormatted(item.getDate()));
         }
     }

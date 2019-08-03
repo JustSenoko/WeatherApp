@@ -10,20 +10,21 @@ import androidx.fragment.app.FragmentManager;
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.CitiesFragment;
 import com.example.weatherapp.interfaces.CitiesDataSource;
-import com.example.weatherapp.models.pojo.City;
 import com.example.weatherapp.models.SelectedCities;
-import com.example.weatherapp.networks.CityDataJSON;
+import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.List;
 import java.util.Objects;
 
 public class CitySelectionActivity extends BaseActivity
         implements CitiesFragment.OnSelectCityListener, CitiesFragment.OnDeleteCityListener {
 
-    private final SelectedCities selectedCities = SelectedCities.getInstance();
-    private final CitiesDataSource citiesDataSource = CityDataJSON.getInstance();
+    private final SelectedCities selectedCities = ConfSingleton.getInstance().getSelectedCities();
+    private final CitiesDataSource citiesDataSource = ConfSingleton.getInstance().getCitiesData();
     private TextInputEditText txtCityToAdd;
     private UserPreferences userPreferences;
 
@@ -42,11 +43,12 @@ public class CitySelectionActivity extends BaseActivity
             showError(txtCityToAdd, getResources().getString(R.string.err_enter_city));
             return;
         }
-        City city = citiesDataSource.findCityByName(cityName);
-        if (city == null) {
+        List<City> cities = citiesDataSource.findCityByName(cityName);
+        if (cities.size() == 0) {
             showError(txtCityToAdd, getResources().getString(R.string.err_city_not_found));
             return;
         }
+        City city = cities.get(0);
         if (selectedCities.cityIsInList(city)) {
             showError(txtCityToAdd, getResources().getString(R.string.err_city_is_in_list));
             return;

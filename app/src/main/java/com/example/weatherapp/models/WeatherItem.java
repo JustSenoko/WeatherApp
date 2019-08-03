@@ -24,7 +24,7 @@ public class WeatherItem {
     public WeatherItem(CurrentWeatherData currentWeather) {
         date = currentWeather.getDate();
         temperature = (int) currentWeather.getMain().getTemp();
-        pressure = currentWeather.getMain().getPressure();
+        pressure = (int) currentWeather.getMain().getPressure();
         wind = (int) currentWeather.getWind().getSpeed();
         weather = currentWeather.getWeather().getDescription();
     }
@@ -32,7 +32,7 @@ public class WeatherItem {
     public WeatherItem(WeatherForecast weatherForecast) {
         date = weatherForecast.getDate();
         temperature = (int) weatherForecast.getMain().getTemp();
-        pressure = weatherForecast.getMain().getPressure();
+        pressure = (int) weatherForecast.getMain().getPressure();
         wind = weatherForecast.getWind().getSpeed();
         weather = weatherForecast.getWeather().getDescription();
     }

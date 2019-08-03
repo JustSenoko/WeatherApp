@@ -1,38 +1,51 @@
 package com.example.weatherapp.networks;
 
+import android.content.Context;
+
 import com.example.weatherapp.interfaces.CitiesDataSource;
 import com.example.weatherapp.models.pojo.City;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-//Singleton
 public class CityDataJSON implements CitiesDataSource {
 
     private final List<City> cities = new ArrayList<>();
+    private static final String assetFileName = "city.list.json";
 
-    //Внутреннее поле, будет хранить единственный экземпляр
-    private static CityDataJSON instance = null;
-    // Поле для синхронизации
-    private static final Object syncObj = new Object();
-
-    private CityDataJSON() {
-        //TODO read json from res
-        cities.add(new City("Moscow", 524901, "RU"));
-    }
-
-    public static CityDataJSON getInstance(){
-        synchronized (syncObj) {
-            if (instance == null) {
-                instance = new CityDataJSON();
-            }
-            return instance;
+    public CityDataJSON(Context context) {
+        String json = readJSONFromAsset(context);
+        if (json == null) {
+            cities.add(new City("Moscow", 524901, "RU"));
         }
     }
 
+    private String readJSONFromAsset(Context context) {
+        String json = null;
+        try {
+            InputStream in = context.getAssets().open(assetFileName);
+            int size = in.available();
+            byte[] buffer = new byte[size];
+            in.read(buffer);
+            in.close();
+            json = new String(buffer, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
     @Override
-    public City findCityByName(String cityName) {
-        //TODO
-        return null;
+    public List<City> findCityByName(String cityName) {
+        List<City> result = new ArrayList<>();
+        for (City city : cities) {
+            if (city.getName().equals(cityName)) {
+                result.add(city);
+            }
+        }
+        return result;
     }
 }

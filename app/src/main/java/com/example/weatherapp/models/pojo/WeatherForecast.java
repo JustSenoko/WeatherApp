@@ -1,4 +1,4 @@
-package com.example.weatherapp.models.POJO;
+package com.example.weatherapp.models.pojo;
 
 import android.annotation.SuppressLint;
 

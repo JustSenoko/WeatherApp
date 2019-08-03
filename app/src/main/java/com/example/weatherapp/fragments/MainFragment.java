@@ -18,7 +18,9 @@ import com.example.weatherapp.interfaces.WeatherDataSource;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
+import com.example.weatherapp.models.pojo.City;
 import com.example.weatherapp.networks.WeatherDataLoader;
+import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -26,7 +28,7 @@ import java.util.Objects;
 
 class MainFragment extends Fragment {
 
-    private final SelectedCities selectedCities = SelectedCities.getInstance();
+    private final SelectedCities selectedCities = ConfSingleton.getInstance().getSelectedCities();
     private UserPreferences userPreferences;
 
     private TextView twCity;
@@ -69,8 +71,11 @@ class MainFragment extends Fragment {
         twWeather = view.findViewById(R.id.city_weather);
 
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
-        updateWeatherData(selectedCities.getCurrentCity().getName());
-        updateView();
+        City currentCity = selectedCities.getCurrentCity();
+        if (currentCity != null) {
+            updateWeatherData(currentCity.getName());
+            updateView();
+        }
     }
 
     private void updateWeatherData(final String cityName) {

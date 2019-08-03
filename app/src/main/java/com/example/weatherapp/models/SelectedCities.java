@@ -1,52 +1,60 @@
 package com.example.weatherapp.models;
 
 import com.example.weatherapp.models.pojo.City;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-//Singleton
 public final class SelectedCities {
 
-    private final List<City> selectedCities = new ArrayList<>();
-    private City currentCity;
+    private List<City> selectedCitiesList = new ArrayList<>();
+    private City currentCity = null;
 
-    //Внутреннее поле, будет хранить единственный экземпляр
-    private static SelectedCities instance = null;
-    // Поле для синхронизации
-    private static final Object syncObj = new Object();
+    public SelectedCities(String selectedCitiesJSON, int currentCityId) {
 
-    private SelectedCities() {
-    }
-
-    public static SelectedCities getInstance(){
-        synchronized (syncObj) {
-            if (instance == null) {
-                instance = new SelectedCities();
+        if (selectedCitiesJSON.isEmpty()) {
+            return;
+        }
+        Gson gson = new Gson();
+        City[] selectedCities = gson.fromJson(selectedCitiesJSON, City[].class);
+        if (selectedCities == null || selectedCities.length == 0) {
+            return;
+        }
+        selectedCitiesList = Arrays.asList(selectedCities);
+        for (City city : selectedCities) {
+            if (city.getId() == currentCityId) {
+                currentCity = city;
+                break;
             }
-            return instance;
         }
     }
 
-    public List<City> getSelectedCities() {
-        return selectedCities;
+    private SelectedCities() {
+        selectedCitiesList = new ArrayList<>();
+        currentCity = null;
+    }
+
+    public List<City> getSelectedCitiesList() {
+        return selectedCitiesList;
     }
 
     public void addCity(City city) {
-        if (selectedCities.contains(city)) {
+        if (selectedCitiesList.contains(city)) {
             return;
         }
-        selectedCities.add(city);
+        selectedCitiesList.add(city);
     }
 
     public boolean cityIsInList(City city) {
-        return selectedCities.contains(city);
+        return selectedCitiesList.contains(city);
     }
 
     public void deleteCity(City city) {
-        selectedCities.remove(city);
-        if (this.currentCity.getName().equals(city.getName()) && selectedCities.size() > 0) {
-            this.currentCity = selectedCities.get(0);
+        selectedCitiesList.remove(city);
+        if (this.currentCity.getName().equals(city.getName()) && selectedCitiesList.size() > 0) {
+            this.currentCity = selectedCitiesList.get(0);
         }
     }
 
