@@ -49,15 +49,9 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        initDrawerLayout(toolbar);
 
-        init();
+        initUtils();
 
         if (savedInstanceState==null) {
             fragmentManager.beginTransaction()
@@ -67,7 +61,17 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    private void init() {
+    private void initDrawerLayout(Toolbar toolbar) {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initUtils() {
         userPreferences = new UserPreferences(this);
         selectedCities = userPreferences.getSelectedCities();
 
@@ -76,7 +80,6 @@ public class MainActivity extends BaseActivity
         //conf.setCitiesData(new CityDataJSON(this));
         conf.setSelectedCities(selectedCities);
         mainFragment = new MainFragment();
-        publisher.subscribeWeatherInfo(mainFragment);
         citySelectionFragment = new CitySelectionFragment();
         publisher.subscribeCityList(citySelectionFragment);
     }
@@ -175,10 +178,5 @@ public class MainActivity extends BaseActivity
     @Override
     public void onThemeChanged() {
         recreate();
-    }
-
-    @Override
-    public void onSettingsChanged() {
-        //TODO
     }
 }

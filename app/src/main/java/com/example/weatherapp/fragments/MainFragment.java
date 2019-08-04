@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.adapters.WeatherItemAdapter;
-import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.interfaces.WeatherDataSource;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
@@ -37,7 +36,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
-public class MainFragment extends Fragment implements ObserverWeatherInfo {
+public class MainFragment extends Fragment {
 
     private SelectedCities selectedCities;
     private UserPreferences userPreferences;
@@ -195,8 +194,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         return View.GONE;
     }
 
-    @Override
-    public void updateWeatherInfo() {
+    private void updateWeatherInfo() {
         City currentCity = selectedCities.getCurrentCity();
         if (currentCity != null) {
             updateCurrentWeatherData(currentCity.getName());
