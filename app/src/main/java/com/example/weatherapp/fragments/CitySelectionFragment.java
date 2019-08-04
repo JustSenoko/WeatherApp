@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -102,12 +101,6 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
             adapter = new CityItemAdapter(selectedCities.getSelectedCitiesList(), mListener);
             rvCityList.setAdapter(adapter);
         }
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.menu_change_city).setVisible(false);
-        super.onPrepareOptionsMenu(menu);
     }
 
     @Override

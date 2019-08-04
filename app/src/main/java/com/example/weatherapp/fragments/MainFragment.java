@@ -137,7 +137,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         //TODO replace fake data
         Calendar calendar = new GregorianCalendar();
         List<WeatherItem> items = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             items.add(new WeatherItem(calendar.getTime(),
                     selectedCities.getCurrentCity(),
