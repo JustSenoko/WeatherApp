@@ -29,7 +29,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.weather_item, parent, false);
+                .inflate(R.layout.layout_weather_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,7 +51,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         private final TextView temperature;
         private final TextView weather;
         private final TextView date;
-        private WeatherItem mItem;
+        private WeatherItem item;
 
         ViewHolder(View view) {
             super(view);
@@ -61,10 +61,10 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         }
 
         void updateView(WeatherItem weatherItem) {
-            mItem = weatherItem;
-            temperature.setText(String.valueOf(mItem.getTemperature()));
-            weather.setText(String.valueOf(mItem.getWeather()));
-            date.setText(getDateFormatted(mItem.getDate()));
+            item = weatherItem;
+            temperature.setText(String.valueOf(item.getTemperature()));
+            weather.setText(String.valueOf(item.getWeather()));
+            date.setText(getDateFormatted(item.getDate()));
         }
     }
 }

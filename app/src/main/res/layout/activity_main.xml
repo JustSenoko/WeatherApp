@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
-
-    <fragment
-        android:id="@+id/main_fragment"
-        android:name="com.example.weatherapp.fragments.MainFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        tools:layout="@layout/fragment_main" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_weight="0"
-        android:background="?android:attr/listDivider" />
-
-    <fragment
-        android:id="@+id/fragment_weather_list"
-        android:name="com.example.weatherapp.fragments.WeatherListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        tools:layout="@layout/fragment_weather_list" />
-
-</LinearLayout>
+</FrameLayout>

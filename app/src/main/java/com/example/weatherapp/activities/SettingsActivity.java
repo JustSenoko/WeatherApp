@@ -1,12 +1,12 @@
 package com.example.weatherapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.models.SelectedCities;
+import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -16,9 +16,9 @@ public class SettingsActivity extends BaseActivity {
     private static String SETTINGS_SAVED;
 
     private UserPreferences userPreferences;
+    private SelectedCities selectedCities = ConfSingleton.getInstance().getSelectedCities();
 
     private Switch darkTheme;
-    private TextView twCity;
     private Switch showPressure;
     private Switch showWind;
     private Switch imperialUnits;
@@ -27,13 +27,12 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.fragment_settings);
 
         userPreferences = new UserPreferences(this);
         SETTINGS_SAVED = getResources().getString(R.string.msg_settings_saved);
 
         darkTheme = findViewById(R.id.darkTheme);
-        twCity = findViewById(R.id.current_city);
         showPressure = findViewById(R.id.show_pressure);
         showWind = findViewById(R.id.show_wind);
         imperialUnits = findViewById(R.id.units);
@@ -43,7 +42,6 @@ public class SettingsActivity extends BaseActivity {
 
     private void restoreSettingsValues() {
         darkTheme.setChecked(userPreferences.isDarkTheme());
-        twCity.setText(userPreferences.getCurrentCity());
         showPressure.setChecked(userPreferences.isShowPressure());
         showWind.setChecked(userPreferences.isShowWind());
         imperialUnits.setChecked(userPreferences.useImperialUnits());
@@ -67,20 +65,6 @@ public class SettingsActivity extends BaseActivity {
     public void imperialUnitsOnClick(View view) {
         userPreferences.setUseImperialUnits(imperialUnits.isChecked());
         showResult(view, SETTINGS_SAVED);
-    }
-
-    public void selectCity(View view) {
-        Intent intent = new Intent(SettingsActivity.this, CitySelectionActivity.class);
-        startActivityForResult(intent, CITY_SELECTION_REQUEST_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode != CITY_SELECTION_REQUEST_CODE) {
-            super.onActivityResult(requestCode, resultCode, data);
-            return;
-        }
-        twCity.setText(userPreferences.getCurrentCity());
     }
 
     private void showResult(View v, String message) {
