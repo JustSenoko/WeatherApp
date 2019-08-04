@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.fragments.CitiesFragment;
+import com.example.weatherapp.fragments.CitySelectionFragment;
 import com.example.weatherapp.models.pojo.City;
 
 import java.util.List;
@@ -18,21 +18,18 @@ import java.util.List;
 public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHolder> {
 
     private final List<City> cities;
-    private final CitiesFragment.OnSelectCityListener mSelectListener;
-    private final CitiesFragment.OnDeleteCityListener mDeleteListener;
+    private final CitySelectionFragment.OnFragmentCitySelectionListener mListener;
 
-    public CityItemAdapter(List<City> cities, CitiesFragment.OnSelectCityListener selectListener,
-                           CitiesFragment.OnDeleteCityListener deleteListener) {
+    public CityItemAdapter(List<City> cities, CitySelectionFragment.OnFragmentCitySelectionListener listener) {
         this.cities = cities;
-        mSelectListener = selectListener;
-        mDeleteListener = deleteListener;
+        mListener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.city_item, parent, false);
+                .inflate(R.layout.layout_city_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -43,18 +40,18 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mSelectListener) {
+                if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mSelectListener.onSelectCity(holder.mItem);
+                    mListener.onSelectCity(holder.mItem);
                 }
             }
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mDeleteListener) {
-                    mDeleteListener.onDeleteCity(holder.mItem);
+                if (null != mListener) {
+                    mListener.onDeleteCity(holder.mItem);
                 }
             }
         });
@@ -75,7 +72,7 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
             super(view);
             itemView = view;
             city = view.findViewById(R.id.city_name);
-            delete = view.findViewById(R.id.deleteCity);
+            delete = view.findViewById(R.id.delete_city);
         }
 
         void updateView(City cityItem) {

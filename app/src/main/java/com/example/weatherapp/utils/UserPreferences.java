@@ -36,7 +36,7 @@ public class UserPreferences {
     }
 
     public int getCurrentCityId() {
-        return sharedPreferences.getInt(CURRENT_CITY_ID, 524901); // Moscow
+        return sharedPreferences.getInt(CURRENT_CITY_ID, 0);
     }
 
     public void setCurrentCityId(int id) {
@@ -74,6 +74,8 @@ public class UserPreferences {
     public void setSelectedCitiesJson(SelectedCities selectedCities) {
         Gson gson = new Gson();
         String selectedCitiesJSON = gson.toJson(selectedCities.getSelectedCitiesList());
-        sharedPreferences.edit().putString(SELECTED_CITIES_JSON, selectedCitiesJSON).apply();
+        sharedPreferences.edit()
+                .putString(SELECTED_CITIES_JSON, selectedCitiesJSON)
+                .apply();
     }
 }

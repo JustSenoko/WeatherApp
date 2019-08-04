@@ -22,18 +22,17 @@ public final class SelectedCities {
         if (selectedCities == null || selectedCities.length == 0) {
             return;
         }
-        selectedCitiesList = Arrays.asList(selectedCities);
-        for (City city : selectedCities) {
-            if (city.getId() == currentCityId) {
-                currentCity = city;
-                break;
+        selectedCitiesList = new ArrayList<>(Arrays.asList(selectedCities));
+        if (currentCityId == 0) {
+            currentCity = selectedCitiesList.get(0);
+        } else {
+            for (City city : selectedCities) {
+                if (city.getId() == currentCityId) {
+                    currentCity = city;
+                    break;
+                }
             }
         }
-    }
-
-    private SelectedCities() {
-        selectedCitiesList = new ArrayList<>();
-        currentCity = null;
     }
 
     public List<City> getSelectedCitiesList() {
@@ -41,7 +40,7 @@ public final class SelectedCities {
     }
 
     public void addCity(City city) {
-        if (selectedCitiesList.contains(city)) {
+        if (cityIsInList(city)) {
             return;
         }
         selectedCitiesList.add(city);

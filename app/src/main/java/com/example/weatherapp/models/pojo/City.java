@@ -14,6 +14,12 @@ public class City {
         this.country = country;
     }
 
+    public City(String name, int id) {
+        this.name = name;
+        this.id = id;
+        this.country = null;
+    }
+
     public String getName() {
         return name;
     }
@@ -32,12 +38,11 @@ public class City {
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
         return id == city.id &&
-                name.equals(city.name) &&
-                Objects.equals(country, city.country);
+                name.equals(city.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, id, country);
+        return Objects.hash(name, id);
     }
 }

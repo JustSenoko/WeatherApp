@@ -3,24 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".fragments.MainFragment">
 
     <include layout="@layout/layout_weather_main"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"/>
-
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"/>
     <View
         android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
         android:background="?android:attr/listDivider" />
 
     <include layout="@layout/layout_weather_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content" />
 
 </LinearLayout>

@@ -2,13 +2,13 @@ package com.example.weatherapp.models.pojo;
 
 public class Wind {
     private float speed;
-    private int deg;
+    private float deg;
 
     public float getSpeed() {
         return speed;
     }
 
-    public int getDeg() {
+    public float getDeg() {
         return deg;
     }
 }

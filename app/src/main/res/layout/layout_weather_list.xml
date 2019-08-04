@@ -2,17 +2,14 @@
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:id="@+id/list"
-    android:name="com.example.weatherapp.fragments.CityFragment"
-    android:layout_width="match_parent"
+    android:id="@+id/weather_list"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:orientation="vertical"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".fragments.CitiesFragment"
-    tools:listitem="@layout/city_item">
+    tools:listitem="@layout/layout_weather_item">
 
 </androidx.recyclerview.widget.RecyclerView>
 

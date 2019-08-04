@@ -3,9 +3,9 @@ package com.example.weatherapp.models.pojo;
 public class Main {
     private float temp;
     private float pressure;
-    private int humidity;
-    private int temp_min;
-    private int temp_max;
+    private float humidity;
+    private float temp_min;
+    private float temp_max;
 
     public float getTemp() {
         return temp;
@@ -15,15 +15,15 @@ public class Main {
         return pressure;
     }
 
-    public int getHumidity() {
+    public float getHumidity() {
         return humidity;
     }
 
-    public int getTemp_min() {
+    public float getTemp_min() {
         return temp_min;
     }
 
-    public int getTemp_max() {
+    public float getTemp_max() {
         return temp_max;
     }
 }

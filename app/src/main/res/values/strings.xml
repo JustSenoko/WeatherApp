@@ -28,4 +28,6 @@
     <string name="theme">Dark theme</string>
     <string name="msg_settings_saved">Settings saved</string>
     <string name="imperial_units">Imperial units</string>
+    <string name="press_again_to_exit">Press once again to exit!</string>
+    <string name="changeCity">Change city</string>
 </resources>

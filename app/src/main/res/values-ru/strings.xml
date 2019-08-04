@@ -21,4 +21,6 @@
     <string name="imperial_units">Имперская система мер</string>
     <string name="meter_sec">м/с</string>
     <string name="miles_hour">миль/ч</string>
+    <string name="press_again_to_exit">Нажмите еще раз для выхода</string>
+    <string name="changeCity">Выбрать город</string>
 </resources>

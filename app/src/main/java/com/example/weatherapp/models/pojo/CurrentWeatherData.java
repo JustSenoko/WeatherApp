@@ -42,4 +42,8 @@ public class CurrentWeatherData {
     public Date getDate() {
         return date;
     }
+
+    public int getId() {
+        return id;
+    }
 }
