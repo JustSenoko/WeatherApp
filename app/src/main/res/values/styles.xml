@@ -9,6 +9,15 @@
         <item name="android:windowBackground">@color/lightThemeWindowBackground</item>
     </style>
 
+    <style name="LightTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="LightTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="LightTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="DarkTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/darkThemeColorPrimary</item>
@@ -16,5 +25,14 @@
         <item name="colorAccent">@color/darkThemeColorAccent</item>
         <item name="android:windowBackground">@color/darkThemeWindowBackground</item>
     </style>
+
+    <style name="DarkTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DarkTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="DarkTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
