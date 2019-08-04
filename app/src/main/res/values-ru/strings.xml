@@ -34,4 +34,8 @@
     <string name="quote">Хорошей погоды совершенно достаточно для счастья, а в плохую можно, к примеру, испечь яблочный пирог. И никакого дополнительного смысла не требуется. Как в детстве.</string>
     <string name="umbrella">Зонт</string>
     <string name="home">Главная</string>
+    <string name="enter_your_feedback">Напишите нам</string>
+    <string name="err_write_feedback">Напишите что-нибудь, пожалуйста.</string>
+    <string name="feedback_sent">Ваше сообщение было успешно отправлено.</string>
+    <string name="send">Отправить</string>
 </resources>

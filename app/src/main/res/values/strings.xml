@@ -41,4 +41,8 @@
     <string name="author">© Max Fry</string>
     <string name="umbrella">Umbrella</string>
     <string name="home">Home</string>
+    <string name="enter_your_feedback">Enter your feedback</string>
+    <string name="send">Send</string>
+    <string name="err_write_feedback">Write some feedback, please.</string>
+    <string name="feedback_sent">Your feedback was sent successfully.</string>
 </resources>

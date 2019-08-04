@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.AboutAppFragment;
 import com.example.weatherapp.fragments.CitySelectionFragment;
+import com.example.weatherapp.fragments.FeedbackFragment;
 import com.example.weatherapp.fragments.MainFragment;
 import com.example.weatherapp.fragments.SettingsFragment;
 import com.example.weatherapp.interfaces.PublishGetter;
@@ -116,8 +117,7 @@ public class MainActivity extends BaseActivity
             //TODO
             Toast.makeText(this, getResources().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_feedback) {
-            //TODO
-            Toast.makeText(this, getResources().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            openFragment(new FeedbackFragment());
         } else if (id == R.id.nav_about) {
             openSAboutAppFragment();
         }
@@ -151,6 +151,9 @@ public class MainActivity extends BaseActivity
     @Override
     public void setVisibilityOfChangeCityMenuItem(boolean visible) {
         ActionMenuItemView changeCityMenuItem = findViewById(R.id.menu_change_city);
+        if (changeCityMenuItem == null) {
+            return;
+        }
         changeCityMenuItem.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
