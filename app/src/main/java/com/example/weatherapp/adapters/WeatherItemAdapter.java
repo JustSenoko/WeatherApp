@@ -49,21 +49,18 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView temperature;
-        private final TextView weather;
         private final TextView date;
         private WeatherItem item;
 
         ViewHolder(View view) {
             super(view);
             temperature = view.findViewById(R.id.temperature_value);
-            weather = view.findViewById(R.id.weather);
             date = view.findViewById(R.id.date);
         }
 
         void updateView(WeatherItem weatherItem) {
             item = weatherItem;
             temperature.setText(String.valueOf(item.getTemperature()));
-            weather.setText(String.valueOf(item.getWeather()));
             date.setText(getDateFormatted(item.getDate()));
         }
     }

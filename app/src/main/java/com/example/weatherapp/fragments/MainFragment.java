@@ -96,12 +96,6 @@ public class MainFragment extends Fragment {
         inflater.inflate(R.menu.main_activity_menu, menu);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
-//        return true;
-//    }
-
     private void initWeatherList(View view) {
         RecyclerView rvWeatherList = view.findViewById(R.id.weather_list);
         if (rvWeatherList != null) {
@@ -112,7 +106,7 @@ public class MainFragment extends Fragment {
 
             Drawable divider = context.getResources().getDrawable(R.drawable.separator_horizontal);
             if (divider != null) {
-                DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), LinearLayout.HORIZONTAL);
+                DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), LinearLayout.VERTICAL);
                 itemDecoration.setDrawable(divider);
                 rvWeatherList.addItemDecoration(itemDecoration);
             }

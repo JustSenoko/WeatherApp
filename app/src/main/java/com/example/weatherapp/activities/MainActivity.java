@@ -35,13 +35,13 @@ public class MainActivity extends BaseActivity
                     MainFragment.OnMainFragmentListener,
                     SettingsFragment.OnSettingsFragmentListener,
                     PublishGetter {
-    private Publisher publisher = new Publisher();
+    private final Publisher publisher = new Publisher();
     private UserPreferences userPreferences;
     private SelectedCities selectedCities;
-    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
     private MainFragment mainFragment = new MainFragment();
     private CitySelectionFragment citySelectionFragment = new CitySelectionFragment();
-    private SettingsFragment settingsFragment = new SettingsFragment();
+    private final SettingsFragment settingsFragment = new SettingsFragment();
 
     private static long back_pressed;
 
@@ -180,11 +180,11 @@ public class MainActivity extends BaseActivity
         openFragment(citySelectionFragment);
     }
 
-    public void openSettingsFragment() {
+    private void openSettingsFragment() {
         openFragment(settingsFragment);
     }
 
-    public void openSAboutAppFragment() {
+    private void openSAboutAppFragment() {
         openFragment(new AboutAppFragment());
     }
 

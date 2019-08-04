@@ -83,7 +83,7 @@ public class SettingsFragment extends Fragment {
         darkTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                themeOnCheckedChanged(darkTheme);
+                themeOnCheckedChanged();
             }
         });
 
@@ -119,7 +119,7 @@ public class SettingsFragment extends Fragment {
         showResult(view, SETTINGS_SAVED);
     }
 
-    private void themeOnCheckedChanged(View view) {
+    private void themeOnCheckedChanged() {
         userPreferences.setDarkTheme(darkTheme.isChecked());
         mListener.onThemeChanged();
     }
