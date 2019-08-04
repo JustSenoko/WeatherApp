@@ -30,4 +30,8 @@
     <string name="navigation_drawer_close">Закрыть панель</string>
     <string name="navigation_drawer_open">Открыть панель</string>
     <string name="coming_soon">Скоро будет реализовано</string>
+    <string name="author">© Макс Фрай</string>
+    <string name="quote">Хорошей погоды совершенно достаточно для счастья, а в плохую можно, к примеру, испечь яблочный пирог. И никакого дополнительного смысла не требуется. Как в детстве.</string>
+    <string name="umbrella">Зонт</string>
+    <string name="home">Главная</string>
 </resources>

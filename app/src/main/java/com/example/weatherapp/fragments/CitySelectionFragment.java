@@ -49,6 +49,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     public interface OnFragmentCitySelectionListener {
         void onSelectCity(City city);
         void onDeleteCity(City city);
+        void setVisibilityOfChangeCityMenuItem(boolean visible);
     }
 
     @Override
@@ -68,6 +69,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mListener.setVisibilityOfChangeCityMenuItem(false);
     }
 
     @Override
@@ -106,6 +108,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public void onDetach() {
         super.onDetach();
+        mListener.setVisibilityOfChangeCityMenuItem(true);
         mListener = null;
     }
 

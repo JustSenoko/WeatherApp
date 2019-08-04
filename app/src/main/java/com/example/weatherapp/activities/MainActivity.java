@@ -4,16 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.fragments.AboutAppFragment;
 import com.example.weatherapp.fragments.CitySelectionFragment;
 import com.example.weatherapp.fragments.MainFragment;
 import com.example.weatherapp.fragments.SettingsFragment;
@@ -104,7 +108,9 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_settings) {
+        if (id == R.id.nav_home) {
+            openMainFragment();
+        } else if (id == R.id.nav_settings) {
             openSettingsFragment();
         } else if (id == R.id.nav_share) {
             //TODO
@@ -113,13 +119,16 @@ public class MainActivity extends BaseActivity
             //TODO
             Toast.makeText(this, getResources().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_about) {
-            //TODO
-            Toast.makeText(this, getResources().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
+            openSAboutAppFragment();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openMainFragment() {
+        openFragment(mainFragment);
     }
 
     @Override
@@ -137,6 +146,12 @@ public class MainActivity extends BaseActivity
     @Override
     public void onDeleteCity(City city) {
         publisher.notifyDeleteCity(city);
+    }
+
+    @Override
+    public void setVisibilityOfChangeCityMenuItem(boolean visible) {
+        ActionMenuItemView changeCityMenuItem = findViewById(R.id.menu_change_city);
+        changeCityMenuItem.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -162,15 +177,20 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void openCitySelectionFragment() {
-        fragmentManager.beginTransaction()
-            .replace(R.id.fragment, citySelectionFragment)
-            .addToBackStack("")
-            .commit();
+        openFragment(citySelectionFragment);
     }
 
     public void openSettingsFragment() {
+        openFragment(settingsFragment);
+    }
+
+    public void openSAboutAppFragment() {
+        openFragment(new AboutAppFragment());
+    }
+
+    private void openFragment(Fragment fragment) {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment, settingsFragment)
+                .replace(R.id.fragment, fragment)
                 .addToBackStack("")
                 .commit();
     }

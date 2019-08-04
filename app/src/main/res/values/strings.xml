@@ -37,4 +37,8 @@
     <string name="menu_about">About app</string>
     <string name="communicate">Communicate</string>
     <string name="coming_soon">Coming soon</string>
+    <string name="quote">Good weather is enough for happiness, and in bad weather you can, for example, bake an Apple pie. And no additional meaning is required. Like childhood.</string>
+    <string name="author">© Max Fry</string>
+    <string name="umbrella">Umbrella</string>
+    <string name="home">Home</string>
 </resources>
