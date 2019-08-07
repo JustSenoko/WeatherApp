@@ -110,9 +110,9 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            openMainFragment();
+            openFragment(mainFragment);
         } else if (id == R.id.nav_settings) {
-            openSettingsFragment();
+            openFragment(settingsFragment);
         } else if (id == R.id.nav_share) {
             //TODO
             Toast.makeText(this, getResources().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
@@ -125,10 +125,6 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void openMainFragment() {
-        openFragment(mainFragment);
     }
 
     @Override
@@ -181,10 +177,6 @@ public class MainActivity extends BaseActivity
     @Override
     public void openCitySelectionFragment() {
         openFragment(citySelectionFragment);
-    }
-
-    private void openSettingsFragment() {
-        openFragment(settingsFragment);
     }
 
     private void openSAboutAppFragment() {

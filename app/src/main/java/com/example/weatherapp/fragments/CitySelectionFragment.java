@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -78,12 +79,15 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_city_selection, container, false);
+        return inflater.inflate(R.layout.fragment_city_selection, container, false);
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         txtCityToAdd = view.findViewById(R.id.city_to_add);
         initAddButton(view);
         initRecyclerView(view);
-        return view;
     }
 
     private void initAddButton(View view) {
