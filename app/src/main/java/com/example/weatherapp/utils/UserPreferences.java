@@ -18,7 +18,10 @@ public class UserPreferences {
     private static final String CURRENT_CITY_ID = "city_id";
     private static final String SELECTED_CITIES_JSON = "selected_cities_json";
     private static final String SHOW_PRESSURE = "show_pressure";
+    private static final String SHOW_HUMIDITY = "show_humidity";
     private static final String SHOW_WIND = "show_wind";
+    private static final String SHOW_SENSOR_TEMPERATURE = "show_sensor_temperature";
+    private static final String SHOW_SENSOR_HUMIDITY = "show_sensor_humidity";
     private static final String USE_IMPERIAL_UNITS = "use_imperial_units";
 
     private final SharedPreferences sharedPreferences;
@@ -35,7 +38,7 @@ public class UserPreferences {
         sharedPreferences.edit().putBoolean(IS_DARK_THEME, isDarkTheme).apply();
     }
 
-    public int getCurrentCityId() {
+    private int getCurrentCityId() {
         return sharedPreferences.getInt(CURRENT_CITY_ID, 0);
     }
 
@@ -51,12 +54,36 @@ public class UserPreferences {
         sharedPreferences.edit().putBoolean(SHOW_PRESSURE, showPressure).apply();
     }
 
+    public boolean isShowHumidity() {
+        return sharedPreferences.getBoolean(SHOW_HUMIDITY, true);
+    }
+
+    public void setShowHumidity(boolean showHumidity) {
+        sharedPreferences.edit().putBoolean(SHOW_HUMIDITY, showHumidity).apply();
+    }
+
     public boolean isShowWind() {
         return sharedPreferences.getBoolean(SHOW_WIND, true);
     }
 
     public void setShowWind(boolean showWind) {
         sharedPreferences.edit().putBoolean(SHOW_WIND, showWind).apply();
+    }
+
+    public boolean isShowSensorTemperature() {
+        return sharedPreferences.getBoolean(SHOW_SENSOR_TEMPERATURE, false);
+    }
+
+    public void setShowSensorTemperature(boolean showSensorTemperature) {
+        sharedPreferences.edit().putBoolean(SHOW_SENSOR_TEMPERATURE, showSensorTemperature).apply();
+    }
+
+    public boolean isShowSensorHumidity() {
+        return sharedPreferences.getBoolean(SHOW_SENSOR_HUMIDITY, false);
+    }
+
+    public void setShowSensorHumidity(boolean showSensorHumidity) {
+        sharedPreferences.edit().putBoolean(SHOW_SENSOR_HUMIDITY, showSensorHumidity).apply();
     }
 
     public boolean useImperialUnits() {

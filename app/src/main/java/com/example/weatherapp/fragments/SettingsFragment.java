@@ -1,6 +1,8 @@
 package com.example.weatherapp.fragments;
 
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.weatherapp.R;
@@ -25,8 +28,11 @@ public class SettingsFragment extends Fragment {
 
     private Switch darkTheme;
     private Switch showPressure;
+    private Switch showHumidity;
     private Switch showWind;
     private Switch imperialUnits;
+    private Switch showSensorTemperature;
+    private Switch showSensorHumidity;
 
     public interface OnSettingsFragmentListener {
         void onThemeChanged();
@@ -44,6 +50,7 @@ public class SettingsFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnSettingsFragmentListener");
         }
+        SETTINGS_SAVED = getResources().getString(R.string.msg_settings_saved);
     }
 
     @Override
@@ -55,27 +62,46 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        return inflater.inflate(R.layout.fragment_settings, container, false);
+    }
 
-        SETTINGS_SAVED = getResources().getString(R.string.msg_settings_saved);
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initViews(view);
         restoreSettingsValues();
         setSwitchListeners();
-        return view;
     }
 
     private void initViews(View view) {
         darkTheme = view.findViewById(R.id.darkTheme);
         showPressure = view.findViewById(R.id.show_pressure);
+        showHumidity = view.findViewById(R.id.show_humidity);
         showWind = view.findViewById(R.id.show_wind);
+        showSensorTemperature = view.findViewById(R.id.show_sensor_temperature);
+        showSensorHumidity = view.findViewById(R.id.show_sensor_humidity);
         imperialUnits = view.findViewById(R.id.units);
     }
 
     private void restoreSettingsValues() {
         darkTheme.setChecked(userPreferences.isDarkTheme());
         showPressure.setChecked(userPreferences.isShowPressure());
+        showHumidity.setChecked(userPreferences.isShowHumidity());
         showWind.setChecked(userPreferences.isShowWind());
+        SensorManager sm = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
+
+        if (sm.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
+            showSensorTemperature.setChecked(userPreferences.isShowSensorTemperature());
+        } else {
+            showSensorTemperature.setChecked(false);
+            showSensorTemperature.setVisibility(View.GONE);
+        }
+        if (sm.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY) != null) {
+            showSensorHumidity.setChecked(userPreferences.isShowSensorHumidity());
+        } else {
+            showSensorHumidity.setChecked(false);
+            showSensorHumidity.setVisibility(View.GONE);
+        }
         imperialUnits.setChecked(userPreferences.useImperialUnits());
     }
 
@@ -94,10 +120,31 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        showHumidity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showHumidityOnCheckedChanged(showHumidity);
+            }
+        });
+
         showWind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 showWindOnCheckedChanged(showWind);
+            }
+        });
+
+        showSensorTemperature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showSensorTemperatureOnChecked(showSensorTemperature);
+            }
+        });
+
+        showSensorHumidity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showSensorHumidityOnChecked(showSensorTemperature);
             }
         });
 
@@ -114,6 +161,11 @@ public class SettingsFragment extends Fragment {
         showResult(view, SETTINGS_SAVED);
     }
 
+    private void showHumidityOnCheckedChanged(View view) {
+        userPreferences.setShowHumidity(showHumidity.isChecked());
+        showResult(view, SETTINGS_SAVED);
+    }
+
     private void showWindOnCheckedChanged(View view) {
         userPreferences.setShowWind(showWind.isChecked());
         showResult(view, SETTINGS_SAVED);
@@ -126,6 +178,16 @@ public class SettingsFragment extends Fragment {
 
     private void imperialUnitsOnCheckedChanged(View view) {
         userPreferences.setUseImperialUnits(imperialUnits.isChecked());
+        showResult(view, SETTINGS_SAVED);
+    }
+
+    private void showSensorTemperatureOnChecked(View view) {
+        userPreferences.setShowSensorTemperature(showSensorTemperature.isChecked());
+        showResult(view, SETTINGS_SAVED);
+    }
+
+    private void showSensorHumidityOnChecked(View view) {
+        userPreferences.setShowSensorHumidity(showSensorHumidity.isChecked());
         showResult(view, SETTINGS_SAVED);
     }
 

@@ -43,11 +43,33 @@
             android:textSize="@dimen/settings_type_size" />
 
         <Switch
+            android:id="@+id/show_humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/humidity"
+            android:textSize="@dimen/settings_type_size" />
+
+        <Switch
             android:id="@+id/show_pressure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pressure"
             android:textSize="@dimen/settings_type_size" />
+
+        <Switch
+            android:id="@+id/show_sensor_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sensor_temperature"
+            android:textSize="@dimen/settings_type_size" />
+
+        <Switch
+            android:id="@+id/show_sensor_humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sensor_humidity"
+            android:textSize="@dimen/settings_type_size" />
+
     </LinearLayout>
 
 </LinearLayout>
