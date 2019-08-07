@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/menu_change_city"
-        android:onClick="changeCity"
         android:title="@string/changeCity"
         app:showAsAction="always|withText" />
 </menu>

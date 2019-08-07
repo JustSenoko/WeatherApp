@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CityDataJSON implements CitiesDataSource {
 
-    private Context context;
+    private final Context context;
     private List<City> cities = new ArrayList<>();
     private static final String assetFileName = "city.list.json";
 

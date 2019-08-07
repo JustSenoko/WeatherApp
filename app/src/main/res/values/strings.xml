@@ -11,7 +11,6 @@
     <string name="pressure">pressure</string>
     <string name="show">Show</string>
     <string name="wind">wind</string>
-    <string name="city_label">City</string>
     <string name="pressure_value" translatable="false">176</string>
     <string name="pressure_unit">hPa</string>
     <string name="wind_value" translatable="false">3</string>
@@ -30,4 +29,20 @@
     <string name="imperial_units">Imperial units</string>
     <string name="press_again_to_exit">Press once again to exit!</string>
     <string name="changeCity">Change city</string>
+    <string name="nav_header_desc">Navigation</string>
+    <string name="navigation_drawer_open">Open navigation</string>
+    <string name="navigation_drawer_close">Close navigation</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_about">About app</string>
+    <string name="communicate">Communicate</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="quote">Good weather is enough for happiness, and in bad weather you can, for example, bake an Apple pie. And no additional meaning is required. Like childhood.</string>
+    <string name="author">© Max Fry</string>
+    <string name="umbrella">Umbrella</string>
+    <string name="home">Home</string>
+    <string name="enter_your_feedback">Enter your feedback</string>
+    <string name="send">Send</string>
+    <string name="err_write_feedback">Write some feedback, please.</string>
+    <string name="feedback_sent">Your feedback was sent successfully.</string>
 </resources>

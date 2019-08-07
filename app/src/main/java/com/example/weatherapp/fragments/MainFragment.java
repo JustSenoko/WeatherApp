@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -20,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.adapters.WeatherItemAdapter;
-import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.interfaces.WeatherDataSource;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
@@ -37,7 +38,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
-public class MainFragment extends Fragment implements ObserverWeatherInfo {
+public class MainFragment extends Fragment {
 
     private SelectedCities selectedCities;
     private UserPreferences userPreferences;
@@ -89,6 +90,12 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_activity_menu, menu);
+    }
+
     private void initWeatherList(View view) {
         RecyclerView rvWeatherList = view.findViewById(R.id.weather_list);
         if (rvWeatherList != null) {
@@ -99,7 +106,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
             Drawable divider = context.getResources().getDrawable(R.drawable.separator_horizontal);
             if (divider != null) {
-                DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), LinearLayout.HORIZONTAL);
+                DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), LinearLayout.VERTICAL);
                 itemDecoration.setDrawable(divider);
                 rvWeatherList.addItemDecoration(itemDecoration);
             }
@@ -195,8 +202,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         return View.GONE;
     }
 
-    @Override
-    public void updateWeatherInfo() {
+    private void updateWeatherInfo() {
         City currentCity = selectedCities.getCurrentCity();
         if (currentCity != null) {
             updateCurrentWeatherData(currentCity.getName());

@@ -22,9 +22,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void setCustomTheme() {
         if (userPreferences.isDarkTheme()) {
-            setTheme(R.style.DarkTheme);
+            setTheme(R.style.DarkTheme_NoActionBar);
         } else {
-            setTheme(R.style.LightTheme);
+            setTheme(R.style.LightTheme_NoActionBar);
         }
     }
 }

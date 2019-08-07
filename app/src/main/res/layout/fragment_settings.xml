@@ -1,78 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/selected_city"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginStart="40dp"
+    android:layout_marginEnd="40dp"
+    android:gravity="center_vertical">
 
     <Switch
         android:id="@+id/darkTheme"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:onClick="themeOnClick"
         android:text="@string/theme"
-        android:textSize="@dimen/settings_type_size"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        android:textSize="@dimen/settings_type_size" />
 
     <Switch
         android:id="@+id/units"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="@dimen/settings_vertical_margin"
-        android:layout_marginEnd="40dp"
-        android:onClick="imperialUnitsOnClick"
         android:text="@string/imperial_units"
-        android:textSize="@dimen/settings_type_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/darkTheme" />
+        android:textSize="@dimen/settings_type_size" />
 
     <TextView
         android:id="@+id/show"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="@dimen/settings_vertical_margin"
         android:text="@string/show"
-        android:textSize="@dimen/settings_type_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/units" />
+        android:textSize="@dimen/settings_type_size" />
 
-    <Switch
-        android:id="@+id/show_pressure"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/settings_horizontal_margin"
-        android:layout_marginTop="@dimen/settings_vertical_margin"
-        android:layout_marginEnd="40dp"
-        android:onClick="showPressureOnClick"
-        android:text="@string/pressure"
-        android:textSize="@dimen/settings_type_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/show"
-        app:layout_constraintTop_toBottomOf="@+id/show" />
+        android:orientation="vertical">
 
-    <Switch
-        android:id="@+id/show_wind"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/settings_vertical_margin"
-        android:layout_marginEnd="40dp"
-        android:onClick="showWindOnClick"
-        android:text="@string/wind"
-        android:textSize="@dimen/settings_type_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/show_pressure"
-        app:layout_constraintTop_toBottomOf="@+id/show_pressure" />
+        <Switch
+            android:id="@+id/show_wind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wind"
+            android:textSize="@dimen/settings_type_size" />
 
+        <Switch
+            android:id="@+id/show_pressure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pressure"
+            android:textSize="@dimen/settings_type_size" />
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
