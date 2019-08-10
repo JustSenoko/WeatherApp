@@ -83,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/pressure"
-                android:tint="?attr/actionMenuTextColor"
                 app:srcCompat="@drawable/pressure" />
 
             <TextView
@@ -116,7 +115,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/wind"
-                android:tint="?attr/actionMenuTextColor"
                 app:srcCompat="@drawable/wind" />
 
             <TextView
@@ -150,7 +148,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/humidity"
-                android:tint="?attr/actionMenuTextColor"
                 app:srcCompat="@drawable/humidity" />
 
             <TextView
@@ -185,7 +182,6 @@
             android:layout_height="wrap_content"
             android:baselineAlignBottom="true"
             android:contentDescription="@string/sensor"
-            android:tint="?attr/actionMenuTextColor"
             app:srcCompat="@drawable/sensor" />
 
         <LinearLayout
@@ -200,7 +196,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/sensor"
-                android:tint="?attr/actionMenuTextColor"
                 app:srcCompat="@drawable/temperature" />
 
             <TextView
@@ -237,7 +232,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@string/sensor"
-                android:tint="?attr/actionMenuTextColor"
                 app:srcCompat="@drawable/humidity" />
 
             <TextView
