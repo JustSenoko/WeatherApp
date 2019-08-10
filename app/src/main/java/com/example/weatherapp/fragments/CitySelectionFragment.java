@@ -71,7 +71,6 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mListener.setVisibilityOfChangeCityMenuItem(false);
     }
 
     @Override
@@ -83,6 +82,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mListener.setVisibilityOfChangeCityMenuItem(false);
         selectedCities = conf.getSelectedCities();
         ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeCityList(this);
         txtCityToAdd = view.findViewById(R.id.city_to_add);

@@ -7,12 +7,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -53,6 +51,7 @@ public class MainActivity extends BaseActivity
     private final SettingsFragment settingsFragment = new SettingsFragment();
 
     private static long back_pressed;
+    private boolean showChangeCityMenuItem = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class MainActivity extends BaseActivity
         initDrawerLayout(toolbar);
         initUtils();
 
-        if (savedInstanceState==null) {
+        if (savedInstanceState == null) {
             fragmentManager.beginTransaction()
                     .add(R.id.fragment, mainFragment)
                     .addToBackStack("")
@@ -96,6 +95,7 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        menu.findItem(R.id.menu_change_city).setVisible(showChangeCityMenuItem);
         return true;
     }
 
@@ -165,11 +165,8 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void setVisibilityOfChangeCityMenuItem(boolean visible) {
-        ActionMenuItemView changeCityMenuItem = findViewById(R.id.menu_change_city);
-        if (changeCityMenuItem == null) {
-            return;
-        }
-        changeCityMenuItem.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        showChangeCityMenuItem = visible;
+        invalidateOptionsMenu();
     }
 
     @Override
