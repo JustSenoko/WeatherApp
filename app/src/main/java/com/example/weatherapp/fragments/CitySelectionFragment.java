@@ -3,7 +3,6 @@ package com.example.weatherapp.fragments;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.adapters.CityItemAdapter;
 import com.example.weatherapp.interfaces.ObserverCityList;
 import com.example.weatherapp.models.SelectedCities;
-import com.example.weatherapp.models.Units;
-import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.models.pojo.City;
-import com.example.weatherapp.networks.WeatherDataLoader;
+import com.example.weatherapp.services.WeatherProviderService;
 import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.button.MaterialButton;
@@ -45,7 +43,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
 
     private OnFragmentCitySelectionListener mListener;
 
-    private ConfSingleton conf = ConfSingleton.getInstance();
+    private final ConfSingleton conf = ConfSingleton.getInstance();
     private UserPreferences userPreferences;
     private SelectedCities selectedCities = conf.getSelectedCities();
     private CityItemAdapter adapter;
@@ -85,6 +83,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeCityList(this);
         txtCityToAdd = view.findViewById(R.id.city_to_add);
         initAddButton(view);
         initRecyclerView(view);
@@ -137,13 +136,6 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
         updateUserPreferences();
     }
 
-    private void addToSelectedCities(City city) {
-        selectedCities.addCity(city);
-        txtCityToAdd.setText("");
-        adapter.notifyDataSetChanged();
-        updateUserPreferences();
-    }
-
     private void updateUserPreferences() {
         userPreferences.setSelectedCitiesJson(selectedCities);
     }
@@ -156,41 +148,38 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
         findCityByName(cityName);
     }
 
+    private void findCityByName(final String cityName) {
+        //TODO это лишний запрос через API список доступных городов есть в формате json,
+        // переделать после урока по БД
+        WeatherProviderService.startFindCityByName(getActivity(), cityName);
+    }
+
+    @Override
+    public void findCityByNameResult(City city) {
+        if (city == null) {
+            showError(txtCityToAdd, getResources().getString(R.string.err_city_not_found));
+            return;
+        }
+        if (selectedCities.cityIsInList(city)) {
+            showError(txtCityToAdd, getResources().getString(R.string.err_city_is_in_list));
+            return;
+        }
+        hideError(txtCityToAdd);
+        addToSelectedCities(city);
+    }
+
+    private void addToSelectedCities(City city) {
+        selectedCities.addCity(city);
+        txtCityToAdd.setText("");
+        adapter.notifyDataSetChanged();
+        updateUserPreferences();
+    }
+
     private void showError(TextView tv, String message) {
         tv.setError(message);
     }
 
     private void hideError(TextView tv) {
         tv.setError(null);
-    }
-
-    private void findCityByName(final String cityName) {
-        //TODO это лишний запрос через API список доступных городов есть в формате json,
-        // переделать после урока по БД
-        final String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        final Handler handler = new Handler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                WeatherDataLoader weatherDataSource = new WeatherDataLoader();
-                final WeatherItem currentWeather = weatherDataSource.loadCurrentWeatherData(cityName, units);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentWeather == null) {
-                            showError(txtCityToAdd, getResources().getString(R.string.err_city_not_found));
-                            return;
-                        }
-                        City city = currentWeather.getCity();
-                        if (selectedCities.cityIsInList(city)) {
-                            showError(txtCityToAdd, getResources().getString(R.string.err_city_is_in_list));
-                            return;
-                        }
-                        hideError(txtCityToAdd);
-                        addToSelectedCities(city);
-                    }
-                });
-            }
-        }).start();
     }
 }

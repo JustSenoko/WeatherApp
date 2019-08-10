@@ -7,13 +7,17 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LightTheme.NoActionBar"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:fullBackupContent="false">
+        tools:ignore="GoogleAppIndexingWarning">
+        <service
+            android:name=".services.WeatherProviderService"
+            android:exported="false"></service>
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

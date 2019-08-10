@@ -1,8 +1,9 @@
 package com.example.weatherapp.models.pojo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class City {
+public class City implements Serializable {
 
     private final String name;
     private final int id;

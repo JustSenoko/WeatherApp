@@ -1,21 +1,33 @@
 package com.example.weatherapp.utils;
 
 import com.example.weatherapp.interfaces.ObserverCityList;
+import com.example.weatherapp.interfaces.ObserverWeatherInfo;
+import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.models.pojo.City;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Publisher {
-    private List<ObserverCityList> observerCityLists;   // Все обозреватели
+    private final List<ObserverCityList> observerCityLists;   // Все обозреватели
+    private final List<ObserverWeatherInfo> observerWeatherInfoList;   // Все обозреватели
 
     public Publisher() {
         observerCityLists = new ArrayList<>();
+        observerWeatherInfoList = new ArrayList<>();
+    }
+
+    public void unsubscribeAll() {
+        observerCityLists.clear();
+        observerWeatherInfoList.clear();
     }
 
     // Подписать
     public void subscribeCityList(ObserverCityList observerCityList) {
         observerCityLists.add(observerCityList);
+    }
+    public void subscribeWeatherInfo(ObserverWeatherInfo observer) {
+        observerWeatherInfoList.add(observer);
     }
 
     // Разослать событие
@@ -24,4 +36,18 @@ public class Publisher {
             observerCityList.deleteSelectedCity(city);
         }
     }
+
+    public void notifyCityFoundResult(City city) {
+        for (ObserverCityList observer : observerCityLists) {
+            observer.findCityByNameResult(city);
+        }
+    }
+
+    // Разослать событие
+    public void notifyUpdateWeatherInfo(WeatherItem weatherItem) {
+        for (ObserverWeatherInfo observer : observerWeatherInfoList) {
+            observer.updateWeatherInfo(weatherItem);
+        }
+    }
+
 }
