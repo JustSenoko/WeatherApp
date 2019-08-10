@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity
     public static final String FIND_CITY_RESULT_BROADCAST_INTENT = "com.example.weatherapp.extra.FIND_CITY_RESULT";
     private final CurrentWeatherReceiver currentWeatherReceiver = new CurrentWeatherReceiver();
 
-    private Publisher publisher = new Publisher();
+    private final Publisher publisher = new Publisher();
     private UserPreferences userPreferences;
     private SelectedCities selectedCities;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -86,8 +86,8 @@ public class MainActivity extends BaseActivity
     private void initUtils() {
         userPreferences = new UserPreferences(this);
         selectedCities = userPreferences.getSelectedCities();
-
         ConfSingleton conf = ConfSingleton.getInstance();
+
         //TODO настроить после урока по БД
         //conf.setCitiesData(new CityDataJSON(this));
         conf.setSelectedCities(selectedCities);
@@ -126,7 +126,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {

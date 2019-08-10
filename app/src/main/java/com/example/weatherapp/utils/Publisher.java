@@ -17,11 +17,6 @@ public class Publisher {
         observerWeatherInfoList = new ArrayList<>();
     }
 
-    public void unsubscribeAll() {
-        observerCityLists.clear();
-        observerWeatherInfoList.clear();
-    }
-
     // Подписать
     public void subscribeCityList(ObserverCityList observerCityList) {
         observerCityLists.add(observerCityList);

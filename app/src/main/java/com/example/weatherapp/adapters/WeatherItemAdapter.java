@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
-    private List<WeatherItem> items;
+    private final List<WeatherItem> items;
     private static final String DATE_FORMAT = "d MMM";
 
     public WeatherItemAdapter(List<WeatherItem> items) {

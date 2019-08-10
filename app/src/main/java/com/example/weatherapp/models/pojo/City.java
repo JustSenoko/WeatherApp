@@ -29,6 +29,7 @@ public class City implements Serializable {
         return id;
     }
 
+    @SuppressWarnings("unused")
     public String getCountry() {
         return country;
     }

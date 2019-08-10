@@ -64,10 +64,6 @@ public class WeatherProviderService extends IntentService {
         sendBroadcast(broadcastIntent);
     }
 
-    /**
-     * Handle action Baz in the provided background thread with the provided
-     * parameters.
-     */
     private void handleFindCityByName(String city) {
         WeatherDataSource weatherDataSource = new WeatherDataLoader();
         WeatherItem weather = weatherDataSource.loadCurrentWeatherData(city, Units.getUnitsName(false));
@@ -77,8 +73,7 @@ public class WeatherProviderService extends IntentService {
         sendBroadcast(broadcastIntent);
     }
 
-    private void handleLoadForecast5Days(String param1, String param2) {
+    private void handleLoadForecast5Days(String city, String units) {
         // TODO: загружать прогноз на 5 дней
-        //throw new UnsupportedOperationException("Not yet implemented");
     }
 }

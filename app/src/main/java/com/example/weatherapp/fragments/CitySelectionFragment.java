@@ -45,7 +45,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
 
     private final ConfSingleton conf = ConfSingleton.getInstance();
     private UserPreferences userPreferences;
-    private SelectedCities selectedCities = conf.getSelectedCities();
+    private SelectedCities selectedCities;
     private CityItemAdapter adapter;
 
     public interface OnFragmentCitySelectionListener {
@@ -83,6 +83,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        selectedCities = conf.getSelectedCities();
         ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeCityList(this);
         txtCityToAdd = view.findViewById(R.id.city_to_add);
         initAddButton(view);
