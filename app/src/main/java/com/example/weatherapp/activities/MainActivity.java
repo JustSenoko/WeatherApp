@@ -55,7 +55,6 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
 
         initDrawerLayout(toolbar);
-
         initUtils();
 
         if (savedInstanceState==null) {

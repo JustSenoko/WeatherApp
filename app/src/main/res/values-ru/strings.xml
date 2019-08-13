@@ -10,7 +10,6 @@
     <string name="show">Показывать</string>
     <string name="wind">ветер</string>
     <string name="pressure_unit">гПа</string>
-    <string name="wind_unit">м/с</string>
     <string name="settings">Настройки</string>
     <string name="err_city_is_in_list">Город уже есть в списке</string>
     <string name="err_city_not_found">Город не найден</string>
@@ -19,7 +18,7 @@
     <string name="msg_settings_saved">Настройки сохранены</string>
     <string name="imperial_units">Имперская система мер</string>
     <string name="meter_sec">м/с</string>
-    <string name="miles_hour">миль/ч</string>
+    <string name="miles_hour">м/ч</string>
     <string name="press_again_to_exit">Нажмите еще раз для выхода</string>
     <string name="changeCity">Выбрать город</string>
     <string name="communicate">Связаться</string>
@@ -38,4 +37,8 @@
     <string name="err_write_feedback">Напишите что-нибудь, пожалуйста.</string>
     <string name="feedback_sent">Ваше сообщение было успешно отправлено.</string>
     <string name="send">Отправить</string>
+    <string name="sensor_humidity">влажность по данным сенсора</string>
+    <string name="sensor_temperature">температуру по данным сенсора</string>
+    <string name="sensor">сенсор</string>
+    <string name="humidity">влажность</string>
 </resources>
