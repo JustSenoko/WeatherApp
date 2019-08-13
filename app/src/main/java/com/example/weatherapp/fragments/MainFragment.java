@@ -8,7 +8,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,13 +24,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.adapters.WeatherItemAdapter;
-import com.example.weatherapp.interfaces.WeatherDataSource;
+import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.models.pojo.City;
-import com.example.weatherapp.networks.WeatherDataLoader;
+import com.example.weatherapp.services.WeatherProviderService;
 import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
@@ -42,7 +42,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
     private SelectedCities selectedCities;
     private UserPreferences userPreferences;
@@ -133,6 +133,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeWeatherInfo(this);
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 
@@ -143,7 +144,7 @@ public class MainFragment extends Fragment {
             return;
         }
         initSensors();
-        updateWeatherInfo();
+        loadWeatherInfo();
     }
 
     private void initFields(@NonNull View view) {
@@ -265,29 +266,17 @@ public class MainFragment extends Fragment {
     }
 
     private void updateCurrentWeatherData(final String cityName) {
-        final WeatherDataSource weatherDataSource = new WeatherDataLoader();
-        final String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        final Handler handler = new Handler();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final WeatherItem currentWeather = weatherDataSource.loadCurrentWeatherData(cityName, units);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentWeather == null) {
-                            showErrorMessage();
-                        } else {
-                            updateWeatherInfo(currentWeather);
-                        }
-                    }
-                });
-            }
-        }).start();
+        String units = Units.getUnitsName(userPreferences.useImperialUnits());
+        WeatherProviderService.startWeatherLoad(getActivity(), cityName, units);
     }
 
     @SuppressLint("DefaultLocale")
-    private void updateWeatherInfo(WeatherItem currentWeather) {
+    @Override
+    public void updateWeatherInfo(WeatherItem currentWeather) {
+        if (currentWeather == null) {
+            showErrorMessage();
+            return;
+        }
         twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
         tvHumidityValue.setText(String.format("%d", currentWeather.getHumidity()));
         twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));
@@ -299,7 +288,7 @@ public class MainFragment extends Fragment {
         Snackbar.make(twCity, R.string.err_city_not_found, Snackbar.LENGTH_SHORT);
     }
 
-    private void updateView() {
+    private void updateWeatherRepresentationSettings() {
         twCity.setText(selectedCities.getCurrentCity().getName());
         String temperatureUnit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
         twTemperatureUnit.setText(temperatureUnit);
@@ -317,11 +306,11 @@ public class MainFragment extends Fragment {
         return View.GONE;
     }
 
-    private void updateWeatherInfo() {
+    private void loadWeatherInfo() {
         City currentCity = selectedCities.getCurrentCity();
         if (currentCity != null) {
             updateCurrentWeatherData(currentCity.getName());
-            updateView();
+            updateWeatherRepresentationSettings();
         }
     }
 }

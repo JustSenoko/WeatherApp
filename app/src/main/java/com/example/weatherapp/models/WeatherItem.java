@@ -4,9 +4,10 @@ import com.example.weatherapp.models.pojo.City;
 import com.example.weatherapp.models.pojo.CurrentWeatherData;
 import com.example.weatherapp.models.pojo.WeatherForecast;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WeatherItem {
+public class WeatherItem implements Serializable {
 
     private final Date date;
     private final City city;

@@ -2,6 +2,7 @@ package com.example.weatherapp.models.pojo;
 
 import java.util.Date;
 
+@SuppressWarnings("ALL")
 public class CurrentWeatherData {
 
     private Weather[] weather;
