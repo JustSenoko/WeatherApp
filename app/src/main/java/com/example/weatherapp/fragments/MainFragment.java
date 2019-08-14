@@ -104,7 +104,6 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         selectedCities = ConfSingleton.getInstance().getSelectedCities();
-        initWeatherList(view);
         return view;
     }
 
@@ -120,7 +119,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             Context context = view.getContext();
             LinearLayoutManager layout = new LinearLayoutManager(context);
             rvWeatherList.setLayoutManager(layout);
-            adapter = new WeatherItemAdapter(forecast);
+            adapter = new WeatherItemAdapter(forecast, userPreferences);
             rvWeatherList.setAdapter(adapter);
 
             Drawable divider = context.getResources().getDrawable(R.drawable.separator_horizontal);
@@ -140,6 +139,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 
         initFields(view);
+        initWeatherList(view);
 
         if (selectedCities.getCurrentCity() == null) {
             mListener.openCitySelectionFragment();

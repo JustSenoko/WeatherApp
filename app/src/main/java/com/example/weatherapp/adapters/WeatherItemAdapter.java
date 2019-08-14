@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
+import com.example.weatherapp.utils.UserPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,10 +21,12 @@ import java.util.Locale;
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
     private final List<WeatherItem> items;
-    private static final String DATE_FORMAT = "d MMM";
+    private static final String DATE_FORMAT = "d MMM Ha";
+    private UserPreferences userPreferences;
 
-    public WeatherItemAdapter(List<WeatherItem> items) {
+    public WeatherItemAdapter(List<WeatherItem> items, UserPreferences userPreferences) {
         this.items = items;
+        this.userPreferences = userPreferences;
     }
 
     @NonNull
@@ -48,19 +52,23 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView temperature;
+        private final TextView temperatureValue;
+        private final TextView temperatureUnit;
         private final TextView date;
         private WeatherItem item;
 
         ViewHolder(View view) {
             super(view);
-            temperature = view.findViewById(R.id.temperature_value);
+            temperatureValue = view.findViewById(R.id.temperature_value);
+            temperatureUnit = view.findViewById(R.id.unit);
             date = view.findViewById(R.id.date);
         }
 
         void updateView(WeatherItem weatherItem) {
+            String unit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
             item = weatherItem;
-            temperature.setText(String.valueOf(item.getTemperature()));
+            temperatureValue.setText(String.valueOf(item.getTemperature()));
+            temperatureUnit.setText(unit);
             date.setText(getDateFormatted(item.getDate()));
         }
     }
