@@ -17,6 +17,11 @@ public class WeatherDataLoader_FakeData implements WeatherDataSource {
     @Override
     public WeatherItem loadCurrentWeatherData(String cityName, String units) {
         City city = new City("Moscow", 524901, "RU");
+        if (cityName.equals("Riga")) {
+            city = new City("Riga", 456172, "LV");
+        } else if (cityName.equals("London")){
+            city = new City("London", 2643743, "GB");
+        }
         return new WeatherItem(new Date(), city,
                 18, 176, 98, 1, "rain");
     }
