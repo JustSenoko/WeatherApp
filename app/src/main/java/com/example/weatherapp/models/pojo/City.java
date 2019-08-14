@@ -1,11 +1,9 @@
 package com.example.weatherapp.models.pojo;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.io.Serializable;
 import java.util.Objects;
 
-public class City implements Parcelable {
+public class City implements Serializable {
 
     private final String name;
     private final int id;
@@ -23,23 +21,23 @@ public class City implements Parcelable {
         this.country = null;
     }
 
-    protected City(Parcel in) {
-        name = in.readString();
-        id = in.readInt();
-        country = in.readString();
-    }
+//    protected City(Parcel in) {
+//        name = in.readString();
+//        id = in.readInt();
+//        country = in.readString();
+//    }
 
-    public static final Creator<City> CREATOR = new Creator<City>() {
-        @Override
-        public City createFromParcel(Parcel in) {
-            return new City(in);
-        }
-
-        @Override
-        public City[] newArray(int size) {
-            return new City[size];
-        }
-    };
+//    public static final Creator<City> CREATOR = new Creator<City>() {
+//        @Override
+//        public City createFromParcel(Parcel in) {
+//            return new City(in);
+//        }
+//
+//        @Override
+//        public City[] newArray(int size) {
+//            return new City[size];
+//        }
+//    };
 
     public String getName() {
         return name;
@@ -68,15 +66,15 @@ public class City implements Parcelable {
         return Objects.hash(name, id);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeInt(id);
-        dest.writeString(country);
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(name);
+//        dest.writeInt(id);
+//        dest.writeString(country);
+//    }
 }

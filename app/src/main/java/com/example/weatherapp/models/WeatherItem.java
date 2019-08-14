@@ -51,7 +51,7 @@ public class WeatherItem implements Parcelable {
 
     private WeatherItem(Parcel parcel) {
         date = (Date) parcel.readSerializable();
-        city = parcel.readParcelable(City.class.getClassLoader());
+        city = (City) parcel.readSerializable();
         temperature = parcel.readInt();
         pressure = parcel.readInt();
         humidity = parcel.readInt();
@@ -105,7 +105,7 @@ public class WeatherItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeSerializable(date);
-        dest.writeParcelable(city, 0);
+        dest.writeSerializable(city);
         dest.writeInt(temperature);
         dest.writeInt(pressure);
         dest.writeInt(humidity);

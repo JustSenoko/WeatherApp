@@ -138,7 +138,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     }
 
     private void updateUserPreferences() {
-        userPreferences.setSelectedCitiesJson(selectedCities);
+        userPreferences.setSelectedCities(selectedCities);
     }
 
     private void validateCityName(String cityName) {

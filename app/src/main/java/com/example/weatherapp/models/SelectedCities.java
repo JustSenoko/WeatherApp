@@ -3,14 +3,19 @@ package com.example.weatherapp.models;
 import com.example.weatherapp.models.pojo.City;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class SelectedCities {
+public final class SelectedCities implements Serializable {
 
     private List<City> selectedCitiesList = new ArrayList<>();
     private City currentCity = null;
+
+    public SelectedCities() {
+//        this("", 0);
+    }
 
     public SelectedCities(String selectedCitiesJSON, int currentCityId) {
 
@@ -44,6 +49,9 @@ public final class SelectedCities {
             return;
         }
         selectedCitiesList.add(city);
+        if (currentCity == null) {
+            currentCity = city;
+        }
     }
 
     public boolean cityIsInList(City city) {

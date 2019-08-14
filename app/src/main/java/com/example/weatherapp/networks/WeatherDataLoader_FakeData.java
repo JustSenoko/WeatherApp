@@ -16,8 +16,7 @@ public class WeatherDataLoader_FakeData implements WeatherDataSource {
 
     @Override
     public WeatherItem loadCurrentWeatherData(String cityName, String units) {
-        SelectedCities selectedCities = ConfSingleton.getInstance().getSelectedCities();
-        City city = selectedCities.getCurrentCity();
+        City city = new City("Moscow", 524901, "RU");
         return new WeatherItem(new Date(), city,
                 18, 176, 98, 1, "rain");
     }
