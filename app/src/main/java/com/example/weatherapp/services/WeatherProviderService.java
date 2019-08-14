@@ -9,7 +9,10 @@ import com.example.weatherapp.interfaces.WeatherDataSource;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.models.pojo.City;
-import com.example.weatherapp.networks.WeatherDataLoader;
+import com.example.weatherapp.networks.WeatherDataLoader_OpenWeather;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WeatherProviderService extends IntentService {
 
@@ -19,6 +22,9 @@ public class WeatherProviderService extends IntentService {
 
     private static final String CITY = "com.example.weatherapp.extra.CURRENT_CITY";
     private static final String UNITS = "com.example.weatherapp.extra.UNITS";
+
+    private final WeatherDataSource weatherDataSource = new WeatherDataLoader_OpenWeather();
+    //private final WeatherDataSource weatherDataSource = new WeatherDataLoader_FakeData();
 
     public WeatherProviderService() {
         super("WeatherProviderService");
@@ -31,9 +37,17 @@ public class WeatherProviderService extends IntentService {
         context.startService(intent);
     }
 
-    public static void startWeatherLoad(Context context, String cityName, String units) {
+    public static void startCurrentWeatherLoad(Context context, String cityName, String units) {
         Intent intent = new Intent(context, WeatherProviderService.class);
         intent.setAction(ACTION_LOAD_CURRENT_WEATHER);
+        intent.putExtra(CITY, cityName);
+        intent.putExtra(UNITS, units);
+        context.startService(intent);
+    }
+
+    public static void startForecastLoad(Context context, String cityName, String units) {
+        Intent intent = new Intent(context, WeatherProviderService.class);
+        intent.setAction(ACTION_LOAD_FORECAST_5_DAYS);
         intent.putExtra(CITY, cityName);
         intent.putExtra(UNITS, units);
         context.startService(intent);
@@ -57,23 +71,24 @@ public class WeatherProviderService extends IntentService {
     }
 
    private void handleLoadCurrentWeather(String city, String units) {
-        WeatherDataSource weatherDataSource = new WeatherDataLoader();
         WeatherItem currentWeather = weatherDataSource.loadCurrentWeatherData(city, units);
         Intent broadcastIntent = new Intent(MainActivity.CURRENT_WEATHER_BROADCAST_INTENT);
-        broadcastIntent.putExtra(WeatherItem.class.getSimpleName(), currentWeather);
+        broadcastIntent.putExtra("WeatherItem", currentWeather);
         sendBroadcast(broadcastIntent);
     }
 
     private void handleFindCityByName(String city) {
-        WeatherDataSource weatherDataSource = new WeatherDataLoader();
         WeatherItem weather = weatherDataSource.loadCurrentWeatherData(city, Units.getUnitsName(false));
         Intent broadcastIntent = new Intent(MainActivity.FIND_CITY_RESULT_BROADCAST_INTENT);
         City foundCity = (weather == null ? null : weather.getCity());
-        broadcastIntent.putExtra(City.class.getSimpleName(), foundCity);
+        broadcastIntent.putExtra("City", foundCity);
         sendBroadcast(broadcastIntent);
     }
 
     private void handleLoadForecast5Days(String city, String units) {
-        // TODO: загружать прогноз на 5 дней
+        List<WeatherItem> forecast = weatherDataSource.loadWeatherForecastOn5Days(city, units);
+        Intent broadcastIntent = new Intent(MainActivity.WEATHER_FORECAST_BROADCAST_INTENT);
+        broadcastIntent.putParcelableArrayListExtra("WeatherItems", (ArrayList<WeatherItem>) forecast);
+        sendBroadcast(broadcastIntent);
     }
 }

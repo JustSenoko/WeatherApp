@@ -32,13 +32,16 @@ import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
+
 public class MainActivity extends BaseActivity
-         implements NavigationView.OnNavigationItemSelectedListener,
-                    CitySelectionFragment.OnFragmentCitySelectionListener,
-                    MainFragment.OnMainFragmentListener,
-                    SettingsFragment.OnSettingsFragmentListener,
-                    PublishGetter {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CitySelectionFragment.OnFragmentCitySelectionListener,
+        MainFragment.OnMainFragmentListener,
+        SettingsFragment.OnSettingsFragmentListener,
+        PublishGetter {
     public static final String CURRENT_WEATHER_BROADCAST_INTENT = "com.example.weatherapp.extra.CURRENT_WEATHER";
+    public static final String WEATHER_FORECAST_BROADCAST_INTENT = "com.example.weatherapp.extra.WEATHER_FORECAST_5_DAYS";
     public static final String FIND_CITY_RESULT_BROADCAST_INTENT = "com.example.weatherapp.extra.FIND_CITY_RESULT";
     private final CurrentWeatherReceiver currentWeatherReceiver = new CurrentWeatherReceiver();
 
@@ -105,6 +108,7 @@ public class MainActivity extends BaseActivity
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(CURRENT_WEATHER_BROADCAST_INTENT);
+        filter.addAction(WEATHER_FORECAST_BROADCAST_INTENT);
         filter.addAction(FIND_CITY_RESULT_BROADCAST_INTENT);
         registerReceiver(currentWeatherReceiver, filter);
     }
@@ -218,12 +222,20 @@ public class MainActivity extends BaseActivity
                     if (action == null) {
                         return;
                     }
-                    if (action.equals(FIND_CITY_RESULT_BROADCAST_INTENT)) {
-                        City city = (City) intent.getSerializableExtra(City.class.getSimpleName());
-                        publisher.notifyCityFoundResult(city);
-                    } else if (action.equals(CURRENT_WEATHER_BROADCAST_INTENT)) {
-                        WeatherItem currentWeather = (WeatherItem) intent.getSerializableExtra(WeatherItem.class.getSimpleName());
-                        publisher.notifyUpdateWeatherInfo(currentWeather);
+                    switch (action) {
+                        case FIND_CITY_RESULT_BROADCAST_INTENT:
+                            City city = intent.getParcelableExtra("City");
+                            publisher.notifyCityFoundResult(city);
+                            break;
+                        case CURRENT_WEATHER_BROADCAST_INTENT:
+                            WeatherItem currentWeather = intent.getParcelableExtra("WeatherItem");
+                            publisher.notifyUpdateWeatherInfo(currentWeather);
+                            break;
+                        case WEATHER_FORECAST_BROADCAST_INTENT:
+                            //Parcelable[] fParcelable = intent.getParcelableArrayExtra("WeatherItems");
+                            List<WeatherItem> forecast = intent.getParcelableArrayListExtra("WeatherItems");
+                            publisher.notifyUpdateWeatherForecastInfo(forecast);
+                            break;
                     }
                 }
             });
