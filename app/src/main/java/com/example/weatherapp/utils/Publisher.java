@@ -45,4 +45,9 @@ public class Publisher {
         }
     }
 
+    public void notifyUpdateWeatherForecastInfo(List<WeatherItem> forecast) {
+        for (ObserverWeatherInfo observer : observerWeatherInfoList) {
+            observer.updateWeatherForecastInfo(forecast);
+        }
+    }
 }

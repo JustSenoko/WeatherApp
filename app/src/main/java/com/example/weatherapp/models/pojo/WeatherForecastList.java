@@ -1,6 +1,6 @@
 package com.example.weatherapp.models.pojo;
 
-class WeatherForecastList {
+public class WeatherForecastList {
     private int code;
     private float message;
     private City city;

@@ -1,13 +1,15 @@
 package com.example.weatherapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.weatherapp.models.pojo.City;
 import com.example.weatherapp.models.pojo.CurrentWeatherData;
 import com.example.weatherapp.models.pojo.WeatherForecast;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class WeatherItem implements Serializable {
+public class WeatherItem implements Parcelable {
 
     private final Date date;
     private final City city;
@@ -16,16 +18,6 @@ public class WeatherItem implements Serializable {
     private final int humidity;
     private final float wind;
     private final String weather;
-
-    public WeatherItem(Date date, City city, int temperature, int pressure, int humidity, float wind, String weather) {
-        this.date = date;
-        this.city = city;
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.pressure = pressure;
-        this.wind = wind;
-        this.weather = weather;
-    }
 
     public WeatherItem(CurrentWeatherData currentWeather) {
         date = currentWeather.getDate();
@@ -46,6 +38,36 @@ public class WeatherItem implements Serializable {
         wind = weatherForecast.getWind().getSpeed();
         weather = weatherForecast.getWeather().getDescription();
     }
+
+    public WeatherItem(Date date, City city, int temperature, int pressure, int humidity, float wind, String weather) {
+        this.date = date;
+        this.city = city;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.pressure = pressure;
+        this.wind = wind;
+        this.weather = weather;
+    }
+
+    private WeatherItem(Parcel parcel) {
+        date = (Date) parcel.readSerializable();
+        city = parcel.readParcelable(City.class.getClassLoader());
+        temperature = parcel.readInt();
+        pressure = parcel.readInt();
+        humidity = parcel.readInt();
+        wind = parcel.readFloat();
+        weather = parcel.readString();
+    }
+
+    public static final Parcelable.Creator<WeatherItem> CREATOR = new Parcelable.Creator<WeatherItem>() {
+        public WeatherItem createFromParcel(Parcel parcel) {
+            return new WeatherItem(parcel);
+        }
+
+        public WeatherItem[] newArray(int size) {
+            return new WeatherItem[size];
+        }
+    };
 
     public Date getDate() {
         return date;
@@ -73,5 +95,21 @@ public class WeatherItem implements Serializable {
 
     public int getHumidity() {
         return humidity;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(date);
+        dest.writeParcelable(city, 0);
+        dest.writeInt(temperature);
+        dest.writeInt(pressure);
+        dest.writeInt(humidity);
+        dest.writeFloat(wind);
+        dest.writeString(weather);
     }
 }

@@ -37,8 +37,6 @@ import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,6 +48,9 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private OnMainFragmentListener mListener;
     private SensorEventListener listenerTemperature;
     private SensorEventListener listenerHumidity;
+
+    private WeatherItemAdapter adapter;
+    private List<WeatherItem> forecast = new ArrayList<>();
 
     private TextView twCity;
     private TextView twTemperatureUnit;
@@ -119,7 +120,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             Context context = view.getContext();
             LinearLayoutManager layout = new LinearLayoutManager(context);
             rvWeatherList.setLayoutManager(layout);
-            rvWeatherList.setAdapter(new WeatherItemAdapter(getWeatherItems()));
+            adapter = new WeatherItemAdapter(forecast);
+            rvWeatherList.setAdapter(adapter);
 
             Drawable divider = context.getResources().getDrawable(R.drawable.separator_horizontal);
             if (divider != null) {
@@ -252,22 +254,14 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         mListener = null;
     }
 
-    private List<WeatherItem> getWeatherItems() {
-        //TODO replace fake data
-        Calendar calendar = new GregorianCalendar();
-        List<WeatherItem> items = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-            items.add(new WeatherItem(calendar.getTime(),
-                    selectedCities.getCurrentCity(),
-                    18 + i, 176 + (i % 2), 95, 3, "cloudy"));
-        }
-        return items;
-    }
-
     private void updateCurrentWeatherData(final String cityName) {
         String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        WeatherProviderService.startWeatherLoad(getActivity(), cityName, units);
+        WeatherProviderService.startCurrentWeatherLoad(getActivity(), cityName, units);
+    }
+
+    private void updateWeatherForecast(final String cityName) {
+        String units = Units.getUnitsName(userPreferences.useImperialUnits());
+        WeatherProviderService.startForecastLoad(getActivity(), cityName, units);
     }
 
     @SuppressLint("DefaultLocale")
@@ -282,6 +276,17 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));
         twWindValue.setText(String.format("%2.1f", currentWeather.getWind()));
         twWeather.setText(currentWeather.getWeather());
+    }
+
+    @Override
+    public void updateWeatherForecastInfo(List<WeatherItem> forecastUpd) {
+        if (forecastUpd == null) {
+            showErrorMessage();
+            return;
+        }
+        forecast.clear();
+        forecast.addAll(forecastUpd);
+        adapter.notifyDataSetChanged();
     }
 
     private void showErrorMessage() {
@@ -309,7 +314,9 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private void loadWeatherInfo() {
         City currentCity = selectedCities.getCurrentCity();
         if (currentCity != null) {
-            updateCurrentWeatherData(currentCity.getName());
+            String cityName = currentCity.getName();
+            updateCurrentWeatherData(cityName);
+            updateWeatherForecast(cityName);
             updateWeatherRepresentationSettings();
         }
     }
