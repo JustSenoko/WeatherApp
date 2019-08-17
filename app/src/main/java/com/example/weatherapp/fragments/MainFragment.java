@@ -27,8 +27,9 @@ import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.models.restEntities.City;
-import com.example.weatherapp.services.WeatherProviderService;
+import com.example.weatherapp.networks.WeatherDataLoader;
 import com.example.weatherapp.utils.ConfSingleton;
+import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.example.weatherapp.utils.WeatherIconsFont;
 import com.google.android.material.snackbar.Snackbar;
@@ -41,6 +42,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
     private SelectedCities selectedCities;
     private UserPreferences userPreferences;
+    private Publisher publisher;
 
     private OnMainFragmentListener mListener;
 
@@ -117,7 +119,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeWeatherInfo(this);
+        publisher = ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher();
+        publisher.subscribeWeatherInfo(this);
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
 
         initFields(view);
@@ -151,14 +154,14 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         mListener = null;
     }
 
-    private void updateCurrentWeatherData(final String cityName) {
+    private void updateCurrentWeatherData(int cityId, Publisher publisher) {
         String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        WeatherProviderService.startCurrentWeatherLoad(getActivity(), cityName, units);
+        WeatherDataLoader.loadCurrentWeatherDataByCityId(publisher, cityId, units);
     }
 
-    private void updateWeatherForecast(final String cityName) {
+    private void updateWeatherForecast(final int cityId, Publisher publisher) {
         String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        WeatherProviderService.startForecastLoad(getActivity(), cityName, units);
+        WeatherDataLoader.loadWeatherForecastOn5Days(publisher, cityId, units);
     }
 
     @SuppressLint("DefaultLocale")
@@ -211,9 +214,9 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private void loadWeatherInfo() {
         City currentCity = selectedCities.getCurrentCity();
         if (currentCity != null) {
-            String cityName = currentCity.name;
-            updateCurrentWeatherData(cityName);
-            updateWeatherForecast(cityName);
+            int cityId = currentCity.id;
+            updateCurrentWeatherData(cityId, publisher);
+            updateWeatherForecast(cityId, publisher);
             updateWeatherRepresentationSettings();
         }
     }

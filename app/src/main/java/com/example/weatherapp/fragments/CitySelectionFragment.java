@@ -22,8 +22,9 @@ import com.example.weatherapp.adapters.CityItemAdapter;
 import com.example.weatherapp.interfaces.ObserverCityList;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.restEntities.City;
-import com.example.weatherapp.services.WeatherProviderService;
+import com.example.weatherapp.networks.WeatherDataLoader;
 import com.example.weatherapp.utils.ConfSingleton;
+import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -46,6 +47,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     private final ConfSingleton conf = ConfSingleton.getInstance();
     private UserPreferences userPreferences;
     private SelectedCities selectedCities;
+    private Publisher publisher;
     private CityItemAdapter adapter;
 
     public interface OnFragmentCitySelectionListener {
@@ -84,7 +86,8 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
         super.onViewCreated(view, savedInstanceState);
         mListener.setVisibilityOfChangeCityMenuItem(false);
         selectedCities = conf.getSelectedCities();
-        ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeCityList(this);
+        publisher = ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher();
+        publisher.subscribeCityList(this);
         txtCityToAdd = view.findViewById(R.id.city_to_add);
         initAddButton(view);
         initRecyclerView(view);
@@ -152,7 +155,8 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     private void findCityByName(final String cityName) {
         //TODO это лишний запрос через API список доступных городов есть в формате json,
         // переделать после урока по БД
-        WeatherProviderService.startFindCityByName(getActivity(), cityName);
+        WeatherDataLoader.findCityByName(publisher, cityName);
+
     }
 
     @Override
