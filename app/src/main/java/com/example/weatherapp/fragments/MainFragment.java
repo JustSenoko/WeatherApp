@@ -32,6 +32,8 @@ import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.example.weatherapp.utils.WeatherIconsFont;
+import com.example.weatherapp.utils.WeatherIconsFresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
     private TextView twCity;
     private TextView twWeatherIcon;
+    private SimpleDraweeView frescoWeatherIcon;
     private TextView twTemperatureUnit;
     private TextView twTemperatureValue;
     private LinearLayout pressure;
@@ -61,6 +64,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private TextView twWeather;
     private LinearLayout humidity;
     private TextView tvHumidityValue;
+
 
     public interface OnMainFragmentListener {
         void openCitySelectionFragment();
@@ -136,6 +140,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private void initFields(@NonNull View view) {
         twCity = view.findViewById(R.id.city);
         twWeatherIcon = view.findViewById(R.id.weather_icon);
+        frescoWeatherIcon = view.findViewById(R.id.weather_icon_fresco);
         twTemperatureValue = view.findViewById(R.id.temperature_value);
         twTemperatureUnit = view.findViewById(R.id.unit);
         pressure = view.findViewById(R.id.pressure);
@@ -172,6 +177,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             return;
         }
         twWeatherIcon.setText(WeatherIconsFont.getWeatherIcon(Objects.requireNonNull(getContext()), currentWeather.getWeatherId()));
+        frescoWeatherIcon.setImageURI(WeatherIconsFresco.getWeatherIcon(currentWeather.getWeatherIcon()));
         twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
         tvHumidityValue.setText(String.format("%d", currentWeather.getHumidity()));
         twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));

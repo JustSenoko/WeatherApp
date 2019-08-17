@@ -13,6 +13,8 @@ import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.utils.UserPreferences;
 import com.example.weatherapp.utils.WeatherIconsFont;
+import com.example.weatherapp.utils.WeatherIconsFresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,10 +60,12 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         private final TextView temperatureUnit;
         private final TextView date;
         private WeatherItem item;
+        private SimpleDraweeView frescoWeatherIcon;
 
         ViewHolder(View view) {
             super(view);
             weatherIcon = view.findViewById(R.id.weather_icon);
+            frescoWeatherIcon = view.findViewById(R.id.weather_icon_fresco);
             temperatureValue = view.findViewById(R.id.temperature_value);
             temperatureUnit = view.findViewById(R.id.unit);
             date = view.findViewById(R.id.date);
@@ -71,6 +75,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
             String unit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
             item = weatherItem;
             weatherIcon.setText(WeatherIconsFont.getWeatherIcon(itemView.getContext(), item.getWeatherId()));
+            frescoWeatherIcon.setImageURI(WeatherIconsFresco.getWeatherIcon(item.getWeatherIcon()));
             temperatureValue.setText(String.valueOf(item.getTemperature()));
             temperatureUnit.setText(unit);
             date.setText(getDateFormatted(item.getDate()));

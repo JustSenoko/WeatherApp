@@ -21,6 +21,7 @@ public class WeatherItem implements Parcelable {
     private final int wind;
     private final String weather;
     private final int weatherId;
+    private final String weatherIcon;
 
     public WeatherItem(CurrentWeatherData currentWeather) {
         date = currentWeather.date;
@@ -33,6 +34,7 @@ public class WeatherItem implements Parcelable {
         Weather restWeather = currentWeather.getWeather();
         weather = restWeather.description;
         weatherId = restWeather.id;
+        weatherIcon = restWeather.icon;
     }
 
     public WeatherItem(City city, WeatherForecast weatherForecast) {
@@ -46,18 +48,7 @@ public class WeatherItem implements Parcelable {
         Weather restWeather = weatherForecast.getWeather();
         weather = restWeather.description;
         weatherId = restWeather.id;
-    }
-
-    public WeatherItem(Date date, City city, int temperature, int pressure, int humidity,
-                       float wind, String weather, int weatherId) {
-        this.date = date;
-        this.city = city;
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.pressure = pressure;
-        this.wind = (int) wind;
-        this.weather = weather;
-        this.weatherId = weatherId;
+        weatherIcon = restWeather.icon;
     }
 
     private WeatherItem(Parcel parcel) {
@@ -69,6 +60,7 @@ public class WeatherItem implements Parcelable {
         wind = parcel.readInt();
         weather = parcel.readString();
         weatherId = parcel.readInt();
+        weatherIcon = parcel.readString();
     }
 
     public static final Parcelable.Creator<WeatherItem> CREATOR = new Parcelable.Creator<WeatherItem>() {
@@ -113,6 +105,10 @@ public class WeatherItem implements Parcelable {
         return weatherId;
     }
 
+    public String getWeatherIcon() {
+        return weatherIcon;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -128,5 +124,6 @@ public class WeatherItem implements Parcelable {
         dest.writeInt(wind);
         dest.writeString(weather);
         dest.writeInt(weatherId);
+        dest.writeString(weatherIcon);
     }
 }
