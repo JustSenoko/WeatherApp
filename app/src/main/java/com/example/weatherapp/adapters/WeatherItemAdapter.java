@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
@@ -43,10 +44,6 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.updateView(items.get(position));
-    }
-
-    private String getDateFormatted(Date date) {
-         return new SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(date);
     }
 
     @Override
@@ -78,7 +75,14 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
             frescoWeatherIcon.setImageURI(WeatherIconsFresco.getWeatherIcon(item.getWeatherIcon()));
             temperatureValue.setText(String.valueOf(item.getTemperature()));
             temperatureUnit.setText(unit);
-            date.setText(getDateFormatted(item.getDate()));
+            date.setText(getLocalDateFromUTC(item.getDate()));
         }
+    }
+
+    private String getLocalDateFromUTC(Date dateUTC) {
+            TimeZone timeZone = TimeZone.getDefault();
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+            dateFormatter.setTimeZone(timeZone);
+            return dateFormatter.format(dateUTC);
     }
 }

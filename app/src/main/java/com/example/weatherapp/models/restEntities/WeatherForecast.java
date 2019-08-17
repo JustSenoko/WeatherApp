@@ -1,12 +1,12 @@
 package com.example.weatherapp.models.restEntities;
 
-import android.annotation.SuppressLint;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 @SuppressWarnings({"unused"})
 public class WeatherForecast {
@@ -21,10 +21,10 @@ public class WeatherForecast {
     }
 
     public Date getDate() {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat();
-        format.applyPattern("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         try {
-            return format.parse(dateTxt);
+            return formatter.parse(dateTxt);
         } catch (ParseException e) {
             e.printStackTrace();
         }
