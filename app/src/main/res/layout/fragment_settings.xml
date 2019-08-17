@@ -22,7 +22,6 @@
         android:textSize="@dimen/settings_type_size" />
 
     <TextView
-        android:id="@+id/show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/settings_vertical_margin"

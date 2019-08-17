@@ -7,7 +7,7 @@ import com.example.weatherapp.R;
 public class WeatherIconsFont {
     public static String getWeatherIcon(Context context, int weatherId) {
         int type = weatherId / 100;
-        
+
         if (weatherId == 800) {
             return context.getString(R.string.weather_icon_sunny);
         } else {

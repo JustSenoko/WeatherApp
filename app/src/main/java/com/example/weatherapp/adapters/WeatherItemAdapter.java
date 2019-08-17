@@ -12,6 +12,7 @@ import com.example.weatherapp.R;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.utils.UserPreferences;
+import com.example.weatherapp.utils.WeatherIconsFont;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +22,7 @@ import java.util.Locale;
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
     private final List<WeatherItem> items;
-    private static final String DATE_FORMAT = "d MMM Ha";
+    private static final String DATE_FORMAT = "d MMM\nHH:mm";
     private UserPreferences userPreferences;
 
     public WeatherItemAdapter(List<WeatherItem> items, UserPreferences userPreferences) {
@@ -52,6 +53,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView weatherIcon;
         private final TextView temperatureValue;
         private final TextView temperatureUnit;
         private final TextView date;
@@ -59,6 +61,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
 
         ViewHolder(View view) {
             super(view);
+            weatherIcon = view.findViewById(R.id.weather_icon);
             temperatureValue = view.findViewById(R.id.temperature_value);
             temperatureUnit = view.findViewById(R.id.unit);
             date = view.findViewById(R.id.date);
@@ -67,6 +70,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
         void updateView(WeatherItem weatherItem) {
             String unit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
             item = weatherItem;
+            weatherIcon.setText(WeatherIconsFont.getWeatherIcon(itemView.getContext(), item.getWeatherId()));
             temperatureValue.setText(String.valueOf(item.getTemperature()));
             temperatureUnit.setText(unit);
             date.setText(getDateFormatted(item.getDate()));

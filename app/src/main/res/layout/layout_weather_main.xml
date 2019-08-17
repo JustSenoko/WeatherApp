@@ -24,7 +24,6 @@
         <TextView
             android:id="@+id/weather_icon"
             style="@style/LargeFontIcon"
-            android:layout_marginEnd="16dp"
             tools:text="@string/weather_icon_rain" />
 
         <LinearLayout
@@ -72,7 +71,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/pressure_icon"
                 style="@style/SmallFontIcon"
                 android:text="@string/icon_pressure" />
 
@@ -82,7 +80,6 @@
                 tools:text="1000" />
 
             <TextView
-                android:id="@+id/pressure_unit"
                 style="@style/WeatherDetails"
                 android:text="@string/pressure_unit"
                 android:visibility="gone"/>
@@ -96,7 +93,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/wind_icon"
                 style="@style/SmallFontIcon"
                 android:text="@string/icon_wind" />
 
@@ -119,7 +115,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/humidity_icon"
                 style="@style/SmallFontIcon"
                 android:text="@string/icon_humidity" />
 
@@ -129,7 +124,6 @@
                 style="@style/WeatherDetails" />
 
             <TextView
-                android:id="@+id/humidity_unit"
                 android:text="@string/percent"
                 style="@style/WeatherDetails" />
 

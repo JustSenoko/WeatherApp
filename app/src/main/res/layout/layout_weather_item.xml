@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="26dp"
+    android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
-    android:layout_marginEnd="26dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
     android:baselineAligned="false"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
-        android:gravity="start"
-        android:maxLines="1"
-        android:text="@string/date"
-        android:textSize="20sp" />
+        style="@style/WeatherDetails"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        tools:text="20 Aug\n12:00" />
 
     <Space
         android:layout_width="0dp"
@@ -25,7 +24,6 @@
         android:layout_weight="1" />
 
     <LinearLayout
-        android:id="@+id/city_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,28 +32,19 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/temperature_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/temperature"
-            android:textSize="@dimen/weather_details_text_size"
-            android:textStyle="bold" />
+            android:id="@+id/weather_icon"
+            style="@style/MediumFontIcon"
+            tools:text="@string/weather_icon_rain" />
 
         <TextView
-            android:id="@+id/degree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/degree"
-            android:textSize="@dimen/weather_details_text_size"
-            android:textStyle="bold" />
+            android:id="@+id/temperature_value"
+            style="@style/WeatherListItem"
+            tools:text="17" />
 
         <TextView
             android:id="@+id/unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/celsius"
-            android:textSize="@dimen/weather_details_text_size"
-            android:textStyle="bold" />
+            style="@style/WeatherListItem"
+            tools:text="°C" />
 
     </LinearLayout>
 

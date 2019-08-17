@@ -12,7 +12,6 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical"/>
     <View
-        android:id="@+id/divider"
         android:layout_width="2dp"
         android:layout_height="match_parent"
         android:background="?android:attr/listDivider" />
