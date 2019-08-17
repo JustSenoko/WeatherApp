@@ -11,7 +11,7 @@ import java.util.Date;
 @SuppressWarnings({"unused"})
 public class WeatherForecast {
     @SerializedName("dt") public int dt;
-    @SerializedName("dt_txt") public String dt_txt;
+    @SerializedName("dt_txt") public String dateTxt;
     @SerializedName("main") public Main main;
     @SerializedName("weather") public Weather[] weather;
     @SerializedName("wind") public Wind wind;
@@ -24,7 +24,7 @@ public class WeatherForecast {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyy-MM-dd hh:mm:ss");
         try {
-            return format.parse(dt_txt);
+            return format.parse(dateTxt);
         } catch (ParseException e) {
             e.printStackTrace();
         }
