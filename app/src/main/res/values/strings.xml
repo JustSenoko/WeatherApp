@@ -51,4 +51,17 @@
     <string name="sensor_humidity_value" translatable="false">--</string>
     <string name="humidity">humidity</string>
     <string name="percent" translatable="false">%</string>
+    <!--icons-->
+    <string name="icon_temperature" translatable="false">&#xf055;</string>
+    <string name="icon_pressure" translatable="false">&#xf079;</string>
+    <string name="icon_wind" translatable="false">&#xf050;</string>
+    <string name="icon_humidity" translatable="false">&#xf07a;</string>
+    <!--weather icons-->
+    <string name="weather_icon_sunny" translatable="false">&#xf00d;</string>
+    <string name="weather_icon_thunder" translatable="false">&#xf01e;</string>
+    <string name="weather_icon_drizzle" translatable="false">&#xf01c;</string>
+    <string name="weather_icon_rain" translatable="false">&#xf019;</string>
+    <string name="weather_icon_snow" translatable="false">&#xf01b;</string>
+    <string name="weather_icon_clouds" translatable="false">&#xf013;</string>
+    <string name="weather_icon_mist" translatable="false">&#xf014;</string>
 </resources>

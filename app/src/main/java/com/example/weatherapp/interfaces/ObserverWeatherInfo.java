@@ -5,6 +5,6 @@ import com.example.weatherapp.models.WeatherItem;
 import java.util.List;
 
 public interface ObserverWeatherInfo {
-    void updateWeatherInfo(WeatherItem weather);
-    void updateWeatherForecastInfo(List<WeatherItem> forecast);
+    void updateCurrentWeatherViews(WeatherItem weather);
+    void updateWeatherForecastViews(List<WeatherItem> forecast);
 }

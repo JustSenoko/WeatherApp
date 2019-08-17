@@ -18,6 +18,7 @@ public class WeatherItem implements Parcelable {
     private final int humidity;
     private final float wind;
     private final String weather;
+    private final int weatherId;
 
     public WeatherItem(CurrentWeatherData currentWeather) {
         date = currentWeather.getDate();
@@ -27,6 +28,7 @@ public class WeatherItem implements Parcelable {
         humidity = (int) currentWeather.getMain().getHumidity();
         wind = (int) currentWeather.getWind().getSpeed();
         weather = currentWeather.getWeather().getDescription();
+        weatherId = currentWeather.getWeather().getId();
     }
 
     public WeatherItem(City city, WeatherForecast weatherForecast) {
@@ -37,9 +39,11 @@ public class WeatherItem implements Parcelable {
         humidity = (int) weatherForecast.getMain().getHumidity();
         wind = weatherForecast.getWind().getSpeed();
         weather = weatherForecast.getWeather().getDescription();
+        weatherId = weatherForecast.getWeather().getId();
     }
 
-    public WeatherItem(Date date, City city, int temperature, int pressure, int humidity, float wind, String weather) {
+    public WeatherItem(Date date, City city, int temperature, int pressure, int humidity,
+                       float wind, String weather, int weatherId) {
         this.date = date;
         this.city = city;
         this.temperature = temperature;
@@ -47,6 +51,7 @@ public class WeatherItem implements Parcelable {
         this.pressure = pressure;
         this.wind = wind;
         this.weather = weather;
+        this.weatherId = weatherId;
     }
 
     private WeatherItem(Parcel parcel) {
@@ -57,6 +62,7 @@ public class WeatherItem implements Parcelable {
         humidity = parcel.readInt();
         wind = parcel.readFloat();
         weather = parcel.readString();
+        weatherId = parcel.readInt();
     }
 
     public static final Parcelable.Creator<WeatherItem> CREATOR = new Parcelable.Creator<WeatherItem>() {
@@ -97,6 +103,10 @@ public class WeatherItem implements Parcelable {
         return humidity;
     }
 
+    public int getWeatherId() {
+        return weatherId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -111,5 +121,6 @@ public class WeatherItem implements Parcelable {
         dest.writeInt(humidity);
         dest.writeFloat(wind);
         dest.writeString(weather);
+        dest.writeInt(weatherId);
     }
 }

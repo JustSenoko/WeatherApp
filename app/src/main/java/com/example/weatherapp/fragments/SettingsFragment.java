@@ -1,8 +1,6 @@
 package com.example.weatherapp.fragments;
 
 import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +29,6 @@ public class SettingsFragment extends Fragment {
     private Switch showHumidity;
     private Switch showWind;
     private Switch imperialUnits;
-    private Switch showSensorTemperature;
-    private Switch showSensorHumidity;
 
     public interface OnSettingsFragmentListener {
         void onThemeChanged();
@@ -78,8 +74,6 @@ public class SettingsFragment extends Fragment {
         showPressure = view.findViewById(R.id.show_pressure);
         showHumidity = view.findViewById(R.id.show_humidity);
         showWind = view.findViewById(R.id.show_wind);
-        showSensorTemperature = view.findViewById(R.id.show_sensor_temperature);
-        showSensorHumidity = view.findViewById(R.id.show_sensor_humidity);
         imperialUnits = view.findViewById(R.id.units);
     }
 
@@ -88,20 +82,6 @@ public class SettingsFragment extends Fragment {
         showPressure.setChecked(userPreferences.isShowPressure());
         showHumidity.setChecked(userPreferences.isShowHumidity());
         showWind.setChecked(userPreferences.isShowWind());
-        SensorManager sm = (SensorManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SENSOR_SERVICE);
-
-        if (sm.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
-            showSensorTemperature.setChecked(userPreferences.isShowSensorTemperature());
-        } else {
-            showSensorTemperature.setChecked(false);
-            showSensorTemperature.setVisibility(View.GONE);
-        }
-        if (sm.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY) != null) {
-            showSensorHumidity.setChecked(userPreferences.isShowSensorHumidity());
-        } else {
-            showSensorHumidity.setChecked(false);
-            showSensorHumidity.setVisibility(View.GONE);
-        }
         imperialUnits.setChecked(userPreferences.useImperialUnits());
     }
 
@@ -131,20 +111,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 showWindOnCheckedChanged(showWind);
-            }
-        });
-
-        showSensorTemperature.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                showSensorTemperatureOnChecked(showSensorTemperature);
-            }
-        });
-
-        showSensorHumidity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                showSensorHumidityOnChecked(showSensorTemperature);
             }
         });
 
@@ -178,16 +144,6 @@ public class SettingsFragment extends Fragment {
 
     private void imperialUnitsOnCheckedChanged(View view) {
         userPreferences.setUseImperialUnits(imperialUnits.isChecked());
-        showResult(view, SETTINGS_SAVED);
-    }
-
-    private void showSensorTemperatureOnChecked(View view) {
-        userPreferences.setShowSensorTemperature(showSensorTemperature.isChecked());
-        showResult(view, SETTINGS_SAVED);
-    }
-
-    private void showSensorHumidityOnChecked(View view) {
-        userPreferences.setShowSensorHumidity(showSensorHumidity.isChecked());
         showResult(view, SETTINGS_SAVED);
     }
 

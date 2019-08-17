@@ -23,7 +23,7 @@ public class WeatherDataLoader_FakeData implements WeatherDataSource {
             city = new City("London", 2643743, "GB");
         }
         return new WeatherItem(new Date(), city,
-                18, 176, 98, 1, "rain");
+                18, 176, 98, 1, "rain", 500);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class WeatherDataLoader_FakeData implements WeatherDataSource {
         for (int i = 0; i < 10; i++) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             items.add(new WeatherItem(calendar.getTime(), city,
-                    18 + i, 176 + (i % 2), 95, 3, "cloudy"));
+                    18 + i, 176 + (i % 2), 95, 3, "cloudy", 802));
         }
         return items;
     }

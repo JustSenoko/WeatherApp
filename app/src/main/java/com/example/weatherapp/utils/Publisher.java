@@ -41,13 +41,13 @@ public class Publisher {
     // Разослать событие
     public void notifyUpdateWeatherInfo(WeatherItem weatherItem) {
         for (ObserverWeatherInfo observer : observerWeatherInfoList) {
-            observer.updateWeatherInfo(weatherItem);
+            observer.updateCurrentWeatherViews(weatherItem);
         }
     }
 
     public void notifyUpdateWeatherForecastInfo(List<WeatherItem> forecast) {
         for (ObserverWeatherInfo observer : observerWeatherInfoList) {
-            observer.updateWeatherForecastInfo(forecast);
+            observer.updateWeatherForecastViews(forecast);
         }
     }
 }

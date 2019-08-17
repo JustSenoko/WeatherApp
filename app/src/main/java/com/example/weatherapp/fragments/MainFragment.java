@@ -3,10 +3,6 @@ package com.example.weatherapp.fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +30,7 @@ import com.example.weatherapp.models.pojo.City;
 import com.example.weatherapp.services.WeatherProviderService;
 import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
+import com.example.weatherapp.utils.WeatherIconsFont;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -46,13 +43,12 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private UserPreferences userPreferences;
 
     private OnMainFragmentListener mListener;
-    private SensorEventListener listenerTemperature;
-    private SensorEventListener listenerHumidity;
 
     private WeatherItemAdapter adapter;
     private List<WeatherItem> forecast = new ArrayList<>();
 
     private TextView twCity;
+    private TextView twWeatherIcon;
     private TextView twTemperatureUnit;
     private TextView twTemperatureValue;
     private LinearLayout pressure;
@@ -63,19 +59,6 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private TextView twWeather;
     private LinearLayout humidity;
     private TextView tvHumidityValue;
-    private LinearLayout sensorLayout;
-    private LinearLayout sensorTemperatureLayout;
-    private TextView twSensorHumidityValue;
-    private LinearLayout sensorHumidityLayout;
-    private TextView twSensorTemperatureValue;
-    private TextView twSensorTemperatureUnit;
-    private SensorManager sensorManager;
-    private Sensor sensorTemperature;
-    private Sensor sensorHumidity;
-
-    public MainFragment() {
-        // Required empty public constructor
-    }
 
     public interface OnMainFragmentListener {
         void openCitySelectionFragment();
@@ -136,7 +119,6 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeWeatherInfo(this);
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
-        sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
 
         initFields(view);
         initWeatherList(view);
@@ -145,12 +127,12 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             mListener.openCitySelectionFragment();
             return;
         }
-        initSensors();
         loadWeatherInfo();
     }
 
     private void initFields(@NonNull View view) {
         twCity = view.findViewById(R.id.city);
+        twWeatherIcon = view.findViewById(R.id.weather_icon);
         twTemperatureValue = view.findViewById(R.id.temperature_value);
         twTemperatureUnit = view.findViewById(R.id.unit);
         pressure = view.findViewById(R.id.pressure);
@@ -161,91 +143,11 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         twWindUnit = view.findViewById(R.id.wind_unit);
         twWindValue = view.findViewById(R.id.wind_value);
         twWeather = view.findViewById(R.id.city_weather);
-        sensorLayout = view.findViewById(R.id.sensor_data);
-        sensorTemperatureLayout = view.findViewById(R.id.sensor_temperature);
-        sensorHumidityLayout = view.findViewById(R.id.sensor_humidity);
-        twSensorTemperatureValue = view.findViewById(R.id.sensor_temperature_value);
-        twSensorTemperatureUnit = view.findViewById(R.id.sensor_temperature_unit);
-        twSensorHumidityValue = view.findViewById(R.id.sensor_humidity_value);
-    }
-
-    private void initSensors() {
-        boolean showTemperatureSensorInfo = initTemperatureSensor();
-        sensorTemperatureLayout.setVisibility(visibility(showTemperatureSensorInfo));
-        boolean showHumiditySensorInfo = initHumiditySensor();
-        sensorHumidityLayout.setVisibility(visibility(showHumiditySensorInfo));
-        sensorLayout.setVisibility(visibility(showTemperatureSensorInfo || showHumiditySensorInfo));
-    }
-
-    private boolean initTemperatureSensor() {
-        boolean showSensorTemperature = userPreferences.isShowSensorTemperature();
-        if (!showSensorTemperature) {
-            return false;
-        }
-        sensorTemperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        if (sensorTemperature == null) {
-            return false;
-        }
-        listenerTemperature = new SensorEventListener() {
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            }
-
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                updateSensorTemperature(event);
-            }
-        };
-        sensorManager.registerListener(listenerTemperature, sensorTemperature,
-                SensorManager.SENSOR_DELAY_NORMAL);
-
-        return true;
-    }
-
-    private boolean initHumiditySensor() {
-        boolean showSensorHumidity = userPreferences.isShowSensorHumidity();
-        if (!showSensorHumidity) {
-            return false;
-        }
-        sensorHumidity = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-        if (sensorHumidity == null) {
-            return false;
-        }
-        listenerHumidity = new SensorEventListener() {
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            }
-
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                updateSensorHumidity(event);
-            }
-        };
-        sensorManager.registerListener(listenerHumidity, sensorHumidity,
-                SensorManager.SENSOR_DELAY_NORMAL);
-
-        return true;
-    }
-
-    @SuppressLint("DefaultLocale")
-    private void updateSensorHumidity(SensorEvent event) {
-        twSensorHumidityValue.setText(String.format("%.0f", event.values[0]));
-    }
-
-    @SuppressLint("DefaultLocale")
-    private void updateSensorTemperature(SensorEvent event) {
-        float value = event.values[0];
-        if (userPreferences.useImperialUnits()) {
-            value = Units.convertCelsiusToFahrenheit(value);
-        }
-        twSensorTemperatureValue.setText(String.format("%.0f", value));
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(listenerTemperature, sensorTemperature);
-        sensorManager.unregisterListener(listenerHumidity, sensorHumidity);
     }
 
     @Override
@@ -266,11 +168,12 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
     @SuppressLint("DefaultLocale")
     @Override
-    public void updateWeatherInfo(WeatherItem currentWeather) {
+    public void updateCurrentWeatherViews(WeatherItem currentWeather) {
         if (currentWeather == null) {
             showErrorMessage();
             return;
         }
+        twWeatherIcon.setText(WeatherIconsFont.getWeatherIcon(Objects.requireNonNull(getContext()), currentWeather.getWeatherId()));
         twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
         tvHumidityValue.setText(String.format("%d", currentWeather.getHumidity()));
         twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));
@@ -279,7 +182,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     @Override
-    public void updateWeatherForecastInfo(List<WeatherItem> forecastUpd) {
+    public void updateWeatherForecastViews(List<WeatherItem> forecastUpd) {
         if (forecastUpd == null) {
             showErrorMessage();
             return;
@@ -297,7 +200,6 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         twCity.setText(selectedCities.getCurrentCity().getName());
         String temperatureUnit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
         twTemperatureUnit.setText(temperatureUnit);
-        twSensorTemperatureUnit.setText(temperatureUnit);
         pressure.setVisibility(visibility(userPreferences.isShowPressure()));
         humidity.setVisibility(visibility(userPreferences.isShowHumidity()));
         twWindUnit.setText(getResources().getString(Units.getWindUnit(userPreferences.useImperialUnits())));

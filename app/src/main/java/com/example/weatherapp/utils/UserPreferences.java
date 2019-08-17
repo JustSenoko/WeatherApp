@@ -67,22 +67,6 @@ public class UserPreferences {
         sharedPreferences.edit().putBoolean(SHOW_WIND, showWind).apply();
     }
 
-    public boolean isShowSensorTemperature() {
-        return sharedPreferences.getBoolean(SHOW_SENSOR_TEMPERATURE, false);
-    }
-
-    public void setShowSensorTemperature(boolean showSensorTemperature) {
-        sharedPreferences.edit().putBoolean(SHOW_SENSOR_TEMPERATURE, showSensorTemperature).apply();
-    }
-
-    public boolean isShowSensorHumidity() {
-        return sharedPreferences.getBoolean(SHOW_SENSOR_HUMIDITY, false);
-    }
-
-    public void setShowSensorHumidity(boolean showSensorHumidity) {
-        sharedPreferences.edit().putBoolean(SHOW_SENSOR_HUMIDITY, showSensorHumidity).apply();
-    }
-
     public boolean useImperialUnits() {
         return sharedPreferences.getBoolean(USE_IMPERIAL_UNITS, false);
     }
