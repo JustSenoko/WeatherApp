@@ -8,7 +8,7 @@ import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.interfaces.WeatherDataSource;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.networks.WeatherDataLoader_OpenWeather;
 
 import java.util.ArrayList;

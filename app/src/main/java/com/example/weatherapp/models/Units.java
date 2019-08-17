@@ -15,8 +15,4 @@ public class Units {
     public static String getUnitsName(boolean useImperialUnits) {
         return (useImperialUnits ? "imperial" : "metric");
     }
-
-    public static float convertCelsiusToFahrenheit(float celsius) {
-        return (float) (celsius * 1.8 + 32);
-    }
 }

@@ -3,7 +3,7 @@ package com.example.weatherapp.networks;
 import com.example.weatherapp.interfaces.WeatherDataSource;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.utils.ConfSingleton;
 
 import java.util.ArrayList;
@@ -12,8 +12,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class WeatherDataLoader_FakeData implements WeatherDataSource {
 
+    @SuppressWarnings("unused")
     @Override
     public WeatherItem loadCurrentWeatherData(String cityName, String units) {
         City city = new City("Moscow", 524901, "RU");
@@ -26,6 +28,7 @@ public class WeatherDataLoader_FakeData implements WeatherDataSource {
                 18, 176, 98, 1, "rain", 500);
     }
 
+    @SuppressWarnings("unused")
     @Override
     public List<WeatherItem> loadWeatherForecastOn5Days(String cityName, String units) {
         List<WeatherItem> items = new ArrayList<>();

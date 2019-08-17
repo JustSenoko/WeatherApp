@@ -21,7 +21,7 @@ import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.adapters.CityItemAdapter;
 import com.example.weatherapp.interfaces.ObserverCityList;
 import com.example.weatherapp.models.SelectedCities;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.services.WeatherProviderService;
 import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;

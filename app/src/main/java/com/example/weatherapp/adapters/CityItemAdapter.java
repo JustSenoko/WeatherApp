@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.CitySelectionFragment;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
 
         void updateView(City cityItem) {
             mItem = cityItem;
-            city.setText(mItem.getName());
+            city.setText(mItem.name);
         }
     }
 }

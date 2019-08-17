@@ -1,32 +1,23 @@
-package com.example.weatherapp.models.pojo;
+package com.example.weatherapp.models.restEntities;
 
 import android.annotation.SuppressLint;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@SuppressWarnings({"unused"})
 public class WeatherForecast {
-    private int dt;
-    private String dt_txt;
-    private Main main;
-    private Weather[] weather;
-    private Wind wind;
-
-    public int getDt() {
-        return dt;
-    }
-
-    public Main getMain() {
-        return main;
-    }
+    @SerializedName("dt") public int dt;
+    @SerializedName("dt_txt") public String dt_txt;
+    @SerializedName("main") public Main main;
+    @SerializedName("weather") public Weather[] weather;
+    @SerializedName("wind") public Wind wind;
 
     public Weather getWeather() {
         return weather.length == 0 ? null : weather[0];
-    }
-
-    public Wind getWind() {
-        return wind;
     }
 
     public Date getDate() {

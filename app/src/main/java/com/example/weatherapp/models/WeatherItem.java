@@ -3,9 +3,11 @@ package com.example.weatherapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.weatherapp.models.pojo.City;
-import com.example.weatherapp.models.pojo.CurrentWeatherData;
-import com.example.weatherapp.models.pojo.WeatherForecast;
+import com.example.weatherapp.models.restEntities.City;
+import com.example.weatherapp.models.restEntities.CurrentWeatherData;
+import com.example.weatherapp.models.restEntities.Main;
+import com.example.weatherapp.models.restEntities.Weather;
+import com.example.weatherapp.models.restEntities.WeatherForecast;
 
 import java.util.Date;
 
@@ -21,25 +23,29 @@ public class WeatherItem implements Parcelable {
     private final int weatherId;
 
     public WeatherItem(CurrentWeatherData currentWeather) {
-        date = currentWeather.getDate();
-        city = new City(currentWeather.getName(), currentWeather.getId());
-        temperature = (int) currentWeather.getMain().getTemp();
-        pressure = (int) currentWeather.getMain().getPressure();
-        humidity = (int) currentWeather.getMain().getHumidity();
-        wind = (int) currentWeather.getWind().getSpeed();
-        weather = currentWeather.getWeather().getDescription();
-        weatherId = currentWeather.getWeather().getId();
+        date = currentWeather.date;
+        city = new City(currentWeather.name, currentWeather.id);
+        Main main = currentWeather.main;
+        temperature = (int) main.temp;
+        pressure = (int) main.pressure;
+        humidity = (int) main.humidity;
+        wind = (int) currentWeather.wind.speed;
+        Weather restWeather = currentWeather.getWeather();
+        weather = restWeather.description;
+        weatherId = restWeather.id;
     }
 
     public WeatherItem(City city, WeatherForecast weatherForecast) {
         this.city = city;
         date = weatherForecast.getDate();
-        temperature = (int) weatherForecast.getMain().getTemp();
-        pressure = (int) weatherForecast.getMain().getPressure();
-        humidity = (int) weatherForecast.getMain().getHumidity();
-        wind = (int) weatherForecast.getWind().getSpeed();
-        weather = weatherForecast.getWeather().getDescription();
-        weatherId = weatherForecast.getWeather().getId();
+        Main main = weatherForecast.main;
+        temperature = (int) main.temp;
+        pressure = (int) main.pressure;
+        humidity = (int) main.humidity;
+        wind = (int) weatherForecast.wind.speed;
+        Weather restWeather = weatherForecast.getWeather();
+        weather = restWeather.description;
+        weatherId = restWeather.id;
     }
 
     public WeatherItem(Date date, City city, int temperature, int pressure, int humidity,

@@ -26,7 +26,7 @@ import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.services.WeatherProviderService;
 import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.UserPreferences;
@@ -192,7 +192,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     private void updateWeatherRepresentationSettings() {
-        twCity.setText(selectedCities.getCurrentCity().getName());
+        twCity.setText(selectedCities.getCurrentCity().name);
         String temperatureUnit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
         twTemperatureUnit.setText(temperatureUnit);
         pressure.setVisibility(visibility(userPreferences.isShowPressure()));
@@ -211,7 +211,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private void loadWeatherInfo() {
         City currentCity = selectedCities.getCurrentCity();
         if (currentCity != null) {
-            String cityName = currentCity.getName();
+            String cityName = currentCity.name;
             updateCurrentWeatherData(cityName);
             updateWeatherForecast(cityName);
             updateWeatherRepresentationSettings();

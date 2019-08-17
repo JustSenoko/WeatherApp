@@ -1,13 +1,16 @@
-package com.example.weatherapp.models.pojo;
+package com.example.weatherapp.models.restEntities;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@SuppressWarnings({"unused"})
 public class City implements Serializable {
 
-    private final String name;
-    private final int id;
-    private final String country;
+    @SerializedName("name") public final String name;
+    @SerializedName("id") public final int id;
+    @SerializedName("country") public final String country;
 
     public City(String name, int id, String country) {
         this.name = name;
@@ -19,19 +22,6 @@ public class City implements Serializable {
         this.name = name;
         this.id = id;
         this.country = null;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    @SuppressWarnings("unused")
-    public String getCountry() {
-        return country;
     }
 
     @Override

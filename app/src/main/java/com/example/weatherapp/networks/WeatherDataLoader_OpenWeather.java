@@ -2,10 +2,10 @@ package com.example.weatherapp.networks;
 
 import com.example.weatherapp.interfaces.WeatherDataSource;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
-import com.example.weatherapp.models.pojo.CurrentWeatherData;
-import com.example.weatherapp.models.pojo.WeatherForecast;
-import com.example.weatherapp.models.pojo.WeatherForecastList;
+import com.example.weatherapp.models.restEntities.City;
+import com.example.weatherapp.models.restEntities.CurrentWeatherData;
+import com.example.weatherapp.models.restEntities.WeatherForecast;
+import com.example.weatherapp.models.restEntities.WeatherForecastList;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -54,8 +54,8 @@ public class WeatherDataLoader_OpenWeather implements WeatherDataSource {
             Gson gson = new Gson();
             WeatherForecastList forecast = gson.fromJson(result, WeatherForecastList.class);
             if (forecast != null) {
-                City cityForecast = forecast.getCity();
-                for (WeatherForecast weather : forecast.getList()) {
+                City cityForecast = forecast.city;
+                for (WeatherForecast weather : forecast.list) {
                     weatherItemList.add(new WeatherItem(cityForecast, weather));
                 }
             }

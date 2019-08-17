@@ -26,7 +26,7 @@ import com.example.weatherapp.fragments.SettingsFragment;
 import com.example.weatherapp.interfaces.PublishGetter;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
@@ -90,8 +90,6 @@ public class MainActivity extends BaseActivity
         selectedCities = userPreferences.getSelectedCities();
         ConfSingleton conf = ConfSingleton.getInstance();
 
-        //TODO настроить после урока по БД
-        //conf.setCitiesData(new CityDataJSON(this));
         conf.setSelectedCities(selectedCities);
     }
 
