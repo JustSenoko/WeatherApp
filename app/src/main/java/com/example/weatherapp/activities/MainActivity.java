@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_change_city) {
             openCitySelectionFragment();
             return true;
@@ -157,8 +157,8 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onSelectCity(City city) {
-        userPreferences.setCurrentCityId(city.getId());
         selectedCities.setCurrentCity(city);
+        userPreferences.setSelectedCities(selectedCities);
         fragmentManager.popBackStack();
     }
 
@@ -224,7 +224,7 @@ public class MainActivity extends BaseActivity
                     }
                     switch (action) {
                         case FIND_CITY_RESULT_BROADCAST_INTENT:
-                            City city = intent.getParcelableExtra("City");
+                            City city = (City) intent.getSerializableExtra("City");
                             publisher.notifyCityFoundResult(city);
                             break;
                         case CURRENT_WEATHER_BROADCAST_INTENT:
@@ -232,7 +232,6 @@ public class MainActivity extends BaseActivity
                             publisher.notifyUpdateWeatherInfo(currentWeather);
                             break;
                         case WEATHER_FORECAST_BROADCAST_INTENT:
-                            //Parcelable[] fParcelable = intent.getParcelableArrayExtra("WeatherItems");
                             List<WeatherItem> forecast = intent.getParcelableArrayListExtra("WeatherItems");
                             publisher.notifyUpdateWeatherForecastInfo(forecast);
                             break;

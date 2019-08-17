@@ -2,32 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginStart="40dp"
     android:layout_marginEnd="40dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
     <Switch
         android:id="@+id/darkTheme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/theme"
-        android:textSize="@dimen/settings_type_size" />
+        style="@style/SettingsItem"
+        android:text="@string/theme" />
 
     <Switch
         android:id="@+id/units"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/imperial_units"
-        android:textSize="@dimen/settings_type_size" />
+        style="@style/SettingsItem"
+        android:text="@string/imperial_units" />
 
     <TextView
-        android:id="@+id/show"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/SettingsItem"
         android:layout_marginTop="@dimen/settings_vertical_margin"
-        android:text="@string/show"
-        android:textSize="@dimen/settings_type_size" />
+        android:text="@string/show" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,38 +30,18 @@
 
         <Switch
             android:id="@+id/show_wind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/wind"
-            android:textSize="@dimen/settings_type_size" />
+            style="@style/SettingsItem"
+            android:text="@string/wind" />
 
         <Switch
             android:id="@+id/show_humidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/humidity"
-            android:textSize="@dimen/settings_type_size" />
+            style="@style/SettingsItem"
+            android:text="@string/humidity" />
 
         <Switch
             android:id="@+id/show_pressure"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pressure"
-            android:textSize="@dimen/settings_type_size" />
-
-        <Switch
-            android:id="@+id/show_sensor_temperature"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sensor_temperature"
-            android:textSize="@dimen/settings_type_size" />
-
-        <Switch
-            android:id="@+id/show_sensor_humidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sensor_humidity"
-            android:textSize="@dimen/settings_type_size" />
+            style="@style/SettingsItem"
+            android:text="@string/pressure" />
 
     </LinearLayout>
 

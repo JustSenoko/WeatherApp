@@ -4,6 +4,8 @@ package com.example.weatherapp.models.pojo;
 public class Weather {
     private String main;
     private String description;
+    private int id;
+    private String icon;
 
     public String getMain() {
         return main;
@@ -11,5 +13,13 @@ public class Weather {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

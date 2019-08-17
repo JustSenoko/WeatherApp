@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="city">Москва</string>
-    <string name="weather">облачно</string>
     <string name="app_name">Погода</string>
     <string name="delete_city_from_list">удалить город из списка</string>
     <string name="add">Добавить</string>
@@ -25,20 +23,15 @@
     <string name="menu_about">О приложении</string>
     <string name="menu_feedback">Обратная связь</string>
     <string name="menu_share">Поделиться</string>
-    <string name="nav_header_desc">Навигация</string>
     <string name="navigation_drawer_close">Закрыть панель</string>
     <string name="navigation_drawer_open">Открыть панель</string>
     <string name="coming_soon">Скоро будет реализовано</string>
     <string name="author">© Макс Фрай</string>
     <string name="quote">Хорошей погоды совершенно достаточно для счастья, а в плохую можно, к примеру, испечь яблочный пирог. И никакого дополнительного смысла не требуется. Как в детстве.</string>
-    <string name="umbrella">Зонт</string>
     <string name="home">Главная</string>
     <string name="enter_your_feedback">Напишите нам</string>
     <string name="err_write_feedback">Напишите что-нибудь, пожалуйста.</string>
     <string name="feedback_sent">Ваше сообщение было успешно отправлено.</string>
     <string name="send">Отправить</string>
-    <string name="sensor_humidity">влажность по данным сенсора</string>
-    <string name="sensor_temperature">температуру по данным сенсора</string>
-    <string name="sensor">сенсор</string>
     <string name="humidity">влажность</string>
 </resources>

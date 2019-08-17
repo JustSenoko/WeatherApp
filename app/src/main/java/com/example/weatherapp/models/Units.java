@@ -5,7 +5,7 @@ import com.example.weatherapp.R;
 public class Units {
 
     public static String getTemperatureUnit(boolean useImperialUnits) {
-        return (useImperialUnits ? "F" : "C");
+        return (useImperialUnits ? "°F" : "°C");
     }
 
     public static int getWindUnit(boolean useImperialUnits) {

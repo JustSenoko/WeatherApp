@@ -7,28 +7,23 @@
     tools:context=".fragments.AboutAppFragment"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/umbrella"
-        android:contentDescription="@string/umbrella" />
-
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:text="@string/quote"
-        android:textAlignment="inherit"
-        android:textSize="24sp" />
+        android:textAlignment="center"
+        android:text="@string/app_icon"
+        style="@style/LargeFontIcon"/>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/WeatherDetails"
+        android:layout_width="match_parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/quote" />
+
+    <TextView
+        style="@style/WeatherDetails"
         android:layout_marginEnd="32dp"
         android:layout_gravity="end"
-        android:text="@string/author"
-        android:textSize="24sp"/>
+        android:text="@string/author" />
 
 </LinearLayout>

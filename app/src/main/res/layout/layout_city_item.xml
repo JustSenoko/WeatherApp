@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="24dp"
-    android:layout_marginEnd="24dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:orientation="horizontal">
@@ -12,12 +13,11 @@
         android:id="@+id/city_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/city"
-        android:textSize="@dimen/city_size_in_selection"
+        tools:text="Moscow"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
         android:layout_weight="1"/>
 
     <View
-        android:id="@+id/divider"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/divider_margin"
@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/delete"
+        android:background="@android:drawable/ic_menu_close_clear_cancel"
         android:contentDescription="@string/delete_city_from_list" />
 </LinearLayout>
