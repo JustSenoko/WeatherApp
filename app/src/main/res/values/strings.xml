@@ -42,6 +42,7 @@
     <string name="icon_pressure" translatable="false">&#xf079;</string>
     <string name="icon_wind" translatable="false">&#xf050;</string>
     <string name="icon_humidity" translatable="false">&#xf07a;</string>
+    <string name="app_icon" translatable="false">&#xf00c;</string>
     <!--weather icons-->
     <string name="weather_icon_sunny" translatable="false">&#xf00d;</string>
     <string name="weather_icon_thunder" translatable="false">&#xf01e;</string>
