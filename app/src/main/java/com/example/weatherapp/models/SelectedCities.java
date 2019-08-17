@@ -8,7 +8,7 @@ import java.util.List;
 
 public final class SelectedCities implements Serializable {
 
-    private List<City> selectedCitiesList = new ArrayList<>();
+    private final List<City> selectedCitiesList = new ArrayList<>();
     private City currentCity = null;
 
     public List<City> getSelectedCitiesList() {

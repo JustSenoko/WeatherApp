@@ -45,7 +45,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private OnMainFragmentListener mListener;
 
     private WeatherItemAdapter adapter;
-    private List<WeatherItem> forecast = new ArrayList<>();
+    private final List<WeatherItem> forecast = new ArrayList<>();
 
     private TextView twCity;
     private TextView twWeatherIcon;
@@ -143,11 +143,6 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         twWindUnit = view.findViewById(R.id.wind_unit);
         twWindValue = view.findViewById(R.id.wind_value);
         twWeather = view.findViewById(R.id.city_weather);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Override

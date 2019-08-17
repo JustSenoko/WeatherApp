@@ -34,7 +34,7 @@
     <style name="FontIcon" parent="TextAppearance.AppCompat.Title" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">@font/weathericons_regular</item>
+        <item name="android:fontFamily">@font/weather_icons_regular</item>
     </style>
     <style name="SmallFontIcon" parent="FontIcon" >
         <item name="android:textSize">24sp</item>

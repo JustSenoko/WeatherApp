@@ -23,7 +23,7 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
 
     private final List<WeatherItem> items;
     private static final String DATE_FORMAT = "d MMM\nHH:mm";
-    private UserPreferences userPreferences;
+    private final UserPreferences userPreferences;
 
     public WeatherItemAdapter(List<WeatherItem> items, UserPreferences userPreferences) {
         this.items = items;

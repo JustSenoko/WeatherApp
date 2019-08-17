@@ -120,7 +120,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_change_city) {
             openCitySelectionFragment();
             return true;
