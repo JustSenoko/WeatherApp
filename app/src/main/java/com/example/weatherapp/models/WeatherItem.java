@@ -16,7 +16,7 @@ public class WeatherItem implements Parcelable {
     private final int temperature;
     private final int pressure;
     private final int humidity;
-    private final float wind;
+    private final int wind;
     private final String weather;
     private final int weatherId;
 
@@ -37,7 +37,7 @@ public class WeatherItem implements Parcelable {
         temperature = (int) weatherForecast.getMain().getTemp();
         pressure = (int) weatherForecast.getMain().getPressure();
         humidity = (int) weatherForecast.getMain().getHumidity();
-        wind = weatherForecast.getWind().getSpeed();
+        wind = (int) weatherForecast.getWind().getSpeed();
         weather = weatherForecast.getWeather().getDescription();
         weatherId = weatherForecast.getWeather().getId();
     }
@@ -49,7 +49,7 @@ public class WeatherItem implements Parcelable {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
-        this.wind = wind;
+        this.wind = (int) wind;
         this.weather = weather;
         this.weatherId = weatherId;
     }
@@ -60,7 +60,7 @@ public class WeatherItem implements Parcelable {
         temperature = parcel.readInt();
         pressure = parcel.readInt();
         humidity = parcel.readInt();
-        wind = parcel.readFloat();
+        wind = parcel.readInt();
         weather = parcel.readString();
         weatherId = parcel.readInt();
     }
@@ -87,7 +87,7 @@ public class WeatherItem implements Parcelable {
         return pressure;
     }
 
-    public float getWind() {
+    public int getWind() {
         return wind;
     }
 
@@ -119,7 +119,7 @@ public class WeatherItem implements Parcelable {
         dest.writeInt(temperature);
         dest.writeInt(pressure);
         dest.writeInt(humidity);
-        dest.writeFloat(wind);
+        dest.writeInt(wind);
         dest.writeString(weather);
         dest.writeInt(weatherId);
     }

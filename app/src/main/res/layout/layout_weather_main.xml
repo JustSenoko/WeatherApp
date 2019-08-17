@@ -103,6 +103,7 @@
 
             <TextView
                 android:id="@+id/wind_unit"
+                android:layout_marginStart="4dp"
                 tools:text="m/s"
                 style="@style/WeatherDetails" />
         </LinearLayout>

@@ -177,7 +177,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
         tvHumidityValue.setText(String.format("%d", currentWeather.getHumidity()));
         twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));
-        twWindValue.setText(String.format("%2.1f", currentWeather.getWind()));
+        twWindValue.setText(String.format("%d", currentWeather.getWind()));
         twWeather.setText(currentWeather.getWeather());
     }
 
