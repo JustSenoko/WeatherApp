@@ -23,13 +23,11 @@
     <string name="menu_about">О приложении</string>
     <string name="menu_feedback">Обратная связь</string>
     <string name="menu_share">Поделиться</string>
-    <string name="nav_header_desc">Навигация</string>
     <string name="navigation_drawer_close">Закрыть панель</string>
     <string name="navigation_drawer_open">Открыть панель</string>
     <string name="coming_soon">Скоро будет реализовано</string>
     <string name="author">© Макс Фрай</string>
     <string name="quote">Хорошей погоды совершенно достаточно для счастья, а в плохую можно, к примеру, испечь яблочный пирог. И никакого дополнительного смысла не требуется. Как в детстве.</string>
-    <string name="umbrella">Зонт</string>
     <string name="home">Главная</string>
     <string name="enter_your_feedback">Напишите нам</string>
     <string name="err_write_feedback">Напишите что-нибудь, пожалуйста.</string>
