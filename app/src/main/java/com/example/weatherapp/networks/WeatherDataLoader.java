@@ -11,6 +11,7 @@ import com.example.weatherapp.utils.Publisher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +23,7 @@ public class WeatherDataLoader {
 
     public static void findCityByName(final Publisher publisher, String cityName) {
 
-        OpenWeatherRepo.getInstance().getAPI().loadCurrentWeatherByCityName(cityName, API_KEY, "metric")
+        OpenWeatherRepo.getInstance().getAPI().loadCurrentWeatherByCityName(API_KEY, cityName, "metric")
                 .enqueue(new Callback<CurrentWeatherData>() {
                     @Override
                     public void onResponse(@NonNull Call<CurrentWeatherData> call,
@@ -45,7 +46,8 @@ public class WeatherDataLoader {
     }
 
     public static void loadCurrentWeatherDataByCityId(final Publisher publisher, int cityId, String units) {
-        OpenWeatherRepo.getInstance().getAPI().loadCurrentWeatherByCityId(cityId, API_KEY, units)
+        String language = Locale.getDefault().getLanguage();
+        OpenWeatherRepo.getInstance().getAPI().loadCurrentWeatherByCityId(API_KEY, cityId, units, language)
                 .enqueue(new Callback<CurrentWeatherData>() {
                     @Override
                     public void onResponse(@NonNull Call<CurrentWeatherData> call,
@@ -66,7 +68,7 @@ public class WeatherDataLoader {
     }
 
     public static void loadWeatherForecastOn5Days(final Publisher publisher, int cityId, String units) {
-        OpenWeatherRepo.getInstance().getAPI().loadWeatherForecastByCityId(cityId, API_KEY, units)
+        OpenWeatherRepo.getInstance().getAPI().loadWeatherForecastByCityId(API_KEY, cityId, units)
                 .enqueue(new Callback<WeatherForecastList>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherForecastList> call,

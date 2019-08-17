@@ -9,15 +9,18 @@ import retrofit2.http.Query;
 
 public interface IOpenWeather {
     @GET("data/2.5/weather")
-    Call<CurrentWeatherData> loadCurrentWeatherByCityName(@Query("q") String city,
-                                                @Query("appid") String APIkey,
-                                                @Query("units") String units);
-    @GET("data/2.5/weather")
-    Call<CurrentWeatherData> loadCurrentWeatherByCityId(@Query("id") int id,
-                                                          @Query("appid") String APIkey,
+    Call<CurrentWeatherData> loadCurrentWeatherByCityName(@Query("appid") String APIkey,
+                                                          @Query("q") String city,
                                                           @Query("units") String units);
+
+    @GET("data/2.5/weather")
+    Call<CurrentWeatherData> loadCurrentWeatherByCityId(@Query("appid") String APIkey,
+                                                        @Query("id") int id,
+                                                        @Query("units") String units,
+                                                        @Query("lang") String language);
+
     @GET("data/2.5/forecast")
-    Call<WeatherForecastList> loadWeatherForecastByCityId(@Query("id") int id,
-                                                          @Query("appid") String APIkey,
+    Call<WeatherForecastList> loadWeatherForecastByCityId(@Query("appid") String APIkey,
+                                                          @Query("id") int id,
                                                           @Query("units") String units);
 }
