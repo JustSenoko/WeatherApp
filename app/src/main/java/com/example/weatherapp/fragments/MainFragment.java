@@ -2,6 +2,7 @@ package com.example.weatherapp.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherapp.R;
 import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.adapters.WeatherItemAdapter;
+import com.example.weatherapp.database.DatabaseHelper;
+import com.example.weatherapp.database.WeatherTable;
 import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
@@ -33,7 +36,6 @@ import com.example.weatherapp.utils.WeatherIconsFresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +47,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private OnMainFragmentListener mListener;
 
     private WeatherItemAdapter adapter;
-    private final List<WeatherItem> forecast = new ArrayList<>();
+    private SQLiteDatabase database;
 
     private TextView twCity;
     private TextView twWeatherIcon;
@@ -102,7 +104,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             Context context = view.getContext();
             LinearLayoutManager layout = new LinearLayoutManager(context);
             rvWeatherList.setLayoutManager(layout);
-            adapter = new WeatherItemAdapter(forecast, userPreferences);
+            adapter = new WeatherItemAdapter(database, userPreferences);
             rvWeatherList.setAdapter(adapter);
 
             Drawable divider = context.getResources().getDrawable(R.drawable.separator_horizontal);
@@ -121,6 +123,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         publisher.subscribeWeatherInfo(this);
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
 
+        initDB();
         initFields(view);
         initWeatherList(view);
 
@@ -129,6 +132,10 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             return;
         }
         loadWeatherInfo();
+    }
+
+    private void initDB() {
+        database = new DatabaseHelper(getContext()).getWritableDatabase();
     }
 
     private void initFields(@NonNull View view) {
@@ -183,14 +190,14 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     @Override
-    public void updateWeatherForecastViews(List<WeatherItem> forecastUpd) {
-        if (forecastUpd == null) {
+    public void updateWeatherForecastViews(List<WeatherItem> forecast) {
+        if (forecast == null) {
             showErrorMessage();
             return;
         }
-        forecast.clear();
-        forecast.addAll(forecastUpd);
-        adapter.notifyDataSetChanged();
+        int cityId = userPreferences.getCurrentCityId();
+        WeatherTable.addWeather(cityId, forecast, database);
+        adapter.updateForecast(cityId);
     }
 
     private void showErrorMessage() {

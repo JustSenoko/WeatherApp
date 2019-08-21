@@ -51,6 +51,18 @@ public class WeatherItem implements Parcelable {
         weatherIcon = restWeather.icon;
     }
 
+    public WeatherItem(Date date, City city, int temperature, int pressure, int humidity, int wind, String weatherIcon) {
+        this.date = date;
+        this.city = city;
+        this.temperature = temperature;
+        this.pressure = pressure;
+        this.humidity = humidity;
+        this.wind = wind;
+        weather = "";
+        weatherId = 0;
+        this.weatherIcon = weatherIcon;
+    }
+
     private WeatherItem(Parcel parcel) {
         date = (Date) parcel.readSerializable();
         city = (City) parcel.readSerializable();

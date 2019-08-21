@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CitiesTable {
-    private final static String TABLE_NAME = "cities";
-    private final static String COLUMN_ID = "_id";
-    private final static String COLUMN_NAME = "name";
-    private final static String COLUMN_COUNTRY = "country";
+    final static String TABLE_NAME = "cities";
+    final static String COLUMN_ID = "_id";
+    final static String COLUMN_NAME = "name";
+    final static String COLUMN_COUNTRY = "country";
     private final static String COLUMN_SELECTED = "selected";
 
     static void createTable(SQLiteDatabase database) {
