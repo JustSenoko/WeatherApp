@@ -26,11 +26,14 @@ import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
-import com.example.weatherapp.services.WeatherProviderService;
+import com.example.weatherapp.models.restEntities.City;
+import com.example.weatherapp.networks.WeatherDataLoader;
 import com.example.weatherapp.utils.ConfSingleton;
+import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.example.weatherapp.utils.WeatherIconsFont;
+import com.example.weatherapp.utils.WeatherIconsFresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
     private SelectedCities selectedCities;
     private UserPreferences userPreferences;
+    private Publisher publisher;
 
     private OnMainFragmentListener mListener;
 
@@ -49,6 +53,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
     private TextView twCity;
     private TextView twWeatherIcon;
+    private SimpleDraweeView frescoWeatherIcon;
     private TextView twTemperatureUnit;
     private TextView twTemperatureValue;
     private LinearLayout pressure;
@@ -59,6 +64,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private TextView twWeather;
     private LinearLayout humidity;
     private TextView tvHumidityValue;
+
 
     public interface OnMainFragmentListener {
         void openCitySelectionFragment();
@@ -117,7 +123,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher().subscribeWeatherInfo(this);
+        publisher = ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher();
+        publisher.subscribeWeatherInfo(this);
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
 
         initFields(view);
@@ -133,6 +140,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private void initFields(@NonNull View view) {
         twCity = view.findViewById(R.id.city);
         twWeatherIcon = view.findViewById(R.id.weather_icon);
+        frescoWeatherIcon = view.findViewById(R.id.weather_icon_fresco);
         twTemperatureValue = view.findViewById(R.id.temperature_value);
         twTemperatureUnit = view.findViewById(R.id.unit);
         pressure = view.findViewById(R.id.pressure);
@@ -151,14 +159,14 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         mListener = null;
     }
 
-    private void updateCurrentWeatherData(final String cityName) {
+    private void updateCurrentWeatherData(int cityId, Publisher publisher) {
         String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        WeatherProviderService.startCurrentWeatherLoad(getActivity(), cityName, units);
+        WeatherDataLoader.loadCurrentWeatherDataByCityId(publisher, cityId, units);
     }
 
-    private void updateWeatherForecast(final String cityName) {
+    private void updateWeatherForecast(final int cityId, Publisher publisher) {
         String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        WeatherProviderService.startForecastLoad(getActivity(), cityName, units);
+        WeatherDataLoader.loadWeatherForecastOn5Days(publisher, cityId, units);
     }
 
     @SuppressLint("DefaultLocale")
@@ -169,6 +177,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             return;
         }
         twWeatherIcon.setText(WeatherIconsFont.getWeatherIcon(Objects.requireNonNull(getContext()), currentWeather.getWeatherId()));
+        frescoWeatherIcon.setImageURI(WeatherIconsFresco.getWeatherIcon(currentWeather.getWeatherIcon()));
         twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
         tvHumidityValue.setText(String.format("%d", currentWeather.getHumidity()));
         twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));
@@ -192,7 +201,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     private void updateWeatherRepresentationSettings() {
-        twCity.setText(selectedCities.getCurrentCity().getName());
+        twCity.setText(selectedCities.getCurrentCity().name);
         String temperatureUnit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
         twTemperatureUnit.setText(temperatureUnit);
         pressure.setVisibility(visibility(userPreferences.isShowPressure()));
@@ -211,9 +220,9 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     private void loadWeatherInfo() {
         City currentCity = selectedCities.getCurrentCity();
         if (currentCity != null) {
-            String cityName = currentCity.getName();
-            updateCurrentWeatherData(cityName);
-            updateWeatherForecast(cityName);
+            int cityId = currentCity.id;
+            updateCurrentWeatherData(cityId, publisher);
+            updateWeatherForecast(cityId, publisher);
             updateWeatherRepresentationSettings();
         }
     }

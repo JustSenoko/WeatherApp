@@ -34,7 +34,13 @@
         <TextView
             android:id="@+id/weather_icon"
             style="@style/MediumFontIcon"
+            android:visibility="gone"
             tools:text="@string/weather_icon_rain" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/weather_icon_fresco"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/temperature_value"

@@ -3,7 +3,7 @@ package com.example.weatherapp.utils;
 import com.example.weatherapp.interfaces.ObserverCityList;
 import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 
 import java.util.ArrayList;
 import java.util.List;

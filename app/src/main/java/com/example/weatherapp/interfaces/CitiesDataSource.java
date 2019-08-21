@@ -1,6 +1,6 @@
 package com.example.weatherapp.interfaces;
 
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 
 import java.util.List;
 

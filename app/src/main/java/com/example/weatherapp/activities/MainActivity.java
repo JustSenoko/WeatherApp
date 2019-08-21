@@ -1,9 +1,6 @@
 package com.example.weatherapp.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,14 +22,11 @@ import com.example.weatherapp.fragments.MainFragment;
 import com.example.weatherapp.fragments.SettingsFragment;
 import com.example.weatherapp.interfaces.PublishGetter;
 import com.example.weatherapp.models.SelectedCities;
-import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -40,10 +34,6 @@ public class MainActivity extends BaseActivity
         MainFragment.OnMainFragmentListener,
         SettingsFragment.OnSettingsFragmentListener,
         PublishGetter {
-    public static final String CURRENT_WEATHER_BROADCAST_INTENT = "com.example.weatherapp.extra.CURRENT_WEATHER";
-    public static final String WEATHER_FORECAST_BROADCAST_INTENT = "com.example.weatherapp.extra.WEATHER_FORECAST_5_DAYS";
-    public static final String FIND_CITY_RESULT_BROADCAST_INTENT = "com.example.weatherapp.extra.FIND_CITY_RESULT";
-    private final CurrentWeatherReceiver currentWeatherReceiver = new CurrentWeatherReceiver();
 
     private final Publisher publisher = new Publisher();
     private UserPreferences userPreferences;
@@ -90,8 +80,6 @@ public class MainActivity extends BaseActivity
         selectedCities = userPreferences.getSelectedCities();
         ConfSingleton conf = ConfSingleton.getInstance();
 
-        //TODO настроить после урока по БД
-        //conf.setCitiesData(new CityDataJSON(this));
         conf.setSelectedCities(selectedCities);
     }
 
@@ -100,23 +88,6 @@ public class MainActivity extends BaseActivity
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         menu.findItem(R.id.menu_change_city).setVisible(showChangeCityMenuItem);
         return true;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(CURRENT_WEATHER_BROADCAST_INTENT);
-        filter.addAction(WEATHER_FORECAST_BROADCAST_INTENT);
-        filter.addAction(FIND_CITY_RESULT_BROADCAST_INTENT);
-        registerReceiver(currentWeatherReceiver, filter);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(currentWeatherReceiver);
     }
 
     @Override
@@ -209,36 +180,5 @@ public class MainActivity extends BaseActivity
     @Override
     public void onThemeChanged() {
         recreate();
-    }
-
-    private class CurrentWeatherReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, final Intent intent) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String action = intent.getAction();
-                    if (action == null) {
-                        return;
-                    }
-                    switch (action) {
-                        case FIND_CITY_RESULT_BROADCAST_INTENT:
-                            City city = (City) intent.getSerializableExtra("City");
-                            publisher.notifyCityFoundResult(city);
-                            break;
-                        case CURRENT_WEATHER_BROADCAST_INTENT:
-                            WeatherItem currentWeather = intent.getParcelableExtra("WeatherItem");
-                            publisher.notifyUpdateWeatherInfo(currentWeather);
-                            break;
-                        case WEATHER_FORECAST_BROADCAST_INTENT:
-                            List<WeatherItem> forecast = intent.getParcelableArrayListExtra("WeatherItems");
-                            publisher.notifyUpdateWeatherForecastInfo(forecast);
-                            break;
-                    }
-                }
-            });
-
-        }
     }
 }

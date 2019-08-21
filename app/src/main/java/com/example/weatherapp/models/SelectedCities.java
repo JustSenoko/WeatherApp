@@ -1,6 +1,6 @@
 package com.example.weatherapp.models;
 
-import com.example.weatherapp.models.pojo.City;
+import com.example.weatherapp.models.restEntities.City;
 
 import java.io.Serializable;
 import java.util.ArrayList;
