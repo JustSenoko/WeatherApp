@@ -77,7 +77,7 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
 
         void updateView(City cityItem) {
             mItem = cityItem;
-            city.setText(mItem.name);
+            city.setText(String.format("%s, %s", mItem.name, mItem.country));
         }
     }
 }
