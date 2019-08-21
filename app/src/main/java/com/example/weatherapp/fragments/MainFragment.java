@@ -183,6 +183,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         twPressureValue.setText(String.valueOf((Integer) currentWeather.getPressure()));
         twWindValue.setText(String.format("%d", currentWeather.getWind()));
         twWeather.setText(currentWeather.getWeather());
+
+        updateWeatherRepresentationSettings();
     }
 
     @Override
@@ -223,7 +225,6 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             int cityId = currentCity.id;
             updateCurrentWeatherData(cityId, publisher);
             updateWeatherForecast(cityId, publisher);
-            updateWeatherRepresentationSettings();
         }
     }
 }
