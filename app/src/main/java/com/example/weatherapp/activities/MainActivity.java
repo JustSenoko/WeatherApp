@@ -1,6 +1,5 @@
 package com.example.weatherapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,9 +20,7 @@ import com.example.weatherapp.fragments.FeedbackFragment;
 import com.example.weatherapp.fragments.MainFragment;
 import com.example.weatherapp.fragments.SettingsFragment;
 import com.example.weatherapp.interfaces.PublishGetter;
-import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.restEntities.City;
-import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.navigation.NavigationView;
@@ -37,7 +34,7 @@ public class MainActivity extends BaseActivity
 
     private final Publisher publisher = new Publisher();
     private UserPreferences userPreferences;
-    private SelectedCities selectedCities;
+
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private final MainFragment mainFragment = new MainFragment();
     private final CitySelectionFragment citySelectionFragment = new CitySelectionFragment();
@@ -77,10 +74,6 @@ public class MainActivity extends BaseActivity
 
     private void initUtils() {
         userPreferences = new UserPreferences(this);
-        selectedCities = userPreferences.getSelectedCities();
-        ConfSingleton conf = ConfSingleton.getInstance();
-
-        conf.setSelectedCities(selectedCities);
     }
 
     @Override
@@ -122,14 +115,8 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        recreate();
-    }
-
-    @Override
     public void onSelectCity(City city) {
-        selectedCities.setCurrentCity(city);
-        userPreferences.setSelectedCities(selectedCities);
+        userPreferences.setCurrentCityId(city.id);
         fragmentManager.popBackStack();
     }
 
@@ -153,11 +140,13 @@ public class MainActivity extends BaseActivity
         }
         if (back_pressed + 2000 > System.currentTimeMillis()) {
             finish();
-        } else {
+        } else if (fragmentManager.getBackStackEntryCount() == 1
+                || userPreferences.getCurrentCityId() == 0 && fragmentManager.getBackStackEntryCount() == 2) {
             Toast.makeText(getBaseContext(), getResources().getString(R.string.press_again_to_exit), Toast.LENGTH_SHORT).show();
-            super.onBackPressed();
+            back_pressed = System.currentTimeMillis();
+            return;
         }
-        back_pressed = System.currentTimeMillis();
+        super.onBackPressed();
     }
 
     @Override

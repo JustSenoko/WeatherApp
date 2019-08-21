@@ -1,6 +1,7 @@
 package com.example.weatherapp.fragments;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,11 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherapp.R;
 import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.adapters.CityItemAdapter;
+import com.example.weatherapp.database.DatabaseHelper;
 import com.example.weatherapp.interfaces.ObserverCityList;
-import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.networks.WeatherDataLoader;
-import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.google.android.material.button.MaterialButton;
@@ -44,11 +44,10 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
 
     private OnFragmentCitySelectionListener mListener;
 
-    private final ConfSingleton conf = ConfSingleton.getInstance();
     private UserPreferences userPreferences;
-    private SelectedCities selectedCities;
     private Publisher publisher;
     private CityItemAdapter adapter;
+    private SQLiteDatabase database;
 
     public interface OnFragmentCitySelectionListener {
         void onSelectCity(City city);
@@ -85,12 +84,16 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mListener.setVisibilityOfChangeCityMenuItem(false);
-        selectedCities = conf.getSelectedCities();
         publisher = ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher();
         publisher.subscribeCityList(this);
         txtCityToAdd = view.findViewById(R.id.city_to_add);
+        initDB();
         initAddButton(view);
         initRecyclerView(view);
+    }
+
+    private void initDB() {
+        database = new DatabaseHelper(getContext()).getWritableDatabase();
     }
 
     private void initAddButton(View view) {
@@ -110,7 +113,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
         if (rvCityList != null) {
             Context context = view.getContext();
             rvCityList.setLayoutManager(new LinearLayoutManager(context));
-            adapter = new CityItemAdapter(selectedCities.getSelectedCitiesList(), mListener);
+            adapter = new CityItemAdapter(database, mListener);
             rvCityList.setAdapter(adapter);
 
             Drawable divider = context.getResources().getDrawable(R.drawable.separator_horizontal);
@@ -125,23 +128,23 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     @Override
     public void onDetach() {
         super.onDetach();
+        publisher.unsubscribeCityList(this);
         mListener.setVisibilityOfChangeCityMenuItem(true);
         mListener = null;
     }
 
     @Override
     public void deleteSelectedCity(City city) {
-        if (!selectedCities.cityIsInList(city)) {
+        if (!adapter.cityIsInList(city)) {
             Snackbar.make(txtCityToAdd, R.string.err_city_not_found, Snackbar.LENGTH_SHORT);
             return;
         }
-        selectedCities.deleteCity(city);
-        adapter.notifyDataSetChanged();
-        updateUserPreferences();
-    }
+        adapter.deleteCity(city);
 
-    private void updateUserPreferences() {
-        userPreferences.setSelectedCities(selectedCities);
+        if (userPreferences.getCurrentCityId() == city.id) {
+            City currentCity = adapter.getItem(0);
+            userPreferences.setCurrentCityId(currentCity == null ? 0 : currentCity.id);
+        }
     }
 
     private void validateCityName(String cityName) {
@@ -156,7 +159,6 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
         //TODO это лишний запрос через API список доступных городов есть в формате json,
         // переделать после урока по БД
         WeatherDataLoader.findCityByName(publisher, cityName);
-
     }
 
     @Override
@@ -165,7 +167,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
             showError(txtCityToAdd, getResources().getString(R.string.err_city_not_found));
             return;
         }
-        if (selectedCities.cityIsInList(city)) {
+        if (adapter.cityIsInList(city)) {
             showError(txtCityToAdd, getResources().getString(R.string.err_city_is_in_list));
             return;
         }
@@ -174,10 +176,11 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     }
 
     private void addToSelectedCities(City city) {
-        selectedCities.addCity(city);
+        adapter.addCity(city);
         txtCityToAdd.setText("");
-        adapter.notifyDataSetChanged();
-        updateUserPreferences();
+        if (userPreferences.getCurrentCityId() == 0) {
+            userPreferences.setCurrentCityId(city.id);
+        }
     }
 
     private void showError(TextView tv, String message) {

@@ -23,12 +23,9 @@ import com.example.weatherapp.R;
 import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.adapters.WeatherItemAdapter;
 import com.example.weatherapp.interfaces.ObserverWeatherInfo;
-import com.example.weatherapp.models.SelectedCities;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
-import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.networks.WeatherDataLoader;
-import com.example.weatherapp.utils.ConfSingleton;
 import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
 import com.example.weatherapp.utils.WeatherIconsFont;
@@ -42,7 +39,6 @@ import java.util.Objects;
 
 public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
-    private SelectedCities selectedCities;
     private UserPreferences userPreferences;
     private Publisher publisher;
 
@@ -91,9 +87,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        selectedCities = ConfSingleton.getInstance().getSelectedCities();
-        return view;
+        return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
     @Override
@@ -130,7 +124,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         initFields(view);
         initWeatherList(view);
 
-        if (selectedCities.getCurrentCity() == null) {
+        if (userPreferences.getCurrentCityId() == 0) {
             mListener.openCitySelectionFragment();
             return;
         }
@@ -176,6 +170,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
             showErrorMessage();
             return;
         }
+        twCity.setText(currentWeather.getCity().name);
         twWeatherIcon.setText(WeatherIconsFont.getWeatherIcon(Objects.requireNonNull(getContext()), currentWeather.getWeatherId()));
         frescoWeatherIcon.setImageURI(WeatherIconsFresco.getWeatherIcon(currentWeather.getWeatherIcon()));
         twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
@@ -203,7 +198,6 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     private void updateWeatherRepresentationSettings() {
-        twCity.setText(selectedCities.getCurrentCity().name);
         String temperatureUnit = Units.getTemperatureUnit(userPreferences.useImperialUnits());
         twTemperatureUnit.setText(temperatureUnit);
         pressure.setVisibility(visibility(userPreferences.isShowPressure()));
@@ -220,9 +214,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     private void loadWeatherInfo() {
-        City currentCity = selectedCities.getCurrentCity();
-        if (currentCity != null) {
-            int cityId = currentCity.id;
+        int cityId = userPreferences.getCurrentCityId();
+        if (cityId != 0) {
             updateCurrentWeatherData(cityId, publisher);
             updateWeatherForecast(cityId, publisher);
         }

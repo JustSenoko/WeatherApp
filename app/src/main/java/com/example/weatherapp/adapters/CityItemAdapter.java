@@ -1,5 +1,6 @@
 package com.example.weatherapp.adapters;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.database.CitiesTable;
 import com.example.weatherapp.fragments.CitySelectionFragment;
 import com.example.weatherapp.models.restEntities.City;
 
@@ -18,11 +20,13 @@ import java.util.List;
 public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHolder> {
 
     private final List<City> cities;
+    private final SQLiteDatabase database;
     private final CitySelectionFragment.OnFragmentCitySelectionListener mListener;
 
-    public CityItemAdapter(List<City> cities, CitySelectionFragment.OnFragmentCitySelectionListener listener) {
-        this.cities = cities;
+    public CityItemAdapter(SQLiteDatabase database, CitySelectionFragment.OnFragmentCitySelectionListener listener) {
+        this.database = database;
         mListener = listener;
+        cities = CitiesTable.getSelectedCities(database);
     }
 
     @NonNull
@@ -60,6 +64,28 @@ public class CityItemAdapter extends RecyclerView.Adapter<CityItemAdapter.ViewHo
     @Override
     public int getItemCount() {
         return cities.size();
+    }
+
+    public City getItem(int index) {
+        return cities.get(index);
+    }
+
+    public boolean cityIsInList(City city) {
+        return cities.contains(city);
+    }
+    public void deleteCity(City city) {
+        cities.remove(city);
+        CitiesTable.deselectCity(city, database);
+        notifyDataSetChanged();
+    }
+
+    public void addCity(City city) {
+        if (cityIsInList(city)) {
+            return;
+        }
+        cities.add(city);
+        CitiesTable.addCity(city, database);
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
