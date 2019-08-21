@@ -8,20 +8,16 @@ import java.util.Objects;
 @SuppressWarnings({"unused"})
 public class City implements Serializable {
 
-    @SerializedName("name") public final String name;
-    @SerializedName("id") public final int id;
-    @SerializedName("country") public final String country;
+    @SerializedName("name") public String name;
+    @SerializedName("id") public int id;
+    @SerializedName("country") public String country;
+
+    public City() {}
 
     public City(String name, int id, String country) {
         this.name = name;
         this.id = id;
         this.country = country;
-    }
-
-    public City(String name, int id) {
-        this.name = name;
-        this.id = id;
-        this.country = null;
     }
 
     @Override

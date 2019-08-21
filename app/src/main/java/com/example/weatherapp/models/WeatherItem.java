@@ -25,7 +25,7 @@ public class WeatherItem implements Parcelable {
 
     public WeatherItem(CurrentWeatherData currentWeather) {
         date = currentWeather.date;
-        city = new City(currentWeather.name, currentWeather.id);
+        city = new City(currentWeather.name, currentWeather.id, currentWeather.sys.country);
         Main main = currentWeather.main;
         temperature = (int) main.temp;
         pressure = (int) main.pressure;

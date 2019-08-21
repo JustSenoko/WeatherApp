@@ -10,6 +10,7 @@ public class CurrentWeatherData {
     @SerializedName("weather") private Weather[] weather;
     @SerializedName("main") public Main main;
     @SerializedName("wind") public Wind wind;
+    @SerializedName("sys") public Sys sys;
     @SerializedName("name") public String name;
     @SerializedName("id") public int id;
     @SerializedName("message") public String message;

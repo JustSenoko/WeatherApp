@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconLocation">
+        <ignore path="src/main/res/drawable/add.9.png" />
+        <ignore path="src/main/res/drawable/delete.9.png" />
+        <ignore path="src/main/res/drawable/humidity.png" />
+        <ignore path="src/main/res/drawable/pressure.png" />
+        <ignore path="src/main/res/drawable/sensor.png" />
+        <ignore path="src/main/res/drawable/settings.9.png" />
+        <ignore path="src/main/res/drawable/temperature.png" />
+        <ignore path="src/main/res/drawable/umbrella.png" />
+        <ignore path="src/main/res/drawable/wind.png" />
+    </issue>
+</lint>
