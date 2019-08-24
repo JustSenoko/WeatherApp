@@ -1,5 +1,6 @@
 package com.example.weatherapp.adapters;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weatherapp.R;
+import com.example.weatherapp.database.WeatherTable;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
 import com.example.weatherapp.utils.UserPreferences;
@@ -24,12 +26,14 @@ import java.util.TimeZone;
 
 public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.ViewHolder> {
 
-    private final List<WeatherItem> items;
-    private static final String DATE_FORMAT = "d MMM\nHH:mm";
+    private final SQLiteDatabase database;
+    private List<WeatherItem> items;
+    private static final String DATE_FORMAT = "d MMM";
     private final UserPreferences userPreferences;
 
-    public WeatherItemAdapter(List<WeatherItem> items, UserPreferences userPreferences) {
-        this.items = items;
+    public WeatherItemAdapter(SQLiteDatabase database, UserPreferences userPreferences) {
+        this.database = database;
+        this.items = WeatherTable.getDailyTemperatureForecast(userPreferences.getCurrentCityId(), database);
         this.userPreferences = userPreferences;
     }
 
@@ -49,6 +53,11 @@ public class WeatherItemAdapter extends RecyclerView.Adapter<WeatherItemAdapter.
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void updateForecast(int cityId) {
+        items = WeatherTable.getDailyTemperatureForecast(cityId, database);
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -25,6 +25,10 @@ public class Publisher {
         observerWeatherInfoList.add(observer);
     }
 
+    public void unsubscribeCityList(ObserverCityList observer) {
+        observerCityLists.remove(observer);
+    }
+
     // Разослать событие
     public void notifyDeleteCity(City city) {
         for (ObserverCityList observerCityList : observerCityLists) {

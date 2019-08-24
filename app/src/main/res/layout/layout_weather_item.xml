@@ -15,8 +15,7 @@
         style="@style/WeatherDetails"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:textSize="16sp"
-        tools:text="20 Aug\n12:00" />
+        tools:text="20 Aug" />
 
     <Space
         android:layout_width="0dp"
