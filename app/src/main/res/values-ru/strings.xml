@@ -34,4 +34,6 @@
     <string name="feedback_sent">Ваше сообщение было успешно отправлено.</string>
     <string name="send">Отправить</string>
     <string name="humidity">влажность</string>
+    <string name="cant_find_current_location">Не удалось определить текущее местоположение</string>
+    <string name="use_current_location">Погода в текущем городе</string>
 </resources>

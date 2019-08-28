@@ -48,4 +48,6 @@
     <string name="weather_icon_snow" translatable="false">&#xf01b;</string>
     <string name="weather_icon_clouds" translatable="false">&#xf013;</string>
     <string name="weather_icon_mist" translatable="false">&#xf014;</string>
+    <string name="cant_find_current_location">Can\'t determine current location</string>
+    <string name="use_current_location">Use current location</string>
 </resources>

@@ -8,6 +8,11 @@
     android:orientation="vertical">
 
     <Switch
+        android:id="@+id/current_location"
+        style="@style/SettingsItem"
+        android:text="@string/use_current_location" />
+
+    <Switch
         android:id="@+id/darkTheme"
         style="@style/SettingsItem"
         android:text="@string/theme" />

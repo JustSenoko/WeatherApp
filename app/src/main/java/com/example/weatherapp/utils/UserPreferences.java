@@ -9,6 +9,7 @@ public class UserPreferences {
 
     private static final String NAME_SHARED_PREFERENCES = "Weather_App";
 
+    private static final String USE_CURRENT_LOCATION = "use_current_location";
     private static final String IS_DARK_THEME = "dark_theme";
     private static final String CURRENT_CITY_ID = "current_city_id";
     private static final String SHOW_PRESSURE = "show_pressure";
@@ -20,6 +21,14 @@ public class UserPreferences {
 
     public UserPreferences(Activity activity) {
         sharedPreferences = activity.getSharedPreferences(NAME_SHARED_PREFERENCES, MODE_PRIVATE);
+    }
+
+    public boolean useCurrentLocation() {
+        return sharedPreferences.getBoolean(USE_CURRENT_LOCATION, true);
+    }
+
+    public void setUseCurrentLocation(boolean useCurrentLocation) {
+        sharedPreferences.edit().putBoolean(USE_CURRENT_LOCATION, useCurrentLocation).apply();
     }
 
     public boolean isDarkTheme() {

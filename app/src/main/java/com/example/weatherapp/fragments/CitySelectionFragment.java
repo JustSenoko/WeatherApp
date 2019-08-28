@@ -48,6 +48,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     private Publisher publisher;
     private CityItemAdapter adapter;
     private SQLiteDatabase database;
+    private RecyclerView rvCityList;
 
     public interface OnFragmentCitySelectionListener {
         void onSelectCity(City city);
@@ -108,7 +109,7 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     }
 
     private void initRecyclerView(View view) {
-        RecyclerView rvCityList = view.findViewById(R.id.city_list);
+        rvCityList = view.findViewById(R.id.city_list);
         // Set the adapter
         if (rvCityList != null) {
             Context context = view.getContext();
@@ -156,8 +157,6 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
     }
 
     private void findCityByName(final String cityName) {
-        //TODO это лишний запрос через API список доступных городов есть в формате json,
-        // переделать после урока по БД
         WeatherDataLoader.findCityByName(publisher, cityName);
     }
 
@@ -181,6 +180,15 @@ public class CitySelectionFragment extends Fragment implements ObserverCityList 
         if (userPreferences.getCurrentCityId() == 0) {
             userPreferences.setCurrentCityId(city.id);
         }
+        scrollToLastItem();
+    }
+
+    private void scrollToLastItem() {
+        int itemCount = adapter.getItemCount();
+        if (itemCount == 0) {
+            return;
+        }
+        rvCityList.smoothScrollToPosition(itemCount - 1);
     }
 
     private void showError(TextView tv, String message) {

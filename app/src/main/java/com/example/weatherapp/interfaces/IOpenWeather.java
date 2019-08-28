@@ -19,8 +19,21 @@ public interface IOpenWeather {
                                                         @Query("units") String units,
                                                         @Query("lang") String language);
 
+    @GET("data/2.5/weather")
+    Call<CurrentWeatherData> loadCurrentWeatherByLocation(@Query("appid") String APIkey,
+                                                          @Query("units") String units,
+                                                          @Query("lat") double latitude,
+                                                          @Query("lon") double longitude,
+                                                          @Query("lang") String language);
+
     @GET("data/2.5/forecast")
     Call<WeatherForecastList> loadWeatherForecastByCityId(@Query("appid") String APIkey,
                                                           @Query("id") int id,
                                                           @Query("units") String units);
+
+    @GET("data/2.5/forecast")
+    Call<WeatherForecastList> loadWeatherForecastByLocation(@Query("appid") String APIkey,
+                                                            @Query("lat") double latitude,
+                                                            @Query("lon") double longitude,
+                                                            @Query("units") String units);
 }

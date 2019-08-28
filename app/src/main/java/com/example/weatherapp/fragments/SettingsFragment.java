@@ -24,6 +24,7 @@ public class SettingsFragment extends Fragment {
     private UserPreferences userPreferences;
     private OnSettingsFragmentListener mListener;
 
+    private Switch currentLocation;
     private Switch darkTheme;
     private Switch showPressure;
     private Switch showHumidity;
@@ -70,6 +71,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initViews(View view) {
+        currentLocation = view.findViewById(R.id.current_location);
         darkTheme = view.findViewById(R.id.darkTheme);
         showPressure = view.findViewById(R.id.show_pressure);
         showHumidity = view.findViewById(R.id.show_humidity);
@@ -78,6 +80,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void restoreSettingsValues() {
+        currentLocation.setChecked(userPreferences.useCurrentLocation());
         darkTheme.setChecked(userPreferences.isDarkTheme());
         showPressure.setChecked(userPreferences.isShowPressure());
         showHumidity.setChecked(userPreferences.isShowHumidity());
@@ -86,6 +89,13 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setSwitchListeners() {
+        currentLocation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentLocationOnCheckedChanged(currentLocation);
+            }
+        });
+
         darkTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -120,6 +130,11 @@ public class SettingsFragment extends Fragment {
                 imperialUnitsOnCheckedChanged(imperialUnits);
             }
         });
+    }
+
+    private void currentLocationOnCheckedChanged(View view) {
+        userPreferences.setUseCurrentLocation(currentLocation.isChecked());
+        showResult(view, SETTINGS_SAVED);
     }
 
     private void showPressureOnCheckedChanged(View view) {
