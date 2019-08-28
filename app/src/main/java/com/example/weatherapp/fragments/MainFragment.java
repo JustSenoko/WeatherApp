@@ -126,7 +126,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        publisher = ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher();
+        MainActivity activity = (MainActivity) Objects.requireNonNull(getActivity());
+        publisher = activity.getPublisher();
         publisher.subscribeWeatherInfo(this);
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
 
@@ -134,7 +135,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         initFields(view);
         initWeatherList(view);
 
-        if (savedInstanceState == null && userPreferences.useCurrentLocation()) {
+        if (activity.isShowCurrentLocation()
+                && userPreferences.useCurrentLocation()) {
             currentLocation = determineCurrentLocation();
         }
 
@@ -171,15 +173,14 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         // Location manager
         LocationManager locManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(LOCATION_SERVICE);
         Location loc = null;
-        // Receive information from Passive (virtual) provider
+
         if (locManager != null) {
-            loc = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (loc == null) {
-                // Receive information from GPS provider
-                loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                if (loc == null) {
-                    // Receive information from Passive (virtual) provider
-                    loc = locManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            List<String> providers = locManager.getProviders(true);
+//?           loc = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            for (String provider : providers) {
+                loc = locManager.getLastKnownLocation(provider);
+                if (loc != null) {
+                    break;
                 }
             }
         }

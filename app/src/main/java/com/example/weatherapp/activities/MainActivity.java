@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity
     private static long back_pressed;
     private boolean showChangeCityMenuItem = true;
     private int permissionRequestCode = 123;
+    private boolean showCurrentLocation = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +61,7 @@ public class MainActivity extends BaseActivity
         initUtils();
 
         if (savedInstanceState == null) {
-            if (userPreferences.useCurrentLocation()) {
-                checkLocationPermissions();
-            } else {
-                openFragment(mainFragment);
-            }
+            checkLocationPermissions();
         }
     }
 
@@ -161,6 +158,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onSelectCity(City city) {
+        showCurrentLocation = false;
         userPreferences.setCurrentCityId(city.id);
         fragmentManager.popBackStack();
     }
@@ -214,5 +212,9 @@ public class MainActivity extends BaseActivity
     @Override
     public void onThemeChanged() {
         recreate();
+    }
+
+    public boolean isShowCurrentLocation() {
+        return showCurrentLocation;
     }
 }
