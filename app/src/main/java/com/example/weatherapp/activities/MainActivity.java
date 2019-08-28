@@ -20,7 +20,6 @@ import androidx.fragment.app.FragmentManager;
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.AboutAppFragment;
 import com.example.weatherapp.fragments.CitySelectionFragment;
-import com.example.weatherapp.fragments.FeedbackFragment;
 import com.example.weatherapp.fragments.MainFragment;
 import com.example.weatherapp.fragments.SettingsFragment;
 import com.example.weatherapp.interfaces.PublishGetter;
@@ -142,11 +141,11 @@ public class MainActivity extends BaseActivity
             openFragment(mainFragment);
         } else if (id == R.id.nav_settings) {
             openFragment(settingsFragment);
-        } else if (id == R.id.nav_share) {
+        /*} else if (id == R.id.nav_share) {
             //TODO
             Toast.makeText(this, getResources().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_feedback) {
-            openFragment(new FeedbackFragment());
+            openFragment(new FeedbackFragment());*/
         } else if (id == R.id.nav_about) {
             openFragment(new AboutAppFragment());
         }

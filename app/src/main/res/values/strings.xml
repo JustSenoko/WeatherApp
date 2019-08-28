@@ -50,4 +50,5 @@
     <string name="weather_icon_mist" translatable="false">&#xf014;</string>
     <string name="cant_find_current_location">Can\'t determine current location</string>
     <string name="use_current_location">Use current location on start</string>
+    <string name="logo">logo</string>
 </resources>
