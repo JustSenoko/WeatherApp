@@ -1,5 +1,8 @@
 package com.example.weatherapp.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -16,7 +20,6 @@ import androidx.fragment.app.FragmentManager;
 import com.example.weatherapp.R;
 import com.example.weatherapp.fragments.AboutAppFragment;
 import com.example.weatherapp.fragments.CitySelectionFragment;
-import com.example.weatherapp.fragments.FeedbackFragment;
 import com.example.weatherapp.fragments.MainFragment;
 import com.example.weatherapp.fragments.SettingsFragment;
 import com.example.weatherapp.interfaces.PublishGetter;
@@ -42,6 +45,8 @@ public class MainActivity extends BaseActivity
 
     private static long back_pressed;
     private boolean showChangeCityMenuItem = true;
+    private int permissionRequestCode = 123;
+    private boolean showCurrentLocation = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +60,48 @@ public class MainActivity extends BaseActivity
         initUtils();
 
         if (savedInstanceState == null) {
-            fragmentManager.beginTransaction()
-                    .add(R.id.fragment, mainFragment)
-                    .addToBackStack("")
-                    .commit();
+            checkLocationPermissions();
         }
     }
+
+    private void checkLocationPermissions() {
+        final String[] permissions = new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION};
+        if (!permissionsGranted(permissions)) {
+            ActivityCompat.requestPermissions(this, permissions, permissionRequestCode);
+            return;
+        }
+        openFragment(mainFragment);
+    }
+
+    private boolean permissionsGranted(final String[] permissions) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        for (String permission : permissions) {
+            if (ActivityCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == permissionRequestCode) {
+            if (grantResults.length < 2
+                    || grantResults[0] != PackageManager.PERMISSION_GRANTED
+                    || grantResults[1] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, getString(R.string.cant_find_current_location), Toast.LENGTH_SHORT).show();
+                userPreferences.setUseCurrentLocation(false);
+            }
+        }
+        openFragment(mainFragment);
+    }
+
 
     private void initDrawerLayout(Toolbar toolbar) {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -100,11 +141,11 @@ public class MainActivity extends BaseActivity
             openFragment(mainFragment);
         } else if (id == R.id.nav_settings) {
             openFragment(settingsFragment);
-        } else if (id == R.id.nav_share) {
+        /*} else if (id == R.id.nav_share) {
             //TODO
             Toast.makeText(this, getResources().getString(R.string.coming_soon), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_feedback) {
-            openFragment(new FeedbackFragment());
+            openFragment(new FeedbackFragment());*/
         } else if (id == R.id.nav_about) {
             openFragment(new AboutAppFragment());
         }
@@ -116,6 +157,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onSelectCity(City city) {
+        showCurrentLocation = false;
         userPreferences.setCurrentCityId(city.id);
         fragmentManager.popBackStack();
     }
@@ -169,5 +211,9 @@ public class MainActivity extends BaseActivity
     @Override
     public void onThemeChanged() {
         recreate();
+    }
+
+    public boolean isShowCurrentLocation() {
+        return showCurrentLocation;
     }
 }

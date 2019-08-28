@@ -1,5 +1,7 @@
 package com.example.weatherapp.networks;
 
+import android.location.Location;
+
 import androidx.annotation.NonNull;
 
 import com.example.weatherapp.models.WeatherItem;
@@ -45,10 +47,8 @@ public class WeatherDataLoader {
 
     }
 
-    public static void loadCurrentWeatherDataByCityId(final Publisher publisher, int cityId, String units) {
-        String language = Locale.getDefault().getLanguage();
-        OpenWeatherRepo.getInstance().getAPI().loadCurrentWeatherByCityId(API_KEY, cityId, units, language)
-                .enqueue(new Callback<CurrentWeatherData>() {
+    private static void loadCurrentWeatherData(final Publisher publisher, Call<CurrentWeatherData> dataCall) {
+        dataCall.enqueue(new Callback<CurrentWeatherData>() {
                     @Override
                     public void onResponse(@NonNull Call<CurrentWeatherData> call,
                                            @NonNull Response<CurrentWeatherData> response) {
@@ -67,9 +67,21 @@ public class WeatherDataLoader {
                 });
     }
 
-    public static void loadWeatherForecastOn5Days(final Publisher publisher, int cityId, String units) {
-        OpenWeatherRepo.getInstance().getAPI().loadWeatherForecastByCityId(API_KEY, cityId, units)
-                .enqueue(new Callback<WeatherForecastList>() {
+    public static void loadCurrentWeatherDataByCityId(final Publisher publisher, int cityId, String units) {
+        String language = Locale.getDefault().getLanguage();
+        Call<CurrentWeatherData> dataCall = OpenWeatherRepo.getInstance().getAPI().loadCurrentWeatherByCityId(API_KEY, cityId, units, language);
+        loadCurrentWeatherData(publisher, dataCall);
+    }
+
+    public static void loadCurrentWeatherDataByLocation(final Publisher publisher, Location location, String units) {
+        String language = Locale.getDefault().getLanguage();
+        Call<CurrentWeatherData> dataCall = OpenWeatherRepo.getInstance().getAPI().loadCurrentWeatherByLocation(API_KEY, units,
+                location.getLatitude(), location.getLongitude(), language);
+        loadCurrentWeatherData(publisher, dataCall);
+    }
+
+    private static void loadWeatherForecastOn5Days(final Publisher publisher, Call<WeatherForecastList> dataCall) {
+        dataCall.enqueue(new Callback<WeatherForecastList>() {
                     @Override
                     public void onResponse(@NonNull Call<WeatherForecastList> call,
                                            @NonNull Response<WeatherForecastList> response) {
@@ -92,5 +104,16 @@ public class WeatherDataLoader {
                         publisher.notifyUpdateWeatherForecastInfo(new ArrayList<WeatherItem>());
                     }
                 });
+    }
+
+    public static void loadWeatherForecastOn5DaysByCityId(final Publisher publisher, int cityId, String units) {
+        Call<WeatherForecastList> dataCall = OpenWeatherRepo.getInstance().getAPI().loadWeatherForecastByCityId(API_KEY, cityId, units);
+        loadWeatherForecastOn5Days(publisher, dataCall);
+    }
+
+    public static void loadWeatherForecastOn5DaysByLocation(final Publisher publisher, Location location, String units) {
+        Call<WeatherForecastList> dataCall = OpenWeatherRepo.getInstance().getAPI().loadWeatherForecastByLocation(API_KEY,
+                location.getLatitude(), location.getLongitude(), units);
+        loadWeatherForecastOn5Days(publisher, dataCall);
     }
 }

@@ -2,10 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="40dp"
-    android:layout_marginEnd="40dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
     android:gravity="center_vertical"
     android:orientation="vertical">
+
+    <Switch
+        android:id="@+id/current_location"
+        style="@style/SettingsItem"
+        android:text="@string/use_current_location" />
 
     <Switch
         android:id="@+id/darkTheme"
@@ -19,7 +24,7 @@
 
     <TextView
         style="@style/SettingsItem"
-        android:layout_marginTop="@dimen/settings_vertical_margin"
+        android:layout_marginTop="16dp"
         android:text="@string/show" />
 
     <LinearLayout

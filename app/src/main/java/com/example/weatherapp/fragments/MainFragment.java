@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,11 +25,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.weatherapp.R;
 import com.example.weatherapp.activities.MainActivity;
 import com.example.weatherapp.adapters.WeatherItemAdapter;
+import com.example.weatherapp.database.CitiesTable;
 import com.example.weatherapp.database.DatabaseHelper;
 import com.example.weatherapp.database.WeatherTable;
 import com.example.weatherapp.interfaces.ObserverWeatherInfo;
 import com.example.weatherapp.models.Units;
 import com.example.weatherapp.models.WeatherItem;
+import com.example.weatherapp.models.restEntities.City;
 import com.example.weatherapp.networks.WeatherDataLoader;
 import com.example.weatherapp.utils.Publisher;
 import com.example.weatherapp.utils.UserPreferences;
@@ -39,10 +43,13 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 import java.util.Objects;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 public class MainFragment extends Fragment implements ObserverWeatherInfo {
 
     private UserPreferences userPreferences;
     private Publisher publisher;
+    private Location currentLocation = null;
 
     private OnMainFragmentListener mListener;
 
@@ -119,7 +126,8 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        publisher = ((MainActivity) Objects.requireNonNull(getActivity())).getPublisher();
+        MainActivity activity = (MainActivity) Objects.requireNonNull(getActivity());
+        publisher = activity.getPublisher();
         publisher.subscribeWeatherInfo(this);
         userPreferences = new UserPreferences(Objects.requireNonNull(getActivity()));
 
@@ -127,7 +135,13 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         initFields(view);
         initWeatherList(view);
 
-        if (userPreferences.getCurrentCityId() == 0) {
+        if (activity.isShowCurrentLocation()
+                && userPreferences.useCurrentLocation()) {
+            currentLocation = determineCurrentLocation();
+        }
+
+        if (currentLocation == null
+                && userPreferences.getCurrentCityId() == 0) {
             mListener.openCitySelectionFragment();
             return;
         }
@@ -154,30 +168,63 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
         twWeather = view.findViewById(R.id.city_weather);
     }
 
+    @SuppressLint("MissingPermission")
+    private Location determineCurrentLocation() {
+        // Location manager
+        LocationManager locManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(LOCATION_SERVICE);
+        Location loc = null;
+
+        if (locManager != null) {
+            List<String> providers = locManager.getProviders(true);
+//?           loc = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            for (String provider : providers) {
+                loc = locManager.getLastKnownLocation(provider);
+                if (loc != null) {
+                    break;
+                }
+            }
+        }
+        return loc;
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
-    private void updateCurrentWeatherData(int cityId, Publisher publisher) {
+    private void updateCurrentWeatherDataBuCityId(int cityId, Publisher publisher) {
         String units = Units.getUnitsName(userPreferences.useImperialUnits());
         WeatherDataLoader.loadCurrentWeatherDataByCityId(publisher, cityId, units);
     }
-
-    private void updateWeatherForecast(final int cityId, Publisher publisher) {
+    private void updateCurrentWeatherDataByLocation(Publisher publisher) {
         String units = Units.getUnitsName(userPreferences.useImperialUnits());
-        WeatherDataLoader.loadWeatherForecastOn5Days(publisher, cityId, units);
+        WeatherDataLoader.loadCurrentWeatherDataByLocation(publisher, currentLocation, units);
+    }
+
+    private void updateWeatherForecastByCityId(final int cityId, Publisher publisher) {
+        String units = Units.getUnitsName(userPreferences.useImperialUnits());
+        WeatherDataLoader.loadWeatherForecastOn5DaysByCityId(publisher, cityId, units);
+    }
+
+    private void updateWeatherForecastByLocation(Publisher publisher) {
+        String units = Units.getUnitsName(userPreferences.useImperialUnits());
+        WeatherDataLoader.loadWeatherForecastOn5DaysByLocation(publisher, currentLocation, units);
     }
 
     @SuppressLint("DefaultLocale")
     @Override
-    public void updateCurrentWeatherViews(WeatherItem currentWeather) {
+    public void onReceiveCurrentWeatherInfo(WeatherItem currentWeather) {
         if (currentWeather == null) {
             showErrorMessage();
             return;
         }
-        twCity.setText(currentWeather.getCity().name);
+        City city = currentWeather.getCity();
+        userPreferences.setCurrentCityId(city.id);
+        CitiesTable.addCity(city, database);
+        currentLocation = null; // дальше будем использовать id
+
+        twCity.setText(city.name);
         twWeatherIcon.setText(WeatherIconsFont.getWeatherIcon(Objects.requireNonNull(getContext()), currentWeather.getWeatherId()));
         frescoWeatherIcon.setImageURI(WeatherIconsFresco.getWeatherIcon(currentWeather.getWeatherIcon()));
         twTemperatureValue.setText(String.format("%d", currentWeather.getTemperature()));
@@ -190,7 +237,7 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     @Override
-    public void updateWeatherForecastViews(List<WeatherItem> forecast) {
+    public void onReceiveWeatherForecast(List<WeatherItem> forecast) {
         if (forecast == null) {
             showErrorMessage();
             return;
@@ -221,10 +268,15 @@ public class MainFragment extends Fragment implements ObserverWeatherInfo {
     }
 
     private void loadWeatherInfo() {
+        if (currentLocation != null) {
+            updateCurrentWeatherDataByLocation(publisher);
+            updateWeatherForecastByLocation(publisher);
+            return;
+        }
         int cityId = userPreferences.getCurrentCityId();
         if (cityId != 0) {
-            updateCurrentWeatherData(cityId, publisher);
-            updateWeatherForecast(cityId, publisher);
+            updateCurrentWeatherDataBuCityId(cityId, publisher);
+            updateWeatherForecastByCityId(cityId, publisher);
         }
     }
 }
